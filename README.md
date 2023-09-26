@@ -36,18 +36,18 @@ This is a project for the Integrify Academy Frontend module. The task was to cre
 - able to log in
 	#### Logged in user
 	- able to view own account details
-	- *able to modify email, password, name and avatar(?) for self!
+	- *able to modify email, password, name and avatar(?) for self
 	- able to log out
 	- *able to delete account
 	- able to create cart
 	- able to update cart
 	- able to check out cart
 	- able to create product (based on project requirements: should this be so?)
-		#### Admin
-    - able to modify products (create, update, delete)
-		- *able to view all users (all details but password)
-		- *able to delete users
-		- *able to modify user roles
+	#### Admin
+  - able to modify products (create, update, delete)
+	- *able to view all users (all details but password)
+	- *able to delete users
+	- *able to modify user roles
 
 ### Product: 
   - can be viewed as list (all/by category)
