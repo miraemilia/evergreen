@@ -7,6 +7,13 @@
 
 This is a project for the Integrify Academy Frontend module. The task was to create an e-commerce website using API endpoints from [https://fakeapi.platzi.com/](https://fakeapi.platzi.com/).
 
+## Table of contents
+- [Technologies](#technologies)
+- [Features](#features)
+- [Project overview](#project-overview)
+- [Running the project](#running-the-project)
+- [Deployment](#deployment)
+
 ## Technologies
 
 - Typescript
@@ -17,13 +24,93 @@ This is a project for the Integrify Academy Frontend module. The task was to cre
 - MUI
 - SASS
 
-## Requirements
+## Features
+
+(* additional feature: not explicitly mentioned in requirements)
+
+### User (unregistered/not logged in):
+- able to view all product listings (all or by category)
+- able to sort(by price) and filter products
+- able to view single product page
+- able to register
+- able to log in
+	#### Logged in user:
+	- able to view own account details
+	- *able to modify email, password, name and avatar(?) for self!
+	- able to log out
+	- *able to delete account
+	- able to create cart
+	- able to update cart
+	- able to check out cart
+	- able to create product (based on project requirements: should this be so?)
+		##### Admin:
+    - able to modify products (create, update, delete)
+		- *able to view all users (all details but password)
+		- *able to delete users
+		- *able to modify user roles
+
+### Product: 
+	- can be viewed as list (all/by category)
+	- can be viewed individually
+	- can be sorted (by price)
+	- can be filtered
+  - can be added to cart(by logged in user)
+	- can be created, modified and deleted (by admin)
+
+### Category:
+  - can be viewed as list
+
+### Cart:
+	- can be created
+	- can be modified (add cart item, update cart item quantity, delete cart item)
+	- can be checked out
+	- can be deleted
 
 ## Project overview
 
+### Folder structure
+
+````
+.
+├── README.md
+├── readme_images
+├── public
+|
+├── src
+|   ├── index.tsx
+|   ├── App.tsx
+|   ├── app
+|   |   ├── store.ts
+|   |   ├ ...
+|   ├── shared
+|   |   ├ ...
+|   ├── features
+|       ├── products
+|       |   ├ ...
+|       ├── users
+|       |   ├ ...
+|       ├── credentials
+|       |   ├ ...
+|       ├── cart
+|       |   ├ ...
+|       ├── categories
+|           ├ ...
+├── .gitignore
+├── .tsconfig
+├── package.json
+````
+
+### Functions
+
 ![Diagram](readme_images/E-commerceDiagram.png)
 
+### Flowchart
+
+![Flowchart](readme_images/E-commerceFlowchart.png)
+
 ## Running the project
+
+Requirements: Node
 
 After cloning the project run `npm install` in project directory.
 
@@ -35,3 +122,5 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 ### `npm test`
 
 Launches the test runner in the interactive watch mode
+
+## Deployment
