@@ -26,15 +26,15 @@ This is a project for the Integrify Academy Frontend module. The task was to cre
 
 ## Features
 
-(* additional feature: not explicitly mentioned in requirements)
+(* optional feature: not explicitly mentioned in requirements)
 
-### User (unregistered/not logged in):
+### User (unregistered/not logged in)
 - able to view all product listings (all or by category)
 - able to sort(by price) and filter products
 - able to view single product page
 - able to register
 - able to log in
-	#### Logged in user:
+	#### Logged in user
 	- able to view own account details
 	- *able to modify email, password, name and avatar(?) for self!
 	- able to log out
@@ -43,14 +43,14 @@ This is a project for the Integrify Academy Frontend module. The task was to cre
 	- able to update cart
 	- able to check out cart
 	- able to create product (based on project requirements: should this be so?)
-		##### Admin:
+		#### Admin
     - able to modify products (create, update, delete)
 		- *able to view all users (all details but password)
 		- *able to delete users
 		- *able to modify user roles
 
 ### Product: 
-	- can be viewed as list (all/by category)
+  - can be viewed as list (all/by category)
 	- can be viewed individually
 	- can be sorted (by price)
 	- can be filtered
@@ -61,7 +61,7 @@ This is a project for the Integrify Academy Frontend module. The task was to cre
   - can be viewed as list
 
 ### Cart:
-	- can be created
+  - can be created
 	- can be modified (add cart item, update cart item quantity, delete cart item)
 	- can be checked out
 	- can be deleted
