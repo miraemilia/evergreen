@@ -109,8 +109,6 @@ This is a project for the Integrify Academy Frontend module. The task was to cre
 
 ![Flowchart](readme_images/E-commerceFlowchart.png)
 
-
-
 ## Running the project
 
 Requirements: Node
@@ -132,7 +130,7 @@ Launches the test runner in the interactive watch mode
 - [x] README
 - [x] types
 - [ ] reducers
-  - [ ] categoryReducer + tests
+  - [x] categoriesReducer + tests
   - [ ] productsReducer + tests
   - [ ] singleProduct query + tests
   - [ ] userReducer + tests
@@ -144,4 +142,5 @@ Launches the test runner in the interactive watch mode
 - [ ] components
 - [ ] pages
 - [ ] styles
+- [ ] deployment
 - [ ] optional requirements
