@@ -13,6 +13,7 @@ This is a project for the Integrify Academy Frontend module. The task was to cre
 - [Project overview](#project-overview)
 - [Running the project](#running-the-project)
 - [Deployment](#deployment)
+- [To do](#to-do)
 
 ## Technologies
 
@@ -45,9 +46,9 @@ This is a project for the Integrify Academy Frontend module. The task was to cre
 	- able to create product (based on project requirements: should this be so?)
 	#### Admin
   - able to modify products (create, update, delete)
-	- *able to view all users (all details but password)
-	- *able to delete users
-	- *able to modify user roles
+  - *able to view all users (all details but password)
+  - *able to delete users
+  - *able to modify user roles
 
 ### Product: 
   - can be viewed as list (all/by category)
@@ -108,6 +109,8 @@ This is a project for the Integrify Academy Frontend module. The task was to cre
 
 ![Flowchart](readme_images/E-commerceFlowchart.png)
 
+
+
 ## Running the project
 
 Requirements: Node
@@ -124,3 +127,20 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 Launches the test runner in the interactive watch mode
 
 ## Deployment
+
+## To do
+[x] README
+[x] types
+[ ] categoryReducer + tests
+[ ] productsReducer + tests
+[ ] singleProduct query + tests
+[ ] userReducer + tests
+[ ] cartReducer + tests
+[ ] credentialsReducer + tests
+[ ] store
+[ ] pages/components folder structure
+[ ] router
+[ ] components
+[ ] pages
+[ ] styles
+[ ] optional requirements
