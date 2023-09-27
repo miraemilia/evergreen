@@ -129,18 +129,19 @@ Launches the test runner in the interactive watch mode
 ## Deployment
 
 ## To do
-[x] README
-[x] types
-[ ] categoryReducer + tests
-[ ] productsReducer + tests
-[ ] singleProduct query + tests
-[ ] userReducer + tests
-[ ] cartReducer + tests
-[ ] credentialsReducer + tests
-[ ] store
-[ ] pages/components folder structure
-[ ] router
-[ ] components
-[ ] pages
-[ ] styles
-[ ] optional requirements
+- [x] README
+- [x] types
+- [ ] reducers
+  - [ ] categoryReducer + tests
+  - [ ] productsReducer + tests
+  - [ ] singleProduct query + tests
+  - [ ] userReducer + tests
+  - [ ] cartReducer + tests
+  - [ ] credentialsReducer + tests
+- [ ] store
+- [ ] pages/components folder structure
+- [ ] router
+- [ ] components
+- [ ] pages
+- [ ] styles
+- [ ] optional requirements
