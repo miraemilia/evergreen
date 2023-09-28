@@ -2,8 +2,9 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 import { ProductsReducerState } from "../types/ProductsReducerState";
-import { ProductUpdate } from "../types/ProductUpdate";
+import { UpdateParams } from "../types/ProductUpdate";
 import { Product } from "../types/Product";
+import { NewProduct } from "../types/NewProduct";
 
 const initialState: ProductsReducerState = {
     products: [],
@@ -27,7 +28,7 @@ export const fetchAllProducts = createAsyncThunk(
 )
 
 export const deleteProduct = createAsyncThunk(
-    "products/updateProduct",
+    "products/deleteProduct",
     async (id : number) => {
         try {
             const response = await axios.delete<boolean>(`https://api.escuelajs.co/api/v1/products/${id}`)
@@ -41,14 +42,14 @@ export const deleteProduct = createAsyncThunk(
         }
     }
 )
-/*
+
 export const updateProduct = createAsyncThunk(
     "products/updateProduct",
-    async (id : number, update : ProductUpdate) => {
+    async (params : UpdateParams) => {
         try {
-            const response = await axios.put<Product>(
-                `https://api.escuelajs.co/api/v1/products/${id}`,
-                JSON.stringify(update)
+            const response = await axios.put(
+                `https://api.escuelajs.co/api/v1/products/${params.id}`,
+                params.update
             )
             if (!response.data) {
                 throw new Error("Could not update product")
@@ -60,9 +61,22 @@ export const updateProduct = createAsyncThunk(
         }
     }
 )
-*/
 
-
+export const createProduct = createAsyncThunk(
+    "products/createProduct",
+    async (product : NewProduct) => {
+        try {
+            const response = await axios.post(`https://api.escuelajs.co/api/v1/products/`, product)
+            if (!response.data) {
+                throw new Error("Could not add product")
+            }
+            return response.data
+        } catch (e) {
+            const error = e as Error
+            return error.message
+        }
+    }
+)
 
 const productsSlice = createSlice({
     name: 'products',
@@ -109,6 +123,51 @@ const productsSlice = createSlice({
         builder.addCase(deleteProduct.fulfilled, (state, action) => {
             if (typeof action.payload === "number") {
                 state.products = state.products.filter(p => p.id !== action.payload)
+            }
+        }),
+        builder.addCase(deleteProduct.rejected, (state, action) => {
+            if (action.payload instanceof Error) {
+                return {
+                    ...state,
+                    loading: false,
+                    error: action.payload.message
+                }
+            }
+        }),
+        builder.addCase(updateProduct.fulfilled, (state, action) => {
+            if (action.payload instanceof Error) {
+                return {
+                    ...state,
+                    error: action.payload.message
+                }
+            }
+            state.products.map(p => p.id === action.payload.id ? action.payload : p)
+        }),
+        builder.addCase(updateProduct.rejected, (state, action) => {
+            if (action.payload instanceof Error) {
+                return {
+                    ...state,
+                    loading: false,
+                    error: action.payload.message
+                }
+            }
+        }),
+        builder.addCase(createProduct.fulfilled, (state, action) => {
+            if (action.payload instanceof Error) {
+                return {
+                    ...state,
+                    error: action.payload.message
+                }
+            }
+            state.products.push(action.payload)
+        }),
+        builder.addCase(createProduct.rejected, (state, action) => {
+            if (action.payload instanceof Error) {
+                return {
+                    ...state,
+                    loading: false,
+                    error: action.payload.message
+                }
             }
         })
     },

@@ -1,6 +1,8 @@
 import { createStore } from "../../../app/store";
-import productsReducer, { deleteProduct, fetchAllProducts, sortByPrice } from "../reducers/productsReducer";
+import productsReducer, { createProduct, deleteProduct, fetchAllProducts, sortByPrice, updateProduct } from "../reducers/productsReducer";
+import { NewProduct } from "../types/NewProduct";
 import { Product } from "../types/Product";
+import { UpdateParams } from "../types/ProductUpdate";
 import { ProductsReducerState } from "../types/ProductsReducerState";
 import { mockProductData } from "./mockProductData";
 import server from "./server";
@@ -71,3 +73,52 @@ describe('Product reducer: DELETE', () => {
     })
 
 })
+
+// Works with real server, needs mock server:
+/* describe('Product reducer: PUT', () => {
+
+    let store = createStore()
+    beforeEach(() => {store = createStore()})
+
+    test('should update existing product', async () => {
+        const updateParams : UpdateParams = {
+            id: 288,
+            update: {
+                title: "New title",
+                price: 150
+            }
+        }
+        const result = await store.dispatch(updateProduct(updateParams))
+        expect(result.payload.title).toEqual("New title")
+    })
+
+    test('should return error string when updating unexisting product', async () => {
+        const updateParams : UpdateParams = {
+            id: 99999999,
+            update: {title: "New title"}
+        }
+        const result = await store.dispatch(updateProduct(updateParams))
+        expect(result.payload).toEqual("Request failed with status code 400")
+    })
+
+}) */
+
+// Works with real server, needs mock server:
+/* describe('Product reducer: POST', () => {
+
+    let store = createStore()
+    beforeEach(() => {store = createStore()})
+
+    test('should update existing product', async () => {
+        const newProduct : NewProduct = {
+                title: "Rubber duck",
+                price: 100,
+                description: "Quack, quack!",
+                categoryId: 5,
+                images: ["https://picsum.photos/id/306/640/640"]
+        }
+        const result = await store.dispatch(createProduct(newProduct))
+        expect(result.payload.title).toEqual("Rubber duck")
+    })
+
+}) */

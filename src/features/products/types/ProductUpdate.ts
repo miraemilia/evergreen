@@ -4,3 +4,8 @@ export interface ProductUpdate {
     description?: string
     category?: number
 }
+
+export type UpdateParams = {
+    id: number,
+    update: ProductUpdate
+}
