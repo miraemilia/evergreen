@@ -131,11 +131,12 @@ Launches the test runner in the interactive watch mode
 - [x] types
 - [ ] reducers
   - [x] categoriesReducer + tests
-  - [ ] productsReducer + tests
-  - [ ] singleProduct query + tests
+  - [x] productsReducer + tests
+  - [x] singleProduct query
   - [ ] userReducer + tests
   - [ ] cartReducer + tests
   - [ ] credentialsReducer + tests
+  - [ ] add and refine tests
 - [ ] store
 - [ ] pages/components folder structure
 - [ ] router
