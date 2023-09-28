@@ -2,13 +2,17 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import categoriesReducer from "../features/categories/categoriesReducer";
 import productsReducer from "../features/products/reducers/productsReducer";
+import productQuery from "../features/products/reducers/productQuery";
 
 export const createStore = () => {
     return configureStore({
         reducer: {
             productsReducer,
-            categoriesReducer
-        }
+            categoriesReducer,
+            [productQuery.reducerPath]: productQuery.reducer
+        },
+        middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(productQuery.middleware),
     })
 }
 

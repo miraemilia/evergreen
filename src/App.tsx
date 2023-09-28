@@ -1,8 +1,11 @@
-import React from 'react'
+import { useFetchOneQuery } from './features/products/reducers/productQuery'
 
 const App = () => {
+
   return (
-    <div>App</div>
+    <div>
+      App
+    </div>
   )
 }
 

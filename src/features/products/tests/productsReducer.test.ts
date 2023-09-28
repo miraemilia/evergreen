@@ -1,4 +1,5 @@
 import { createStore } from "../../../app/store";
+import { useFetchOneQuery } from "../reducers/productQuery";
 import productsReducer, { createProduct, deleteProduct, fetchAllProducts, fetchWithFilters, sortByPrice, updateProduct } from "../reducers/productsReducer";
 import { NewProduct } from "../types/NewProduct";
 import { Product } from "../types/Product";
