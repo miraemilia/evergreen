@@ -3,8 +3,8 @@ import axios from "axios";
 
 import { ProductsReducerState } from "../types/ProductsReducerState";
 import { UpdateParams } from "../types/ProductUpdate";
-import { Product } from "../types/Product";
 import { NewProduct } from "../types/NewProduct";
+import { ProductFilter } from "../types/ProductFilter";
 
 const initialState: ProductsReducerState = {
     products: [],
@@ -16,6 +16,26 @@ export const fetchAllProducts = createAsyncThunk(
     async () => {
         try {
             const response = await axios.get('https://api.escuelajs.co/api/v1/products')
+            if (!response.data) {
+                throw new Error("Could not retreive products")
+            }
+            return response.data
+        } catch (e) {
+            const error = e as Error
+            return error.message
+        }
+    }
+)
+
+export const fetchWithFilters = createAsyncThunk(
+    "products/getFiltered",
+    async (filters : ProductFilter[]) => {
+        let queryParam = '?'
+        filters.forEach(f =>
+            queryParam += `${f.name}=${f.value}&`
+        )
+        try {
+            const response = await axios.get(`https://api.escuelajs.co/api/v1/products/${queryParam}`)
             if (!response.data) {
                 throw new Error("Could not retreive products")
             }
@@ -53,6 +73,9 @@ export const updateProduct = createAsyncThunk(
             )
             if (!response.data) {
                 throw new Error("Could not update product")
+            }
+            if (response.data.length < 1) {
+                throw new Error("No matches")
             }
             return response.data
         } catch (e) {
@@ -112,6 +135,35 @@ const productsSlice = createSlice({
             }
         }),
         builder.addCase(fetchAllProducts.rejected, (state, action) => {
+            if (action.payload instanceof Error) {
+                return {
+                    ...state,
+                    loading: false,
+                    error: action.payload.message
+                }  
+            }
+        }),
+        builder.addCase(fetchWithFilters.fulfilled, (state, action) => {
+            if(action.payload instanceof Error) {
+                return {
+                    ...state,
+                    loading: false,
+                    error: action.payload.message
+                }
+            }
+            return {
+                ...state,
+                products: action.payload,
+                loading: false
+            }
+        }),
+        builder.addCase(fetchWithFilters.pending, (state, action) => {
+            return {
+                ...state,
+                loading: true
+            }
+        }),
+        builder.addCase(fetchWithFilters.rejected, (state, action) => {
             if (action.payload instanceof Error) {
                 return {
                     ...state,

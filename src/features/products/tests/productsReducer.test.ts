@@ -1,5 +1,5 @@
 import { createStore } from "../../../app/store";
-import productsReducer, { createProduct, deleteProduct, fetchAllProducts, sortByPrice, updateProduct } from "../reducers/productsReducer";
+import productsReducer, { createProduct, deleteProduct, fetchAllProducts, fetchWithFilters, sortByPrice, updateProduct } from "../reducers/productsReducer";
 import { NewProduct } from "../types/NewProduct";
 import { Product } from "../types/Product";
 import { UpdateParams } from "../types/ProductUpdate";
@@ -25,6 +25,12 @@ describe('Products reducer: GET', () => {
         const apiproducts = await store.dispatch(fetchAllProducts())
         const stateproducts = store.getState().productsReducer.products
         expect(stateproducts.length).toBe(apiproducts.payload.length)
+    })
+
+    test('should contain less data after filtering', async () => {
+        const allProducts = await store.dispatch(fetchAllProducts())
+        const filteredProducts = await store.dispatch(fetchWithFilters([{name: "categoryId", value: 1}]))
+        expect(filteredProducts.payload.length).toBeLessThan(allProducts.payload.length)
     })
 
 })
@@ -115,7 +121,7 @@ describe('Product reducer: DELETE', () => {
                 price: 100,
                 description: "Quack, quack!",
                 categoryId: 5,
-                images: ["https://picsum.photos/id/306/640/640"]
+                images: [https://unsplash.com/photos/VTvnoNBowZs"https://picsum.photos/id/306/640/640"]
         }
         const result = await store.dispatch(createProduct(newProduct))
         expect(result.payload.title).toEqual("Rubber duck")
