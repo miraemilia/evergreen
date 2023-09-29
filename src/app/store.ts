@@ -4,6 +4,7 @@ import categoriesReducer from "../features/categories/categoriesReducer";
 import productsReducer from "../features/products/reducers/productsReducer";
 import productQuery from "../features/products/reducers/productQuery";
 import usersReducer from "../features/users/reducers/usersReducer";
+import cartReducer from "../features/cart/reducers/cartReducer";
 
 export const createStore = () => {
     return configureStore({
@@ -11,6 +12,7 @@ export const createStore = () => {
             productsReducer,
             categoriesReducer,
             usersReducer,
+            cartReducer,
             [productQuery.reducerPath]: productQuery.reducer
         },
         middleware: (getDefaultMiddleware) =>
