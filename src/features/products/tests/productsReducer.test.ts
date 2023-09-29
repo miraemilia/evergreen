@@ -6,7 +6,7 @@ import { Product } from "../types/Product";
 import { UpdateParams } from "../types/ProductUpdate";
 import { ProductsReducerState } from "../types/ProductsReducerState";
 import { mockProductData } from "./mockProductData";
-import server from "./server";
+import server from "../../../shared/tests/server";
 
 describe('Products reducer: GET', () => {
 
@@ -89,14 +89,13 @@ describe('Product reducer: DELETE', () => {
 
     test('should update existing product', async () => {
         const updateParams : UpdateParams = {
-            id: 288,
+            id: 4,
             update: {
-                title: "New title",
-                price: 150
+                price: 150000
             }
         }
         const result = await store.dispatch(updateProduct(updateParams))
-        expect(result.payload.title).toEqual("New title")
+        expect(result.payload.price).toBe(150000)
     })
 
     test('should return error string when updating unexisting product', async () => {
@@ -116,13 +115,13 @@ describe('Product reducer: DELETE', () => {
     let store = createStore()
     beforeEach(() => {store = createStore()})
 
-    test('should update existing product', async () => {
+    test('should add new product', async () => {
         const newProduct : NewProduct = {
                 title: "Rubber duck",
                 price: 100,
                 description: "Quack, quack!",
                 categoryId: 5,
-                images: [https://unsplash.com/photos/VTvnoNBowZs"https://picsum.photos/id/306/640/640"]
+                images: ["https://picsum.photos/id/306/640/640"]
         }
         const result = await store.dispatch(createProduct(newProduct))
         expect(result.payload.title).toEqual("Rubber duck")

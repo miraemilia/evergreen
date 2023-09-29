@@ -39,6 +39,9 @@ export const fetchWithFilters = createAsyncThunk(
             if (!response.data) {
                 throw new Error("Could not retreive products")
             }
+            if (response.data.length < 1) {
+                throw new Error("No matches")
+            }
             return response.data
         } catch (e) {
             const error = e as Error
@@ -73,9 +76,6 @@ export const updateProduct = createAsyncThunk(
             )
             if (!response.data) {
                 throw new Error("Could not update product")
-            }
-            if (response.data.length < 1) {
-                throw new Error("No matches")
             }
             return response.data
         } catch (e) {
