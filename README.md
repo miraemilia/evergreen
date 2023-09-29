@@ -103,6 +103,8 @@ This is a project for the Integrify Academy Frontend module. The task was to cre
 
 ### Functions
 
+- needs to be updated
+
 ![Diagram](readme_images/E-commerceDiagram.png)
 
 ### Flowchart
@@ -133,8 +135,8 @@ Launches the test runner in the interactive watch mode
   - [x] categoriesReducer + tests
   - [x] productsReducer + tests
   - [x] singleProduct query
-  - [ ] userReducer + tests
-  - [ ] cartReducer + tests
+  - [x] userReducer + tests
+  - [x] cartReducer + tests
   - [ ] credentialsReducer + tests
   - [ ] add and refine tests
 - [ ] store
