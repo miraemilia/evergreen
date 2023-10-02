@@ -5,6 +5,7 @@ import { UsersReducerState } from "../types/UsersReducerState";
 import { UserUpdateParams } from "../types/UserUpdate";
 import { NewUser } from "../types/NewUser"
 import { RoleUpdateParams } from "../types/RoleUpdate";
+import { User } from "../types/User";
 
 const initialState: UsersReducerState = {
     users: [],
@@ -13,23 +14,23 @@ const initialState: UsersReducerState = {
 
 export const fetchAllUsers = createAsyncThunk(
     "users/getAllUsers",
-    async () => {
+    async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.get('https://api.escuelajs.co/api/v1/users')
+            const response = await axios.get<User[]>('https://api.escuelajs.co/api/v1/users')
             if (!response.data) {
                 throw new Error("Could not retreive users")
             }
             return response.data
         } catch (e) {
             const error = e as Error
-            return error.message
+            return rejectWithValue(error.message)
         }
     }
 )
 
 export const deleteUser = createAsyncThunk(
     "users/deleteUser",
-    async (id : number) => {
+    async (id : number, { rejectWithValue }) => {
         try {
             const response = await axios.delete<boolean>(`https://api.escuelajs.co/api/v1/users/${id}`)
             if (!response.data) {
@@ -38,36 +39,35 @@ export const deleteUser = createAsyncThunk(
             return id
         } catch (e) {
             const error = e as Error
-            return error.message
+            return rejectWithValue(error.message)
         }
     }
 )
 
 export const updateUser = createAsyncThunk(
     "users/updateUser",
-    async (params : UserUpdateParams) => {
+    async (params : UserUpdateParams, { rejectWithValue }) => {
         try {
-            const response = await axios.put(
+            const response = await axios.put<User>(
                 `https://api.escuelajs.co/api/v1/users/${params.id}`,
                 params.update
             )
-            console.log(response)
             if (!response.data.name) {
                 throw new Error("Could not update user")
             }
             return response.data
         } catch (e) {
             const error = e as Error
-            return error.message
+            return rejectWithValue(error.message)
         }
     }
 )
 
 export const updateUserRole = createAsyncThunk(
     "users/updateUserRole",
-    async (params : RoleUpdateParams) => {
+    async (params : RoleUpdateParams, { rejectWithValue }) => {
         try {
-            const response = await axios.put(
+            const response = await axios.put<User>(
                 `https://api.escuelajs.co/api/v1/users/${params.id}`,
                 { "role" : params.role }
             )
@@ -77,23 +77,23 @@ export const updateUserRole = createAsyncThunk(
             return response.data
         } catch (e) {
             const error = e as Error
-            return error.message
+            return rejectWithValue(error.message)
         }
     }
 )
 
 export const createUser = createAsyncThunk(
     "users/createUser",
-    async (user : NewUser) => {
+    async (user : NewUser, { rejectWithValue }) => {
         try {
-            const response = await axios.post(`https://api.escuelajs.co/api/v1/users/`, user)
+            const response = await axios.post<User>(`https://api.escuelajs.co/api/v1/users/`, user)
             if (!response.data) {
                 throw new Error("Could not add user")
             }
             return response.data
         } catch (e) {
             const error = e as Error
-            return error.message
+            return rejectWithValue(error.message)
         }
     }
 )
@@ -105,13 +105,6 @@ const userSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchAllUsers.fulfilled, (state, action) => {
-            if(action.payload instanceof Error) {
-                return {
-                    ...state,
-                    loading: false,
-                    error: action.payload.message
-                }
-            }
             return {
                 ...state,
                 users: action.payload,
@@ -134,72 +127,28 @@ const userSlice = createSlice({
             }
         }),
         builder.addCase(deleteUser.fulfilled, (state, action) => {
-            if (typeof action.payload === "number") {
-                state.users = state.users.filter(p => p.id !== action.payload)
-            }
+            state.users = state.users.filter(p => p.id !== action.payload)
         }),
         builder.addCase(deleteUser.rejected, (state, action) => {
-            if (action.payload instanceof Error) {
-                return {
-                    ...state,
-                    loading: false,
-                    error: action.payload.message
-                }
-            }
+            state.error = action.payload as string
         }),
         builder.addCase(updateUser.fulfilled, (state, action) => {
-            if (action.payload instanceof Error) {
-                return {
-                    ...state,
-                    error: action.payload.message
-                }
-            }
             state.users.map(p => p.id === action.payload.id ? action.payload : p)
         }),
         builder.addCase(updateUser.rejected, (state, action) => {
-            if (action.payload instanceof Error) {
-                return {
-                    ...state,
-                    loading: false,
-                    error: action.payload.message
-                }
-            }
+            state.error = action.payload as string
         }),
         builder.addCase(updateUserRole.fulfilled, (state, action) => {
-            if (action.payload instanceof Error) {
-                return {
-                    ...state,
-                    error: action.payload.message
-                }
-            }
             state.users.map(p => p.id === action.payload.id ? action.payload : p)
         }),
         builder.addCase(updateUserRole.rejected, (state, action) => {
-            if (action.payload instanceof Error) {
-                return {
-                    ...state,
-                    loading: false,
-                    error: action.payload.message
-                }
-            }
+            state.error = action.payload as string
         }),
         builder.addCase(createUser.fulfilled, (state, action) => {
-            if (action.payload instanceof Error) {
-                return {
-                    ...state,
-                    error: action.payload.message
-                }
-            }
             state.users.push(action.payload)
         }),
         builder.addCase(createUser.rejected, (state, action) => {
-            if (action.payload instanceof Error) {
-                return {
-                    ...state,
-                    loading: false,
-                    error: action.payload.message
-                }
-            }
+            state.error = action.payload as string
         })
     },
 })
