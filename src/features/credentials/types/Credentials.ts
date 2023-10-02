@@ -1,7 +1,12 @@
 import { User } from "../../users/types/User";
 
 export interface Credentials {
-    user: User
-    accessToken: string
-    refreshToken: string
+    profile: Partial<User> | undefined
+    tokens: Tokens | undefined
+    error?: string
+}
+
+export interface Tokens {
+    access_token: string
+    refresh_token: string  
 }
