@@ -2,7 +2,7 @@ export interface ProductUpdate {
     title?: string
     price?: number
     description?: string
-    category?: number
+    categoryId?: number
 }
 
 export type UpdateParams = {

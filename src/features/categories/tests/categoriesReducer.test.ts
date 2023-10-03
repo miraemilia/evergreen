@@ -1,5 +1,5 @@
-import { createStore } from "../../app/store";
-import { fetchAllCategories } from "./categoriesReducer";
+import { createStore } from "../../../app/store";
+import { fetchAllCategories } from "../reducers/categoriesReducer";
 
 let store = createStore()
 beforeEach(() => {store = createStore()})

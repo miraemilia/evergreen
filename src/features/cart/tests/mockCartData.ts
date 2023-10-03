@@ -1,4 +1,4 @@
-import { mockProductData } from "../../products/tests/mockProductData";
+import { mockProductData } from "../../products/tests/data/mockProductData";
 import { Cart } from "../types/Cart";
 
 export const mockCart1 : Cart = {

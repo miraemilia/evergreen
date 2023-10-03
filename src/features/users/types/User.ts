@@ -6,6 +6,6 @@ export interface User {
 	name: string
 	role: UserRole
 	avatar?: string
-	creationAt: Date
-	updatedAt: Date
+	creationAt?: Date
+	updatedAt?: Date
 }

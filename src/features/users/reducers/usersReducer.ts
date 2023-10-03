@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 import { UsersReducerState } from "../types/UsersReducerState";
@@ -85,16 +85,22 @@ export const updateUserRole = createAsyncThunk(
 export const createUser = createAsyncThunk(
     "users/createUser",
     async (user : NewUser, { rejectWithValue }) => {
-        try {
-            const response = await axios.post<User>(`https://api.escuelajs.co/api/v1/users/`, user)
-            if (!response.data) {
-                throw new Error("Could not add user")
-            }
-            return response.data
-        } catch (e) {
-            const error = e as Error
-            return rejectWithValue(error.message)
+        const emailAvailable = await axios.post('https://api.escuelajs.co/api/v1/users/is-available', {email: user.email})
+        if (emailAvailable.data.isAvailable) {
+            try {
+                const response = await axios.post<User>(`https://api.escuelajs.co/api/v1/users/`, user)
+                if (!response.data) {
+                    throw new Error("Could not add user")
+                }
+                return response.data
+            } catch (e) {
+                const error = e as Error
+                return rejectWithValue(error.message)
+            }            
+        } else {
+            throw new Error("Email not available")
         }
+
     }
 )
 
@@ -104,7 +110,7 @@ const userSlice = createSlice({
     reducers: {
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchAllUsers.fulfilled, (state, action) => {
+        builder.addCase(fetchAllUsers.fulfilled, (state, action : PayloadAction<User[]>) => {
             return {
                 ...state,
                 users: action.payload,
@@ -126,25 +132,25 @@ const userSlice = createSlice({
                 }  
             }
         }),
-        builder.addCase(deleteUser.fulfilled, (state, action) => {
+        builder.addCase(deleteUser.fulfilled, (state, action : PayloadAction<number>) => {
             state.users = state.users.filter(p => p.id !== action.payload)
         }),
         builder.addCase(deleteUser.rejected, (state, action) => {
             state.error = action.payload as string
         }),
-        builder.addCase(updateUser.fulfilled, (state, action) => {
+        builder.addCase(updateUser.fulfilled, (state, action : PayloadAction<User>) => {
             state.users.map(p => p.id === action.payload.id ? action.payload : p)
         }),
         builder.addCase(updateUser.rejected, (state, action) => {
             state.error = action.payload as string
         }),
-        builder.addCase(updateUserRole.fulfilled, (state, action) => {
+        builder.addCase(updateUserRole.fulfilled, (state, action : PayloadAction<User>) => {
             state.users.map(p => p.id === action.payload.id ? action.payload : p)
         }),
         builder.addCase(updateUserRole.rejected, (state, action) => {
             state.error = action.payload as string
         }),
-        builder.addCase(createUser.fulfilled, (state, action) => {
+        builder.addCase(createUser.fulfilled, (state, action : PayloadAction<User>) => {
             state.users.push(action.payload)
         }),
         builder.addCase(createUser.rejected, (state, action) => {

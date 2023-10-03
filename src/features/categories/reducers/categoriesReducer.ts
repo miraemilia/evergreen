@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-import { Category } from "./types/Category";
+import { Category } from "../types/Category";
 
 const initialState: {
     categories: Category[]
@@ -14,16 +14,16 @@ const initialState: {
 
 export const fetchAllCategories = createAsyncThunk(
     "categories/getAllCategories",
-    async () => {
+    async (_, {rejectWithValue}) => {
         try {
-            const response = await axios.get('https://api.escuelajs.co/api/v1/categories')
+            const response = await axios.get<Category[]>('https://api.escuelajs.co/api/v1/categories')
             if (!response.data) {
                 throw new Error("Could not retreive categories")
             }
             return response.data
         } catch (e) {
             const error = e as Error
-            return error.message
+            return rejectWithValue(error.message)
         }
     }
 )
@@ -34,13 +34,6 @@ const categoriesSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchAllCategories.fulfilled, (state, action) => {
-            if(action.payload instanceof Error) {
-                return {
-                    ...state,
-                    loading: false,
-                    error: action.payload.message
-                }
-            }
             return {
                 ...state,
                 categories: action.payload,
@@ -54,14 +47,12 @@ const categoriesSlice = createSlice({
             }
         }),
         builder.addCase(fetchAllCategories.rejected, (state, action) => {
-            if (action.payload instanceof Error) {
-                return {
-                    ...state,
-                    loading: false,
-                    error: action.payload.message
-                }  
-            }
-
+            const error = action.payload as string
+            return {
+                ...state,
+                loading: false,
+                error: action.payload.message
+            }  
         })
     },
 })

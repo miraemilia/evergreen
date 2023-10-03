@@ -5,6 +5,7 @@ import { ProductsReducerState } from "../types/ProductsReducerState";
 import { UpdateParams } from "../types/ProductUpdate";
 import { NewProduct } from "../types/NewProduct";
 import { ProductFilter } from "../types/ProductFilter";
+import { Product } from "../types/Product";
 
 const initialState: ProductsReducerState = {
     products: [],
@@ -13,29 +14,29 @@ const initialState: ProductsReducerState = {
 
 export const fetchAllProducts = createAsyncThunk(
     "products/getAllProducts",
-    async () => {
+    async (_, {rejectWithValue}) => {
         try {
-            const response = await axios.get('https://api.escuelajs.co/api/v1/products')
+            const response = await axios.get<Product[]>('https://api.escuelajs.co/api/v1/products')
             if (!response.data) {
                 throw new Error("Could not retreive products")
             }
             return response.data
         } catch (e) {
             const error = e as Error
-            return error.message
+            return rejectWithValue(error.message)
         }
     }
 )
 
 export const fetchWithFilters = createAsyncThunk(
     "products/getFiltered",
-    async (filters : ProductFilter[]) => {
+    async (filters : ProductFilter[], {rejectWithValue}) => {
         let queryParam = '?'
         filters.forEach(f =>
             queryParam += `${f.name}=${f.value}&`
         )
         try {
-            const response = await axios.get(`https://api.escuelajs.co/api/v1/products/${queryParam}`)
+            const response = await axios.get<Product[]>(`https://api.escuelajs.co/api/v1/products/${queryParam}`)
             if (!response.data) {
                 throw new Error("Could not retreive products")
             }
@@ -45,14 +46,14 @@ export const fetchWithFilters = createAsyncThunk(
             return response.data
         } catch (e) {
             const error = e as Error
-            return error.message
+            return rejectWithValue(error.message)
         }
     }
 )
 
 export const deleteProduct = createAsyncThunk(
     "products/deleteProduct",
-    async (id : number) => {
+    async (id : number, {rejectWithValue}) => {
         try {
             const response = await axios.delete<boolean>(`https://api.escuelajs.co/api/v1/products/${id}`)
             if (!response.data) {
@@ -61,16 +62,16 @@ export const deleteProduct = createAsyncThunk(
             return id
         } catch (e) {
             const error = e as Error
-            return error.message
+            return rejectWithValue(error.message)
         }
     }
 )
 
 export const updateProduct = createAsyncThunk(
     "products/updateProduct",
-    async (params : UpdateParams) => {
+    async (params : UpdateParams, {rejectWithValue} ) => {
         try {
-            const response = await axios.put(
+            const response = await axios.put<Product>(
                 `https://api.escuelajs.co/api/v1/products/${params.id}`,
                 params.update
             )
@@ -80,23 +81,23 @@ export const updateProduct = createAsyncThunk(
             return response.data
         } catch (e) {
             const error = e as Error
-            return error.message
+            return rejectWithValue(error.message)
         }
     }
 )
 
 export const createProduct = createAsyncThunk(
     "products/createProduct",
-    async (product : NewProduct) => {
+    async (product : NewProduct, {rejectWithValue}) => {
         try {
-            const response = await axios.post(`https://api.escuelajs.co/api/v1/products/`, product)
+            const response = await axios.post<Product>("https://api.escuelajs.co/api/v1/products/", product)
             if (!response.data) {
                 throw new Error("Could not add product")
             }
             return response.data
         } catch (e) {
             const error = e as Error
-            return error.message
+            return rejectWithValue(error.message)
         }
     }
 )
@@ -115,13 +116,6 @@ const productsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchAllProducts.fulfilled, (state, action) => {
-            if(action.payload instanceof Error) {
-                return {
-                    ...state,
-                    loading: false,
-                    error: action.payload.message
-                }
-            }
             return {
                 ...state,
                 products: action.payload,
@@ -135,22 +129,14 @@ const productsSlice = createSlice({
             }
         }),
         builder.addCase(fetchAllProducts.rejected, (state, action) => {
-            if (action.payload instanceof Error) {
-                return {
-                    ...state,
-                    loading: false,
-                    error: action.payload.message
-                }  
+            const error = action.payload as string
+            return {
+                ...state,
+                loading: false,
+                error: error
             }
         }),
         builder.addCase(fetchWithFilters.fulfilled, (state, action) => {
-            if(action.payload instanceof Error) {
-                return {
-                    ...state,
-                    loading: false,
-                    error: action.payload.message
-                }
-            }
             return {
                 ...state,
                 products: action.payload,
@@ -164,63 +150,35 @@ const productsSlice = createSlice({
             }
         }),
         builder.addCase(fetchWithFilters.rejected, (state, action) => {
-            if (action.payload instanceof Error) {
-                return {
-                    ...state,
-                    loading: false,
-                    error: action.payload.message
-                }  
+            const error = action.payload as string
+            return {
+                ...state,
+                loading: false,
+                error: error
             }
         }),
         builder.addCase(deleteProduct.fulfilled, (state, action) => {
-            if (typeof action.payload === "number") {
-                state.products = state.products.filter(p => p.id !== action.payload)
-            }
+            state.products = state.products.filter(p => p.id !== action.payload)
         }),
         builder.addCase(deleteProduct.rejected, (state, action) => {
-            if (action.payload instanceof Error) {
-                return {
-                    ...state,
-                    loading: false,
-                    error: action.payload.message
-                }
+            const error = action.payload as string
+            return {
+                ...state,
+                loading: false,
+                error
             }
         }),
         builder.addCase(updateProduct.fulfilled, (state, action) => {
-            if (action.payload instanceof Error) {
-                return {
-                    ...state,
-                    error: action.payload.message
-                }
-            }
             state.products.map(p => p.id === action.payload.id ? action.payload : p)
         }),
         builder.addCase(updateProduct.rejected, (state, action) => {
-            if (action.payload instanceof Error) {
-                return {
-                    ...state,
-                    loading: false,
-                    error: action.payload.message
-                }
-            }
+            state.error = action.payload as string
         }),
         builder.addCase(createProduct.fulfilled, (state, action) => {
-            if (action.payload instanceof Error) {
-                return {
-                    ...state,
-                    error: action.payload.message
-                }
-            }
             state.products.push(action.payload)
         }),
         builder.addCase(createProduct.rejected, (state, action) => {
-            if (action.payload instanceof Error) {
-                return {
-                    ...state,
-                    loading: false,
-                    error: action.payload.message
-                }
-            }
+            state.error = action.payload as string
         })
     },
 })

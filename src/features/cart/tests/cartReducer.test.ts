@@ -1,4 +1,4 @@
-import { mockProductData } from "../../products/tests/mockProductData"
+import { mockProductData } from "../../products/tests/data/mockProductData"
 import cartReducer, { addCartItem, checkoutCart, deleteCartItem, initialState, resetCart, updateCartItem } from "../reducers/cartReducer"
 import { CartReducerState } from "../types/CartReducerState"
 import { mockCart1 } from "./mockCartData"
