@@ -140,8 +140,8 @@ Launches the test runner in the interactive watch mode
   - [ ] credentialsReducer + tests
   - [ ] add and refine tests
 - [ ] store
-- [ ] pages/components folder structure
-- [ ] router
+- [x] pages/components folder structure
+- [x] router
 - [ ] components
 - [ ] pages
 - [ ] styles
