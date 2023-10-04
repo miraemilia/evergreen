@@ -8,10 +8,10 @@ import { Footer } from "./shared/components/Footer"
 import { ProductsPage } from "./features/products/pages/ProductsPage"
 import { SingleProductPage } from "./features/products/pages/SingleProductPage"
 import { Login } from "./features/credentials/pages/Login"
-import { Logout } from "./features/credentials/pages/Logout"
 import { useAppDispatch } from "./app/hooks"
 import { fetchAllCategories } from "./features/categories/reducers/categoriesReducer"
 import { CategoryPage } from "./features/categories/pages/CategoryPage"
+import { Profile } from "./features/credentials/pages/Profile"
 
 const App = () => {
 
@@ -60,9 +60,9 @@ const App = () => {
           element: <Login />,
         },
         {
-          path: "logout",
-          element: <Logout />,
-        },
+          path: "profile",
+          element: <Profile />,
+        }
       ]
     }
   ])
