@@ -2,24 +2,18 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 import { Category } from "../types/Category";
+import { CategoryReducerState } from "../types/CategoryReducerState";
 
-const initialState: {
-    categories: Category[]
-    error?: string
-    loading: boolean
-} = {
+const initialState: CategoryReducerState = {
     categories: [],
     loading: false
 }
 
-export const fetchAllCategories = createAsyncThunk(
+export const fetchAllCategories = createAsyncThunk<Category[], void, { rejectValue : string}>(
     "categories/getAllCategories",
     async (_, {rejectWithValue}) => {
         try {
-            const response = await axios.get<Category[]>('https://api.escuelajs.co/api/v1/categories')
-            if (!response.data) {
-                throw new Error("Could not retreive categories")
-            }
+            const response = await axios.get('https://api.escuelajs.co/api/v1/categories')
             return response.data
         } catch (e) {
             const error = e as Error
@@ -34,25 +28,15 @@ const categoriesSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchAllCategories.fulfilled, (state, action) => {
-            return {
-                ...state,
-                categories: action.payload,
-                loading: false
-            }
+            state.categories = action.payload
+            state.loading = false
         }),
         builder.addCase(fetchAllCategories.pending, (state, action) => {
-            return {
-                ...state,
-                loading: true
-            }
+            state.loading = true
         }),
         builder.addCase(fetchAllCategories.rejected, (state, action) => {
-            const error = action.payload as string
-            return {
-                ...state,
-                loading: false,
-                error: error
-            }  
+            state.error = action.payload
+            state.loading = false
         })
     },
 })

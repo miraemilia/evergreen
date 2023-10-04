@@ -4,7 +4,7 @@ import { NewProduct } from "../types/NewProduct";
 import { UpdateParams } from "../types/ProductUpdate";
 import { ProductsReducerState } from "../types/ProductsReducerState";
 import { mockProductData } from "./data/mockProductData";
-import server from "../../../shared/tests/server";
+import productsServer from "./productsServer";
 
 describe('Products reducer: GET', () => {
 
@@ -64,9 +64,9 @@ describe('Product reducer: DELETE, PUT, POST', () => {
     let store = createStore()
     beforeEach(() => {store = createStore()})
 
-    beforeAll(() => server.listen())
-    afterEach(() => server.resetHandlers())
-    afterAll(() => server.close())
+    beforeAll(() => productsServer.listen())
+    afterEach(() => productsServer.resetHandlers())
+    afterAll(() => productsServer.close())
 
     test('should delete existing product', async () => {
         const result = await store.dispatch(deleteProduct(3))

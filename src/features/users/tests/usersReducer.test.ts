@@ -1,5 +1,5 @@
 import { createStore } from "../../../app/store"
-import server from "../../../shared/tests/server"
+import usersServer from "./usersServer"
 import { createUser, deleteUser, fetchAllUsers, updateUser, updateUserRole } from "../reducers/usersReducer"
 import { NewUser } from "../types/NewUser"
 import { RoleUpdateParams } from "../types/RoleUpdate"
@@ -32,9 +32,9 @@ describe('User reducer: DELETE, PUT, POST', () => {
     let store = createStore()
     beforeEach(() => {store = createStore()})
 
-    beforeAll(() => server.listen())
-    afterEach(() => server.resetHandlers())
-    afterAll(() => server.close())
+    beforeAll(() => usersServer.listen())
+    afterEach(() => usersServer.resetHandlers())
+    afterAll(() => usersServer.close())
 
     test('should delete existing user', async () => {
         const result = await store.dispatch(deleteUser(1))

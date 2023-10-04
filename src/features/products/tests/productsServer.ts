@@ -1,0 +1,58 @@
+import { rest } from "msw"
+import { setupServer } from 'msw/node'
+
+import { mockProductData } from "./data/mockProductData"
+import { NewProduct } from "../types/NewProduct"
+import { Product } from "../types/Product"
+import { mockCategories } from "../../categories/tests/data/mockCategoryData"
+import { ProductUpdate } from "../types/ProductUpdate"
+
+export const handlers = [
+    rest.delete("https://api.escuelajs.co/api/v1/products/:id", async (req, res, ctx) => {
+        const { id } = req.params
+        if (mockProductData.find(p => p.id == Number(id))) {
+            return res(
+                ctx.json(true)
+            )
+        } else {
+            return res(
+                ctx.json(false)
+            )
+        }
+    }),
+    rest.post("https://api.escuelajs.co/api/v1/products", async (req, res, ctx) => {
+        const input : NewProduct = await req.json()
+        const category = mockCategories.find(c => c.id === input.categoryId)
+        if (category) {
+            const product : Product = {
+                id: mockProductData.length + 1,
+                title: input.title,
+                description: input.description,
+                price: input.price,
+                images: [],
+                category
+            }
+            return res(ctx.json(product))
+        } else {
+            ctx.status(400)
+        }
+    }),
+    rest.put("https://api.escuelajs.co/api/v1/products/:id", async (req, res, ctx) => {
+        let input : ProductUpdate = await req.json()
+        const { id } = req.params
+        const productIndex = mockProductData.findIndex(p => p.id === Number(id))
+        if (productIndex > -1) {
+                const updatedProduct : Product = {
+                    ...mockProductData[productIndex],
+                    ...input
+                }
+                return res(ctx.json(updatedProduct))
+        } else {
+            return res(ctx.status(400))
+        }
+    })
+]
+
+const productsServer = setupServer(...handlers)
+
+export default productsServer
