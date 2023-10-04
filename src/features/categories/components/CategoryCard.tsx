@@ -9,15 +9,14 @@ type Props = {
 
 export const CategoryCard = ( { category } : Props ) => {
 
-  const navigate = useNavigate();
-  const handleNavigate = () => navigate(`products/category/${category.id}`)
+  const navigate = useNavigate()
 
   return (
     <Card sx={{ width: 300 }}>
       <CardContent>
         <CardMedia component="img" image={category.image} height="300" />
         <CardContent>
-          <Typography><Link onClick={handleNavigate}>{category.name}</Link></Typography>
+          <Typography><Link onClick={() => navigate(`products/category/${category.id}`)}>{category.name}</Link></Typography>
         </CardContent>
       </CardContent>
     </Card>

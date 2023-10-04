@@ -9,7 +9,7 @@ export const Home = () => {
   
   return (
     <main>
-      <Box display="flex" alignItems={"flex-start"}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
         <Typography>Shop by category</Typography>
         {categories && categories.map(c => <CategoryCard category={c} key={c.id}/>)}
       </Box>

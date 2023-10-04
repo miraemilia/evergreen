@@ -12,6 +12,7 @@ import { useAppDispatch } from "./app/hooks"
 import { fetchAllCategories } from "./features/categories/reducers/categoriesReducer"
 import { CategoryPage } from "./features/categories/pages/CategoryPage"
 import { Profile } from "./features/credentials/pages/Profile"
+import { fetchAllProducts } from "./features/products/reducers/productsReducer"
 
 const App = () => {
 
@@ -19,6 +20,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(fetchAllCategories())
+    dispatch(fetchAllProducts())
   }, [])
 
   const Layout = () => {
