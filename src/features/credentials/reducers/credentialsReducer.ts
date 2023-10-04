@@ -1,45 +1,39 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-import { Credentials, Tokens } from "../types/Credentials";
+import { Credentials } from "../types/Credentials";
 import { LoginParams } from "../types/LoginParams";
 
 const initialState : Credentials = {
-    tokens: undefined,
+    token: '',
     profile: undefined
 }
 
-export const login = createAsyncThunk(
+export const login = createAsyncThunk<Credentials, LoginParams, {rejectValue: string}>(
     "credentials/login",
-    async (params : LoginParams) => {
+    async (params, { rejectWithValue }) => {
         try {
             const response = await axios.post('https://api.escuelajs.co/api/v1/auth/login', params)
-            if (!response.data) {
-                throw new Error("Could not log in")
-            }
-            const tokens : Tokens = response.data
+            const { access_token } = response.data
             try {
                 const config = {
                     headers : {
-                        "Authorization": `Bearer ${tokens.access_token}`
+                        "Authorization": `Bearer ${access_token}`
                     }
                 }
                 const profileResponse = await axios.get('https://api.escuelajs.co/api/v1/auth/profile', config)
-                if (!profileResponse.data) {
-                    throw new Error("Could not log in")
-                }
                 const credentials : Credentials = { 
                     profile: profileResponse.data,
-                    tokens: tokens
+                    token: access_token
                 }
                 return credentials
             } catch (e) {
                 const error = e as Error
-                return error
+                return rejectWithValue(error.message)
             }
         } catch (e) {
             const error = e as Error
-            return error
+            return rejectWithValue(error.message)
         }
     }
 )
@@ -53,15 +47,11 @@ const credentialsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(login.fulfilled, (state, action) => {
-            if (action.payload instanceof Error) {
-                return {
-                    ...state,
-                    error: action.payload.message
-                }
-            }
-            if (!(typeof action.payload !== "string")) {
-                state = action.payload
-            }
+            state.profile = action.payload.profile
+            state.token = action.payload.token
+        })
+        builder.addCase(login.rejected, (state, action) => {
+            state.error = action.payload
         })
     }
 })
