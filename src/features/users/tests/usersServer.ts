@@ -7,6 +7,9 @@ import { User } from "../types/User"
 import { UserUpdate } from "../types/UserUpdate"
 
 export const handlers = [
+    rest.get('https://api.escuelajs.co/api/v1/users', (req, res, ctx) => {
+        return res(ctx.json(mockUserData))
+    }),
     rest.delete("https://api.escuelajs.co/api/v1/users/:id", async (req, res, ctx) => {
         const { id } = req.params
         if (mockUserData.find(u => u.id == Number(id))) {

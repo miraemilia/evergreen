@@ -1,4 +1,5 @@
 import { createStore } from "../../../app/store";
+import { mockCategories } from "../../categories/tests/data/mockCategoryData";
 import productsReducer, { createProduct, deleteProduct, fetchAllProducts, fetchWithFilters, sortByPrice, updateProduct } from "../reducers/productsReducer";
 import { NewProduct } from "../types/NewProduct";
 import { UpdateParams } from "../types/ProductUpdate";
@@ -13,24 +14,6 @@ describe('Products reducer: GET', () => {
 
     test('should have empty initial state', () => {
         expect(store.getState().productsReducer.products).toMatchObject([])
-    })
-
-    test('should not be empty after fetching', async () => {
-        await store.dispatch(fetchAllProducts())
-        expect(store.getState().productsReducer.products.length).toBeGreaterThan(0)
-    })
-
-    test('should get all products into store', async () => {
-        const apiproducts = await store.dispatch(fetchAllProducts())
-        const stateproducts = store.getState().productsReducer.products
-        expect(stateproducts.length).toBe(apiproducts.payload.length)
-    })
-
-    test('should contain less data after filtering', async () => {
-        const allProducts = await store.dispatch(fetchAllProducts())
-        const filteredProducts = await store.dispatch(fetchWithFilters([{name: "categoryId", value: 1}]))
-        expect(filteredProducts.payload).not.toEqual('No matches')
-        expect(filteredProducts.payload.length).toBeLessThan(allProducts.payload.length)
     })
 
 })
@@ -68,6 +51,18 @@ describe('Product reducer: DELETE, PUT, POST', () => {
     afterEach(() => productsServer.resetHandlers())
     afterAll(() => productsServer.close())
 
+    test('should get all products into store', async () => {
+        await store.dispatch(fetchAllProducts())
+        const stateproducts = store.getState().productsReducer.products
+        expect(stateproducts.length).toBe(4)
+    })
+
+    test('should filter', async () => {
+        await store.dispatch(fetchWithFilters([{name: "categoryId", value: 1}]))
+        const products = store.getState().productsReducer.products
+        expect(products.length).toBe(1)
+    })
+
     test('should delete existing product', async () => {
         const result = await store.dispatch(deleteProduct(3))
         expect(result.payload).toBe(3)
@@ -86,7 +81,18 @@ describe('Product reducer: DELETE, PUT, POST', () => {
             }
         }
         const result = await store.dispatch(updateProduct(updateParams))
-        expect(result.payload.price).toBe(150000)
+        expect(result.payload).toMatchObject({
+            id: 2,
+            title: "Handcrafted Soft Computer",
+            price: 150000,
+            description: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+            images: [
+            "https://picsum.photos/640/640?r=7332",
+            "https://picsum.photos/640/640?r=9493",
+            "https://picsum.photos/640/640?r=1246"
+            ],
+            category: mockCategories[1]
+            })
     })
 
     test('should return error string when updating unexisting product', async () => {
@@ -107,7 +113,6 @@ describe('Product reducer: DELETE, PUT, POST', () => {
                 images: ["https://picsum.photos/id/306/640/640"]
         }
         const result = await store.dispatch(createProduct(newProduct))
-        expect(result.payload.title).toEqual("Rubber duck")
         expect(store.getState().productsReducer.products.length).toBe(1)
     })
 

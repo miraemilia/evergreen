@@ -13,17 +13,6 @@ describe('Users reducer: GET', () => {
     test('should have empty initial state', () => {
         expect(store.getState().usersReducer.users).toMatchObject([])
     })
-
-    test('should not be empty after fetching', async () => {
-        await store.dispatch(fetchAllUsers())
-        expect(store.getState().usersReducer.users.length).toBeGreaterThan(0)
-    })
-
-    test('should get all users into store', async () => {
-        const apiUsers = await store.dispatch(fetchAllUsers())
-        const stateUsers = store.getState().usersReducer.users
-        expect(stateUsers.length).toBe(apiUsers.payload.length)
-    })
     
 })
 
@@ -35,6 +24,12 @@ describe('User reducer: DELETE, PUT, POST', () => {
     beforeAll(() => usersServer.listen())
     afterEach(() => usersServer.resetHandlers())
     afterAll(() => usersServer.close())
+
+    test('should get all users into store', async () => {
+        await store.dispatch(fetchAllUsers())
+        const stateUsers = store.getState().usersReducer.users
+        expect(stateUsers.length).toBe(3)
+    })
 
     test('should delete existing user', async () => {
         const result = await store.dispatch(deleteUser(1))
@@ -54,7 +49,17 @@ describe('User reducer: DELETE, PUT, POST', () => {
                 }
             }
             const result = await store.dispatch(updateUser(updateParams))
-            expect(result.payload.name).toEqual("John")
+            expect(result.payload).toMatchObject(
+                {
+                    id: 1,
+                    email: "john@mail.com",
+                    name: "John",
+                    role: "customer",
+                    avatar: "https://i.imgur.com/fpT4052.jpeg",
+                    creationAt: "2023-09-28T21:17:43.000Z",
+                    updatedAt: "2023-09-28T21:17:43.000Z"
+                }
+            )
     })
 
     test('should return error string when updating unexisting user', async () => {
@@ -72,7 +77,15 @@ describe('User reducer: DELETE, PUT, POST', () => {
             role: "admin"
         }
         const result = await store.dispatch(updateUserRole(updateParams))
-        expect(result.payload.role).toEqual("admin")
+        expect(result.payload).toMatchObject({
+                id: 2,
+                email: "maria@mail.com",
+                name: "Maria",
+                role: "admin",
+                avatar: "https://i.imgur.com/uDpzwEk.jpeg",
+                creationAt: "2023-09-28T21:17:43.000Z",
+                updatedAt: "2023-09-28T21:17:43.000Z"
+        })
     })
 
     test('should add new user', async () => {
@@ -83,7 +96,7 @@ describe('User reducer: DELETE, PUT, POST', () => {
                     avatar: "https://picsum.photos/id/306/640/640"
             }
             const result = await store.dispatch(createUser(newUser))
-            expect(result.payload.name).toEqual("Rubber duck")
-    })
+            expect(store.getState().usersReducer.users.length).toBe(1)
+        })
 
 })

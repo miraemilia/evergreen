@@ -8,6 +8,15 @@ import { mockCategories } from "../../categories/tests/data/mockCategoryData"
 import { ProductUpdate } from "../types/ProductUpdate"
 
 export const handlers = [
+    rest.get("https://api.escuelajs.co/api/v1/products", (req, res, ctx) => {
+        const productId = req.url.searchParams.get('categoryId')
+        if (!productId) {
+            return res(ctx.json(mockProductData))    
+        } else {
+            const filteredData = mockProductData.filter(p => p.category.id === Number(productId))
+            return res(ctx.json(filteredData))
+        } 
+    }),
     rest.delete("https://api.escuelajs.co/api/v1/products/:id", async (req, res, ctx) => {
         const { id } = req.params
         if (mockProductData.find(p => p.id == Number(id))) {
