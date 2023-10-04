@@ -46,16 +46,14 @@ const App = () => {
         {
           path: "products",
           element: <ProductsPage />,
-          children: [
-            {
-              path: ":productId",
-              element: <SingleProductPage />,
-            },
-            {
-              path: "category/:categoryId",
-              element: <CategoryPage />,
-            },
-          ]
+        },
+        {
+          path: "products/:productId",
+          element: <SingleProductPage />,
+        },
+        {
+          path: "products/category/:categoryId",
+          element: <CategoryPage />,
         },
         {
           path: "login",
