@@ -51,7 +51,7 @@ const categoriesSlice = createSlice({
             return {
                 ...state,
                 loading: false,
-                error: action.payload.message
+                error: error
             }  
         })
     },
