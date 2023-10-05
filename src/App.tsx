@@ -12,6 +12,7 @@ import { useAppDispatch } from "./app/hooks"
 import { fetchAllCategories } from "./features/categories/reducers/categoriesReducer"
 import { Profile } from "./features/credentials/pages/Profile"
 import { Register } from "./features/users/pages/Register"
+import { Cart } from "./features/cart/pages/Cart"
 
 const App = () => {
 
@@ -52,6 +53,10 @@ const App = () => {
         {
           path: "products/category/:categoryId",
           element: <ProductsPage />,
+        },
+        {
+          path: "cart",
+          element: <Cart />,
         },
         {
           path: "login",

@@ -9,9 +9,9 @@ export const Home = () => {
   
   return (
     <main>
+      <Typography>Shop by category</Typography>
       <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
-        <Typography>Shop by category</Typography>
-        {categories && categories.map(c => <CategoryCard category={c} key={c.id}/>)}
+        {categories && categories.map(c => c.image === "https://placeimg.com/640/480/any" ? null : <CategoryCard category={c} key={c.id}/>)}
       </Box>
     </main>
   )
