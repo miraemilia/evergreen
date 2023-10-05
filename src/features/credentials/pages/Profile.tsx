@@ -10,7 +10,7 @@ export const Profile = () => {
 
   if (!profile) {
     return (
-      <Link onClick={() => navigate('../login')}>Please log in</Link>
+      <Link onClick={() => navigate('/login')}>Please log in</Link>
     )
   }
   

@@ -24,11 +24,11 @@ export const Header = () => {
         </Toolbar>
         <Drawer open={drawerOpen} onClick={toggleDrawer}>
               <MenuItem onClick={() => navigate('/')}>Home</MenuItem>
-              <MenuItem onClick={() => navigate('products')}>Products</MenuItem>
-              { profile && <MenuItem onClick={() => navigate('profile')}>Profile</MenuItem>}
-              { profile && <MenuItem onClick={() => navigate('cart')}>Cart</MenuItem>}
-              <MenuItem onClick={() => navigate('login')}>{profile ? 'Log out' : 'Log in'}</MenuItem>
-              {!profile && <MenuItem onClick={() => navigate('register')}>Register</MenuItem>}
+              <MenuItem onClick={() => navigate('/products')}>Products</MenuItem>
+              { profile && <MenuItem onClick={() => navigate('/profile')}>Profile</MenuItem>}
+              { profile && <MenuItem onClick={() => navigate('/cart')}>Cart</MenuItem>}
+              <MenuItem onClick={() => navigate('/login')}>{profile ? 'Log out' : 'Log in'}</MenuItem>
+              {!profile && <MenuItem onClick={() => navigate('/register')}>Register</MenuItem>}
         </Drawer>
       </AppBar>
   )

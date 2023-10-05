@@ -51,7 +51,7 @@ export const Register = () => {
     }
 
     if (submitted) {
-      return (<Typography>Thank you for registering! <Link onClick={() => navigate('../login')}>Log in</Link></Typography>)
+      return (<Typography>Thank you for registering! <Link onClick={() => navigate('/login')}>Log in</Link></Typography>)
     }
   
     return (

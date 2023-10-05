@@ -1,6 +1,8 @@
-import { Button, TableCell, TableRow } from "@mui/material"
-import { CartItem } from "../types/CartItem"
 import { useAppDispatch } from "../../../app/hooks"
+import { useNavigate } from "react-router-dom"
+
+import { Button, Link, TableCell, TableRow } from "@mui/material"
+import { CartItem } from "../types/CartItem"
 import { deleteCartItem, updateCartItem } from "../reducers/cartReducer"
 import { CartUpdate } from "../types/CartUpdate"
 
@@ -11,6 +13,7 @@ type CartItemRowProps = {
 export const CartItemRow = ({item} : CartItemRowProps) => {
 
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const handleReduce = () => {
     const update : CartUpdate = {
@@ -34,7 +37,7 @@ export const CartItemRow = ({item} : CartItemRowProps) => {
 
   return (
     <TableRow>
-      <TableCell>{item.product.title}</TableCell>
+      <TableCell><Link onClick={() => navigate(`/products/${item.product.id}`)}>{item.product.title}</Link></TableCell>
       <TableCell>{item.product.price} €</TableCell>
       <TableCell>{item.quantity}</TableCell>
       <TableCell>{item.quantity * item.product.price} €</TableCell>
