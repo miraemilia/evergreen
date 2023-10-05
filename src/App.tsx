@@ -10,9 +10,7 @@ import { SingleProductPage } from "./features/products/pages/SingleProductPage"
 import { Login } from "./features/credentials/pages/Login"
 import { useAppDispatch } from "./app/hooks"
 import { fetchAllCategories } from "./features/categories/reducers/categoriesReducer"
-import { CategoryPage } from "./features/categories/pages/CategoryPage"
 import { Profile } from "./features/credentials/pages/Profile"
-import { fetchAllProducts } from "./features/products/reducers/productsReducer"
 import { Register } from "./features/users/pages/Register"
 
 const App = () => {
@@ -21,7 +19,6 @@ const App = () => {
 
   useEffect(() => {
     dispatch(fetchAllCategories())
-    dispatch(fetchAllProducts())
   }, [])
 
   const Layout = () => {
@@ -54,7 +51,7 @@ const App = () => {
         },
         {
           path: "products/category/:categoryId",
-          element: <CategoryPage />,
+          element: <ProductsPage />,
         },
         {
           path: "login",

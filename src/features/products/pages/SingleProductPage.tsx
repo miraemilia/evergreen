@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom"
 
 import { ErrorPage } from "../../../app/pages/ErrorPage"
-import { Avatar, Card, CardMedia, ImageListItem, Paper, Typography } from "@mui/material"
+import { Card, CardMedia, Paper, Typography } from "@mui/material"
 import { useFetchOneQuery } from "../reducers/productQuery"
 
 export const SingleProductPage = () => {

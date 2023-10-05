@@ -152,7 +152,7 @@ const productsSlice = createSlice({
         builder.addCase(fetchWithFilters.rejected, (state, action) => {
             const error = action.payload as string
             return {
-                ...state,
+                products: [],
                 loading: false,
                 error: error
             }
