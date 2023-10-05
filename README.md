@@ -129,21 +129,18 @@ Launches the test runner in the interactive watch mode
 ## Deployment
 
 ## To do
-- [x] README
-- [x] types
-- [x] reducers
-  - [x] categoriesReducer + tests
-  - [x] productsReducer + tests
-  - [x] singleProduct query
-  - [x] userReducer + tests
-  - [x] cartReducer + tests
-  - [x] credentialsReducer + tests
-  - [ ] add and refine tests
-- [x] store
-- [x] pages/components folder structure
-- [x] router
-- [ ] components
-- [ ] pages
-- [ ] styles
+- UI
+	- [ ] admin functionalities
+	- [ ] add more content to profile and product page
+	- [ ] more header and footer elements
+	- [ ] shortcut buttons
+	- [ ] sorting
+	- [ ] filtering
+	- [ ] update cart checkout functionality
+	- [ ] styles
 - [ ] deployment
-- [ ] optional requirements
+- [ ] cleanup/lint
+- [ ] revise README
+- [ ] refine tests
+- optional requirements
+	- [ ] pagination
