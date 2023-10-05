@@ -13,6 +13,7 @@ import { fetchAllCategories } from "./features/categories/reducers/categoriesRed
 import { CategoryPage } from "./features/categories/pages/CategoryPage"
 import { Profile } from "./features/credentials/pages/Profile"
 import { fetchAllProducts } from "./features/products/reducers/productsReducer"
+import { Register } from "./features/users/pages/Register"
 
 const App = () => {
 
@@ -62,6 +63,10 @@ const App = () => {
         {
           path: "profile",
           element: <Profile />,
+        },
+        {
+          path: "register",
+          element: <Register />,
         }
       ]
     }

@@ -1,17 +1,20 @@
-import { AppBar, Box, Drawer, IconButton, MenuItem, Toolbar, Typography } from "@mui/material"
+import { AppBar, Drawer, IconButton, MenuItem, Toolbar, Typography } from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../app/hooks";
 
 export const Header = () => {
+
+  const navigate = useNavigate()
+
+  const profile = useAppSelector(state => state.credentialsReducer.profile)
 
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen)
   }
-
-  const navigate = useNavigate()
 
   return (
       <AppBar position="static" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
@@ -22,8 +25,9 @@ export const Header = () => {
         <Drawer open={drawerOpen} onClick={toggleDrawer}>
               <MenuItem onClick={() => navigate('/')}>Home</MenuItem>
               <MenuItem onClick={() => navigate('products')}>Products</MenuItem>
-              <MenuItem onClick={() => navigate('profile')}>Profile</MenuItem>
-              <MenuItem onClick={() => navigate('login')}>Login</MenuItem>
+              { profile && <MenuItem onClick={() => navigate('profile')}>Profile</MenuItem>}
+              <MenuItem onClick={() => navigate('login')}>{profile ? 'Log out' : 'Log in'}</MenuItem>
+              {!profile && <MenuItem onClick={() => navigate('register')}>Register</MenuItem>}
         </Drawer>
       </AppBar>
   )

@@ -85,22 +85,16 @@ export const updateUserRole = createAsyncThunk(
 export const createUser = createAsyncThunk(
     "users/createUser",
     async (user : NewUser, { rejectWithValue }) => {
-        const emailAvailable = await axios.post('https://api.escuelajs.co/api/v1/users/is-available', {email: user.email})
-        if (emailAvailable.data.isAvailable) {
-            try {
-                const response = await axios.post<User>(`https://api.escuelajs.co/api/v1/users/`, user)
-                if (!response.data) {
-                    throw new Error("Could not add user")
-                }
-                return response.data
-            } catch (e) {
-                const error = e as Error
-                return rejectWithValue(error.message)
-            }            
-        } else {
-            throw new Error("Email not available")
-        }
-
+        try {
+            const response = await axios.post<User>(`https://api.escuelajs.co/api/v1/users/`, user)
+            if (!response.data) {
+                throw new Error("Could not add user")
+            }
+            return response.data
+        } catch (e) {
+            const error = e as Error
+            return rejectWithValue(error.message)
+        }            
     }
 )
 

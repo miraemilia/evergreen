@@ -11,7 +11,7 @@ export const Login = () => {
 
   const dispatch = useAppDispatch()
   const profile = useAppSelector(state => state.credentialsReducer.profile)
-
+  const credentialsError = useAppSelector(state => state.credentialsReducer.error)
   
   const loginSchema = yup.object({
       email: yup.string().email().required(),
@@ -46,6 +46,7 @@ export const Login = () => {
 
   return (
     <main>
+      {credentialsError && <Typography>{credentialsError}</Typography>}
       <form onSubmit={handleSubmit(onFormSubmit)}>
         <FormControl>
           <TextField
