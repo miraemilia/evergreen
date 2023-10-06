@@ -1,15 +1,20 @@
-import { Button, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material"
+import { useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material"
+
 import { CartItemRow } from "../components/CartItemRow"
 import { resetCart } from "../reducers/cartReducer"
 
 export const Cart = () => {
 
   const cart = useAppSelector(state => state.cartReducer.cart)
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false)
 
   const dispatch = useAppDispatch()
 
   const handleCheckout = () => {
+    console.log("checkout")
+    setDialogOpen(true)
     dispatch(resetCart())
   }
 
@@ -17,22 +22,24 @@ export const Cart = () => {
     dispatch(resetCart())
   }
 
-/*   if (cart.checkedOut) {
-    return (
-    <Paper>
-      <Typography>Thank you for ordering!</Typography>
-    </Paper>
-    )
-  } */
-
   if (cart.cartItems.length === 0) {
     return (
-      <Typography>Cart empty</Typography>
+      <Box>
+        <Typography>Cart empty</Typography>
+        <Dialog open={dialogOpen}>
+          <DialogContent>
+              <DialogContentText>Thank you for ordering!</DialogContentText>
+          </DialogContent>
+          <DialogActions>
+              <Button onClick={() => setDialogOpen(false)}>Close</Button>
+          </DialogActions>
+        </Dialog>
+      </Box>
     )
   }
 
   return (
-    <Paper>
+    <Box>
       <Table>
         <TableHead>
           <TableRow>
@@ -43,7 +50,7 @@ export const Cart = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {cart.cartItems.map(i => <CartItemRow item={i}/>)}
+          {cart.cartItems.map(i => <CartItemRow key={i.product.id} item={i}/>)}
           <TableRow>
             <TableCell>Total:</TableCell>
             <TableCell></TableCell>
@@ -54,6 +61,6 @@ export const Cart = () => {
           </TableRow>
         </TableBody>
       </Table>
-    </Paper>
+    </Box>
   )
 }

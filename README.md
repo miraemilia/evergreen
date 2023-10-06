@@ -127,21 +127,21 @@ Launches the test runner in the interactive watch mode
 
 ## Deployment
 
-## To do
+## To do (final week)
 - UI
 	- [x] admin functionalities: delete, update
 	- [ ] add more content to profile and product page
 	- [ ] more header and footer elements
 	- [ ] shortcut buttons
-	- [ ] sorting
-	- [ ] filtering
+	- [x] sorting
+	- [x] filtering
 	- [ ] better exception handling
 	- [ ] cart checkout functionality
 	- [ ] styles
 - general
-- [ ] deployment
-- [ ] cleanup/lint
-- [ ] revise README
+	- [ ] deployment
+	- [ ] cleanup/lint
+	- [ ] revise README
 - optional requirements
 	- [ ] pagination
 - additional

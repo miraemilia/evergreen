@@ -16,7 +16,9 @@ export const ProductCard = ({ product } : Props) => {
       <CardContent>
         <CardMedia component="img" image={product.images[0]} height="300" />
         <CardContent>
+          <Typography>{product.category.name}</Typography>
           <Typography><Link onClick={() => navigate(`/products/${product.id}`)}>{product.title}</Link></Typography>
+          <Typography>{product.price} €</Typography>
         </CardContent>
       </CardContent>
     </Card>
