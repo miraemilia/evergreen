@@ -12,7 +12,6 @@ export const ProductsPage = () => {
   const dispatch = useAppDispatch()
 
   const categoryId = useParams().categoryId
-  console.log(categoryId)
 
   useEffect(() => {
     if (categoryId) {

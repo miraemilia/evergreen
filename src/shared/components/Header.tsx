@@ -27,6 +27,7 @@ export const Header = () => {
               <MenuItem onClick={() => navigate('/products')}>Products</MenuItem>
               { profile && <MenuItem onClick={() => navigate('/profile')}>Profile</MenuItem>}
               { profile && <MenuItem onClick={() => navigate('/cart')}>Cart</MenuItem>}
+              { profile && profile.role === 'admin' && <MenuItem onClick={() => navigate('/admin/products')}>Admin</MenuItem>}
               <MenuItem onClick={() => navigate('/login')}>{profile ? 'Log out' : 'Log in'}</MenuItem>
               {!profile && <MenuItem onClick={() => navigate('/register')}>Register</MenuItem>}
         </Drawer>
