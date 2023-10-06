@@ -43,9 +43,8 @@ This is a project for the Integrify Academy Frontend module. The task was to cre
 	- able to create cart
 	- able to update cart
 	- able to check out cart
-	- able to create product (based on project requirements: should this be so?)
 	#### Admin
-  - able to modify products (create, update, delete)
+  - able to modify products (create*, update, delete)
   - *able to view all users (all details but password)
   - *able to delete users
   - *able to modify user roles
@@ -130,17 +129,22 @@ Launches the test runner in the interactive watch mode
 
 ## To do
 - UI
-	- [ ] admin functionalities
+	- [x] admin functionalities: delete, update
 	- [ ] add more content to profile and product page
 	- [ ] more header and footer elements
 	- [ ] shortcut buttons
 	- [ ] sorting
 	- [ ] filtering
-	- [ ] update cart checkout functionality
+	- [ ] better exception handling
+	- [ ] cart checkout functionality
 	- [ ] styles
+- general
 - [ ] deployment
 - [ ] cleanup/lint
 - [ ] revise README
-- [ ] refine tests
 - optional requirements
 	- [ ] pagination
+- additional
+	- [ ] admin functionalities: create product
+	- [ ] admin functionalities: manage users
+	- [ ] refine tests
