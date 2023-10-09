@@ -16,6 +16,9 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addCartItem: (state, action : PayloadAction<Product>) => {
+            if (state.cart.cartItems.length === 0) {
+                state.cart.checkedOut = false
+            }
             const product: Product = action.payload
             const foundIndex = state.cart.cartItems.findIndex(i => i.product.id === product.id)
             if (foundIndex !== -1) {
@@ -47,6 +50,7 @@ const cartSlice = createSlice({
         },
         checkoutCart: (state, action : PayloadAction) => {
             state.cart.checkedOut = true
+            state.cart.cartItems = []
         },
         resetCart: (state, action : PayloadAction) => {
             state.cart = initialState.cart

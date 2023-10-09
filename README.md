@@ -136,7 +136,7 @@ Launches the test runner in the interactive watch mode
 	- [x] sorting
 	- [x] filtering
 	- [ ] better exception handling
-	- [ ] cart checkout functionality
+	- [x] cart checkout functionality
 	- [ ] styles
 - general
 	- [ ] deployment

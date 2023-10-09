@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material"
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material"
 
 import { CartItemRow } from "../components/CartItemRow"
-import { resetCart } from "../reducers/cartReducer"
+import { checkoutCart, resetCart } from "../reducers/cartReducer"
 
 export const Cart = () => {
 
@@ -15,20 +15,20 @@ export const Cart = () => {
   const handleCheckout = () => {
     console.log("checkout")
     setDialogOpen(true)
-    dispatch(resetCart())
+    dispatch(checkoutCart())
   }
 
   const handleReset = () => {
     dispatch(resetCart())
   }
 
-  if (cart.cartItems.length === 0) {
+  if (cart.checkedOut === true) {
     return (
       <Box>
-        <Typography>Cart empty</Typography>
+        <Typography>Thank you for ordering!</Typography>
         <Dialog open={dialogOpen}>
           <DialogContent>
-              <DialogContentText>Thank you for ordering!</DialogContentText>
+              <DialogContentText>Order complete</DialogContentText>
           </DialogContent>
           <DialogActions>
               <Button onClick={() => setDialogOpen(false)}>Close</Button>
