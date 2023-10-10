@@ -1,19 +1,18 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, FormControl, Link, TextField, Typography } from "@mui/material"
+import { Box, Button, Link, TextField, Typography } from "@mui/material"
 import { useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { createUser } from "../reducers/usersReducer";
 import { NewUser } from "../types/NewUser";
 import { NewUserForm } from "../types/NewUserForm";
-import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
     
     const dispatch = useAppDispatch()
-    const navigate = useNavigate()
 
     const userError = useAppSelector(state => state.usersReducer.error)
 
@@ -26,7 +25,7 @@ export const Register = () => {
         password2: yup.string().required().oneOf([yup.ref('password1')], 'Your passwords do not match.')
     }).required()
   
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<NewUserForm>({
+    const { register, handleSubmit, formState: { errors } } = useForm<NewUserForm>({
         defaultValues: {
             name: '',
             email: '',
@@ -51,14 +50,20 @@ export const Register = () => {
     }
 
     if (submitted) {
-      return (<Typography>Thank you for registering! <Link onClick={() => navigate('/login')}>Log in</Link></Typography>)
+      return (<Typography>Thank you for registering! <Link component={RouterLink} to='/login'>Log in</Link></Typography>)
     }
   
     return (
       <main>
         {userError && <Typography>{userError}</Typography>}
-        <form onSubmit={handleSubmit(onFormSubmit)}>
-          <FormControl>
+        <Box 
+          component="form" 
+          display='flex' 
+          flexDirection='column'
+          gap='1.5em'
+          onSubmit={handleSubmit(onFormSubmit)} 
+          sx={{width: '25em', mx: 'auto'}}
+        >
           <TextField
               id="name"
               error={errors.email !== undefined}
@@ -88,8 +93,7 @@ export const Register = () => {
               helperText={errors.password2 && (<p>{errors.password2.message}</p>)}
             />
             <Button type="submit">Register</Button>
-          </FormControl>
-        </form>
+        </Box>
       </main>
     )
   }

@@ -24,43 +24,51 @@ export const Cart = () => {
 
   if (cart.checkedOut === true) {
     return (
-      <Box>
-        <Typography>Thank you for ordering!</Typography>
-        <Dialog open={dialogOpen}>
-          <DialogContent>
-              <DialogContentText>Order complete</DialogContentText>
-          </DialogContent>
-          <DialogActions>
-              <Button onClick={() => setDialogOpen(false)}>Close</Button>
-          </DialogActions>
-        </Dialog>
-      </Box>
+      <main>
+        <Box sx={{padding: '5em'}}>
+          <Typography variant="h5" textAlign={'center'}>Thank you for ordering!</Typography>
+          <Dialog open={dialogOpen}>
+            <DialogContent>
+                <DialogContentText>Order complete</DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={() => setDialogOpen(false)}>Close</Button>
+            </DialogActions>
+          </Dialog>
+        </Box>
+      </main>
     )
   }
 
   return (
-    <Box>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Product</TableCell>
-            <TableCell>Price per product</TableCell>
-            <TableCell>Quantity</TableCell>
-            <TableCell>Price</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {cart.cartItems.map(i => <CartItemRow key={i.product.id} item={i}/>)}
-          <TableRow>
-            <TableCell>Total:</TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-            <TableCell>{cart.cartItems.reduce((a, i) => a + (i.product.price * i.quantity), 0)} €</TableCell>
-            <TableCell><Button onClick={handleCheckout}>Checkout</Button></TableCell>
-            <TableCell><Button onClick={handleReset}>Delete cart</Button></TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </Box>
+    <main>
+      <Box>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Product</TableCell>
+              <TableCell>Price per product</TableCell>
+              <TableCell>Quantity</TableCell>
+              <TableCell>Price</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {cart.cartItems.map(i => <CartItemRow key={i.product.id} item={i}/>)}
+            <TableRow>
+              <TableCell>Total:</TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+              <TableCell>{cart.cartItems.reduce((a, i) => a + (i.product.price * i.quantity), 0)} €</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell><Button onClick={handleReset}>Delete cart</Button></TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+              <TableCell><Button onClick={handleCheckout}>Checkout</Button></TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </Box>
+    </main>
   )
 }

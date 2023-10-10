@@ -1,5 +1,5 @@
-import { Link as RouterLink, useNavigate } from 'react-router-dom'
-import { Card, CardContent, CardMedia, Link, Typography } from "@mui/material"
+import { Link as RouterLink } from 'react-router-dom'
+import { Box, Card, CardActionArea, CardContent, CardMedia, Grid, Link, Typography } from "@mui/material"
 
 import { Category } from "../types/Category"
 
@@ -9,16 +9,18 @@ type Props = {
 
 export const CategoryCard = ( { category } : Props ) => {
 
-  const navigate = useNavigate()
-
   return (
-    <Card sx={{ width: 300 }}>
-      <CardContent>
-        <CardMedia component="img" image={category.image} height="300" />
-        <CardContent>
-          <Typography><Link onClick={() => navigate(`/products/category/${category.id}`)}>{category.name}</Link></Typography>
-        </CardContent>
-      </CardContent>
-    </Card>
+    <Grid item xs={4}>
+      <Card>
+        <CardActionArea component={RouterLink} to={`/products/category/${category.id}`}>
+          <CardContent>
+            <CardMedia component="img" image={category.image}/>
+            <Box sx={{textAlign: 'center'}}>
+              <Typography>{category.name}</Typography>
+            </Box>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </Grid>
   )
 }

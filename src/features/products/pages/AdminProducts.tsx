@@ -1,8 +1,9 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from "@mui/material"
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useEffect, useState } from "react";
-import { deleteProduct, fetchAllProducts, updateProduct } from "../reducers/productsReducer";
 import { DataGrid, GridRowSelectionModel } from "@mui/x-data-grid";
+
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { deleteProduct, fetchAllProducts, updateProduct } from "../reducers/productsReducer";
 import { ProductRow } from "../types/ProductRow";
 import { ProductUpdate, UpdateParams } from "../types/ProductUpdate";
 

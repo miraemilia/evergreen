@@ -130,21 +130,27 @@ Launches the test runner in the interactive watch mode
 ## To do (final week)
 - UI
 	- [x] admin functionalities: delete, update
-	- [ ] add more content to profile and product page
-	- [ ] more header and footer elements
-	- [ ] shortcut buttons
+	- [ ] admin functionalities: create product
+	- [x] add more content to profile and product page
+	- [x] more header and footer elements
+	- [x] shortcut buttons
 	- [x] sorting
 	- [x] filtering
 	- [ ] better exception handling
+	- [ ] ErrorPage
 	- [x] cart checkout functionality
-	- [ ] styles
+	- [x] styles
+		- [ ] after profile logout
+		- [ ] product card
+		- [ ] products page mobile layout
+		- [ ] filter button
+		- [ ] cart
+		- [ ] AppBar heading
 - general
 	- [ ] deployment
 	- [ ] cleanup/lint
 	- [ ] revise README
-- optional requirements
+- optional
 	- [ ] pagination
-- additional
-	- [ ] admin functionalities: create product
 	- [ ] admin functionalities: manage users
-	- [ ] refine tests
+	- [ ] component testing
