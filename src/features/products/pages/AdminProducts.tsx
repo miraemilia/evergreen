@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { deleteProduct, fetchAllProducts, updateProduct } from "../reducers/productsReducer";
 import { ProductRow } from "../types/ProductRow";
 import { ProductUpdate, UpdateParams } from "../types/ProductUpdate";
+import { Link as RouterLink } from "react-router-dom";
 
 export const AdminProducts = () => {
 
@@ -22,9 +23,11 @@ export const AdminProducts = () => {
     const [dialogOpen, setDialogOpen] = useState<boolean>(false)
     const [selection, setSelection] = useState<GridRowSelectionModel>([])
   
-    if (profile && profile.role !== 'admin') {
+    if (!profile || (profile && profile.role !== 'admin')) {
         return (
-            <Typography>Not authorized</Typography>
+            <main>
+                <Typography>Not authorized</Typography>
+            </main>
         )
     }
 
@@ -97,35 +100,38 @@ export const AdminProducts = () => {
     }
 
     return (
-        <Box width='100%'>
-            <Button onClick={handleDeleteSelected}>Delete</Button>
-            <DataGrid
-                editMode="row"
-                processRowUpdate={handleRowUpdate}
-                onProcessRowUpdateError={handleUpdateError}
-                rows={rows}
-                columns={columns}
-                checkboxSelection
-                disableRowSelectionOnClick
-                onRowSelectionModelChange={setSelection}
-                initialState={{
-                pagination: {
-                    paginationModel: {
-                    pageSize: 20,
+        <main>
+            <Button component={RouterLink} to='/admin'>Back to Admin Dashboard</Button>
+            <Box width='100%'>
+                <Button onClick={handleDeleteSelected}>Delete</Button>
+                <DataGrid
+                    editMode="row"
+                    processRowUpdate={handleRowUpdate}
+                    onProcessRowUpdateError={handleUpdateError}
+                    rows={rows}
+                    columns={columns}
+                    checkboxSelection
+                    disableRowSelectionOnClick
+                    onRowSelectionModelChange={setSelection}
+                    initialState={{
+                    pagination: {
+                        paginationModel: {
+                        pageSize: 20,
+                        },
                     },
-                },
-                }}
-                pageSizeOptions={[10, 20, 50]}
-            />
-            <Dialog open={dialogOpen}>
-                <DialogContent>
-                    <DialogContentText>{alert}</DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => setDialogOpen(false)}>Ok</Button>
-                </DialogActions>
-            </Dialog>
-        </Box>
+                    }}
+                    pageSizeOptions={[10, 20, 50]}
+                />
+                <Dialog open={dialogOpen}>
+                    <DialogContent>
+                        <DialogContentText>{alert}</DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => setDialogOpen(false)}>Ok</Button>
+                    </DialogActions>
+                </Dialog>
+            </Box>
+        </main>
         
     )
     }

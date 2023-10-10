@@ -1,4 +1,4 @@
-import { Alert, Box, Grid, Typography } from "@mui/material"
+import { Box, Grid, Typography } from "@mui/material"
 import { useAppSelector } from "../../../app/hooks"
 import { useParams } from "react-router-dom"
 
@@ -18,7 +18,7 @@ export const ProductsPage = () => {
       <Typography variant="h2">Products {category && `- ${category.name}`}</Typography>
       <ProductFilterComponent categoryId={categoryId}/>
       <Typography sx={{margin: 2}}>{products.length} products</Typography>
-      {error && <Alert>{error}</Alert>}
+      {error && <Typography>{error}</Typography>}
       {loading && <Typography>Loading...</Typography>}
       {!loading && <Box>
         <Grid container spacing={2}>

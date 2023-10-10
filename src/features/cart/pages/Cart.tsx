@@ -1,6 +1,7 @@
 import { useState } from "react"
+import { Link as RouterLink} from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material"
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Link, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material"
 
 import { CartItemRow } from "../components/CartItemRow"
 import { checkoutCart, resetCart } from "../reducers/cartReducer"
@@ -8,6 +9,7 @@ import { checkoutCart, resetCart } from "../reducers/cartReducer"
 export const Cart = () => {
 
   const cart = useAppSelector(state => state.cartReducer.cart)
+  const profile = useAppSelector(state => state.credentialsReducer.profile)
   const [dialogOpen, setDialogOpen] = useState<boolean>(false)
 
   const dispatch = useAppDispatch()
@@ -20,6 +22,12 @@ export const Cart = () => {
 
   const handleReset = () => {
     dispatch(resetCart())
+  }
+
+  if (!profile) {
+    return (
+      <Typography>Please <Link component={RouterLink} to='/login'>log in</Link></Typography>
+    )
   }
 
   if (cart.checkedOut === true) {

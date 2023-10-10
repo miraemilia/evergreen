@@ -117,15 +117,16 @@ const productsSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchAllProducts.fulfilled, (state, action) => {
             return {
-                ...state,
                 products: action.payload,
-                loading: false
+                loading: false,
+                error: undefined
             }
         }),
         builder.addCase(fetchAllProducts.pending, (state, action) => {
             return {
                 ...state,
-                loading: true
+                loading: true,
+                error: undefined
             }
         }),
         builder.addCase(fetchAllProducts.rejected, (state, action) => {
@@ -138,15 +139,16 @@ const productsSlice = createSlice({
         }),
         builder.addCase(fetchWithFilters.fulfilled, (state, action) => {
             return {
-                ...state,
                 products: action.payload,
-                loading: false
+                loading: false,
+                error: undefined
             }
         }),
         builder.addCase(fetchWithFilters.pending, (state, action) => {
             return {
                 ...state,
-                loading: true
+                loading: true,
+                error: undefined
             }
         }),
         builder.addCase(fetchWithFilters.rejected, (state, action) => {

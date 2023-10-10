@@ -27,7 +27,7 @@ This is a project for the Integrify Academy Frontend module. The task was to cre
 
 ## Features
 
-(* optional: not a feature UI)
+(* optional: not a feature in UI)
 
 ### User (unregistered/not logged in)
 - able to view all product listings (all or by category)
@@ -50,21 +50,21 @@ This is a project for the Integrify Academy Frontend module. The task was to cre
   - *able to modify user roles
 
 ### Product: 
-  - can be viewed as list (all/by category)
-	- can be viewed individually
-	- can be sorted (by price)
-	- can be filtered
-  - can be added to cart(by logged in user)
-	- can be created, modified and deleted (by admin)
+- can be viewed as list (all/by category)
+- can be viewed individually
+- can be sorted (by price)
+- can be filtered
+- can be added to cart(by logged in user)
+- can be created, modified and deleted (by admin)
 
 ### Category:
-  - can be viewed as list
+- can be viewed as list
 
 ### Cart:
-  - can be created
-	- can be modified (add cart item, update cart item quantity, delete cart item)
-	- can be checked out
-	- can be deleted
+- can be created
+- can be modified (add cart item, update cart item quantity, delete cart item)
+- can be checked out
+- can be deleted
 
 ## Project overview
 
@@ -130,16 +130,20 @@ Launches the test runner in the interactive watch mode
 ## To do (final week)
 - UI
 	- urgent
-		- [ ] admin functionalities: create product
-		- [ ] hide cart icon when not logged in
-		- [ ] hide admin page
-		- [ ] change no matches alert (+ redux)
+		- [x] admin functionalities: create product
+		- [x] hide cart icon when not logged in
+		- [x] hide admin page
+		- [x] change no matches alert (+ redux)
+	- fixes
+		- [ ] create product success and error message
+		- [ ] product updated success message
 	- small fixes
-		- [ ] filter button position
+		- [ ] position filter button
 		- [ ] AppBar heading: styling and link
 		- [ ] default profile image is oval
+		- [ ] footer position
+		- [ ] style: after profile logout + after registering + not authorized
 	- to develop further (optional)
-		- [ ] after profile logout + after registering
 		- [ ] better exception handling & ErrorPage
 		- [ ] cart
 		- [ ] product card
@@ -150,9 +154,10 @@ Launches the test runner in the interactive watch mode
 		- [ ] component testing
 - redux
 	- to develop further
-		- [ ] better error messages for UI
 		- [ ] Error to AxiosError
+		- [ ] RTK query: tests for retreiving single product
 		- [ ] refine tests
+		- [ ] better error messages for UI
 - general
 	- [ ] deployment
 	- [ ] cleanup/lint

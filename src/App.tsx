@@ -16,6 +16,9 @@ import { Login } from "./features/credentials/pages/Login"
 import { Profile } from "./features/credentials/pages/Profile"
 import { Register } from "./features/users/pages/Register"
 import { AdminProducts } from "./features/products/pages/AdminProducts"
+import { Admin } from "./shared/pages/Admin"
+import { AdminNewProduct } from "./features/products/pages/AdminNewProduct"
+import { AdminUsersPage } from "./features/users/pages/AdminUsersPage"
 
 const App = () => {
 
@@ -74,8 +77,20 @@ const App = () => {
           element: <Register />,
         },
         {
+          path: "admin",
+          element: <Admin />,
+        },
+        {
           path: "admin/products",
           element: <AdminProducts />,
+        },
+        {
+          path: "admin/newproduct",
+          element: <AdminNewProduct />,
+        },
+        {
+          path: "admin/users",
+          element: <AdminUsersPage />,
         }
       ]
     }
