@@ -27,7 +27,7 @@ This is a project for the Integrify Academy Frontend module. The task was to cre
 
 ## Features
 
-(* optional feature: not explicitly mentioned in requirements)
+(* optional: not a feature UI)
 
 ### User (unregistered/not logged in)
 - able to view all product listings (all or by category)
@@ -44,7 +44,7 @@ This is a project for the Integrify Academy Frontend module. The task was to cre
 	- able to update cart
 	- able to check out cart
 	#### Admin
-  - able to modify products (create*, update, delete)
+  - able to modify products (create, update, delete)
   - *able to view all users (all details but password)
   - *able to delete users
   - *able to modify user roles
@@ -129,28 +129,31 @@ Launches the test runner in the interactive watch mode
 
 ## To do (final week)
 - UI
-	- [x] admin functionalities: delete, update
-	- [ ] admin functionalities: create product
-	- [x] add more content to profile and product page
-	- [x] more header and footer elements
-	- [x] shortcut buttons
-	- [x] sorting
-	- [x] filtering
-	- [ ] better exception handling
-	- [ ] ErrorPage
-	- [x] cart checkout functionality
-	- [x] styles
-		- [ ] after profile logout
+	- urgent
+		- [ ] admin functionalities: create product
+		- [ ] hide cart icon when not logged in
+		- [ ] hide admin page
+		- [ ] change no matches alert (+ redux)
+	- small fixes
+		- [ ] filter button position
+		- [ ] AppBar heading: styling and link
+		- [ ] default profile image is oval
+	- to develop further (optional)
+		- [ ] after profile logout + after registering
+		- [ ] better exception handling & ErrorPage
+		- [ ] cart
 		- [ ] product card
 		- [ ] products page mobile layout
-		- [ ] filter button
-		- [ ] cart
-		- [ ] AppBar heading
+		- [ ] dropdown menu for category change in product page
+		- [ ] pagination
+		- [ ] admin functionalities: manage users
+		- [ ] component testing
+- redux
+	- to develop further
+		- [ ] better error messages for UI
+		- [ ] Error to AxiosError
+		- [ ] refine tests
 - general
 	- [ ] deployment
 	- [ ] cleanup/lint
 	- [ ] revise README
-- optional
-	- [ ] pagination
-	- [ ] admin functionalities: manage users
-	- [ ] component testing
