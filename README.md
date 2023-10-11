@@ -128,6 +128,8 @@ Launches the test runner in the interactive watch mode
 
 ## Deployment
 
+Deployed with Netlify at [courageous-palmier-3375a6.netlify.app](courageous-palmier-3375a6.netlify.app)
+
 ## To do (final week)
 - UI
 	- urgent
