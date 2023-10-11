@@ -19,15 +19,14 @@ This is a project for the Integrify Academy Frontend module. The task was to cre
 
 - Typescript
 - React
-- Redux toolkit
-- RTK query
+- Redux toolkit (+ RTK query)
 - Jest
 - MUI
 - SASS
 
 ## Features
 
-(* optional: not a feature in UI)
+(* not implemented in UI/optional)
 
 ### User (unregistered/not logged in)
 - able to view all product listings (all or by category)
@@ -69,6 +68,8 @@ This is a project for the Integrify Academy Frontend module. The task was to cre
 ## Project overview
 
 ### Folder structure
+
+- vertical structure
 
 ````
 .
@@ -121,7 +122,7 @@ After cloning the project run `npm install` in project directory.
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### `npm test`
+### `npm run test`
 
 Launches the test runner in the interactive watch mode
 
@@ -137,19 +138,26 @@ Launches the test runner in the interactive watch mode
 	- fixes
 		- [ ] create product success and error message
 		- [ ] product updated success message
+		- [ ] reset after checkout
+		- [ ] edit product quantity in cart with input field
+		- [ ] registration link on login page
+		- [ ] show several pictures in single product page
 	- small fixes
-		- [ ] position filter button
+		- [ ] reposition filter button
 		- [ ] AppBar heading: styling and link
-		- [ ] default profile image is oval
+		- [x] default profile image is oval
 		- [ ] footer position
 		- [ ] style: after profile logout + after registering + not authorized
+		- [ ] headings for several pages
 	- to develop further (optional)
+		- [ ] reusable components e.g. dialog, unauthorized page...
 		- [ ] better exception handling & ErrorPage
-		- [ ] cart
-		- [ ] product card
+		- [ ] cart style
+		- [ ] product card style and content
 		- [ ] products page mobile layout
 		- [ ] dropdown menu for category change in product page
 		- [ ] pagination
+		- [ ] ability to choose avatar or product images (now hardcoded)
 		- [ ] admin functionalities: manage users
 		- [ ] component testing
 - redux
@@ -158,6 +166,8 @@ Launches the test runner in the interactive watch mode
 		- [ ] RTK query: tests for retreiving single product
 		- [ ] refine tests
 		- [ ] better error messages for UI
+		- [ ] store persist
+		- [ ] rename credentialsReducer?
 - general
 	- [ ] deployment
 	- [ ] cleanup/lint
