@@ -128,7 +128,9 @@ Launches the test runner in the interactive watch mode
 
 ## Deployment
 
-Deployed with Netlify at [courageous-palmier-3375a6.netlify.app](courageous-palmier-3375a6.netlify.app)
+Deployed with Netlify at [https://courageous-palmier-3375a6.netlify.app](https://courageous-palmier-3375a6.netlify.app)
+
+![Screenshot](readme_images/E-commerceScreenshot.png)
 
 ## To do (final week)
 - UI
@@ -171,6 +173,6 @@ Deployed with Netlify at [courageous-palmier-3375a6.netlify.app](courageous-palm
 		- [ ] store persist
 		- [ ] rename credentialsReducer?
 - general
-	- [ ] deployment
+	- [x] deployment
 	- [ ] cleanup/lint
-	- [ ] revise README
+	- [x] revise README
