@@ -110,13 +110,13 @@ const userSlice = createSlice({
                 users: action.payload,
                 loading: false
             }
-        }),
+        })
         builder.addCase(fetchAllUsers.pending, (state, action) => {
             return {
                 ...state,
                 loading: true
             }
-        }),
+        })
         builder.addCase(fetchAllUsers.rejected, (state, action) => {
             if (action.payload instanceof Error) {
                 return {
@@ -125,28 +125,28 @@ const userSlice = createSlice({
                     error: action.payload.message
                 }  
             }
-        }),
+        })
         builder.addCase(deleteUser.fulfilled, (state, action : PayloadAction<number>) => {
             state.users = state.users.filter(p => p.id !== action.payload)
-        }),
+        })
         builder.addCase(deleteUser.rejected, (state, action) => {
             state.error = action.payload as string
-        }),
+        })
         builder.addCase(updateUser.fulfilled, (state, action : PayloadAction<User>) => {
             state.users.map(p => p.id === action.payload.id ? action.payload : p)
-        }),
+        })
         builder.addCase(updateUser.rejected, (state, action) => {
             state.error = action.payload as string
-        }),
+        })
         builder.addCase(updateUserRole.fulfilled, (state, action : PayloadAction<User>) => {
             state.users.map(p => p.id === action.payload.id ? action.payload : p)
-        }),
+        })
         builder.addCase(updateUserRole.rejected, (state, action) => {
             state.error = action.payload as string
-        }),
+        })
         builder.addCase(createUser.fulfilled, (state, action : PayloadAction<User>) => {
             state.users.push(action.payload)
-        }),
+        })
         builder.addCase(createUser.rejected, (state, action) => {
             state.error = action.payload as string
         })

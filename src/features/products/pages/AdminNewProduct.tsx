@@ -19,14 +19,6 @@ export const AdminNewProduct = () => {
 
     const [dialogOpen, setDialogOpen] = useState<boolean>(false)
 
-    if (!profile || (profile && profile.role !== 'admin')) {
-        return (
-            <main>
-                <Typography>Not authorized</Typography>
-            </main>
-        )
-    }
-
     const createProductSchema = yup.object({
         title: yup.string().required(),
         price: yup.number().required(),
@@ -56,6 +48,14 @@ export const AdminNewProduct = () => {
         setDialogOpen(true)
         reset()
     }
+
+    if (!profile || (profile && profile.role !== 'admin')) {
+      return (
+          <main>
+              <Typography>Not authorized</Typography>
+          </main>
+      )
+  }
 
   return (
     <main>

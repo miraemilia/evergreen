@@ -30,10 +30,10 @@ const categoriesSlice = createSlice({
         builder.addCase(fetchAllCategories.fulfilled, (state, action) => {
             state.categories = action.payload
             state.loading = false
-        }),
+        })
         builder.addCase(fetchAllCategories.pending, (state, action) => {
             state.loading = true
-        }),
+        })
         builder.addCase(fetchAllCategories.rejected, (state, action) => {
             state.error = action.payload
             state.loading = false

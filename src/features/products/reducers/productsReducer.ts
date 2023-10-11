@@ -121,14 +121,14 @@ const productsSlice = createSlice({
                 loading: false,
                 error: undefined
             }
-        }),
+        })
         builder.addCase(fetchAllProducts.pending, (state, action) => {
             return {
                 ...state,
                 loading: true,
                 error: undefined
             }
-        }),
+        })
         builder.addCase(fetchAllProducts.rejected, (state, action) => {
             const error = action.payload as string
             return {
@@ -136,21 +136,21 @@ const productsSlice = createSlice({
                 loading: false,
                 error: error
             }
-        }),
+        })
         builder.addCase(fetchWithFilters.fulfilled, (state, action) => {
             return {
                 products: action.payload,
                 loading: false,
                 error: undefined
             }
-        }),
+        })
         builder.addCase(fetchWithFilters.pending, (state, action) => {
             return {
                 ...state,
                 loading: true,
                 error: undefined
             }
-        }),
+        })
         builder.addCase(fetchWithFilters.rejected, (state, action) => {
             const error = action.payload as string
             return {
@@ -158,10 +158,10 @@ const productsSlice = createSlice({
                 loading: false,
                 error: error
             }
-        }),
+        })
         builder.addCase(deleteProduct.fulfilled, (state, action) => {
             state.products = state.products.filter(p => p.id !== action.payload)
-        }),
+        })
         builder.addCase(deleteProduct.rejected, (state, action) => {
             const error = action.payload as string
             return {
@@ -169,16 +169,16 @@ const productsSlice = createSlice({
                 loading: false,
                 error
             }
-        }),
+        })
         builder.addCase(updateProduct.fulfilled, (state, action) => {
             state.products.map(p => p.id === action.payload.id ? action.payload : p)
-        }),
+        })
         builder.addCase(updateProduct.rejected, (state, action) => {
             state.error = action.payload as string
-        }),
+        })
         builder.addCase(createProduct.fulfilled, (state, action) => {
             state.products.push(action.payload)
-        }),
+        })
         builder.addCase(createProduct.rejected, (state, action) => {
             state.error = action.payload as string
         })
