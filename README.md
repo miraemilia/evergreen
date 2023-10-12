@@ -138,7 +138,7 @@ To try out admin functionalities, visit [API users](https://api.escuelajs.co/api
 		- [x] reset after checkout
 		- [x] edit product quantity in cart with input field
 		- [x] ability to change avatar
-		- [ ] ability to choose product images (now hardcoded)
+		- [x] ability to choose product images (now hardcoded)
 		- [ ] show several pictures in single product page
 		- [ ] dropdown menu for category change in product page
 		- [ ] create product success and error message
@@ -158,7 +158,7 @@ To try out admin functionalities, visit [API users](https://api.escuelajs.co/api
 	- to develop further
 		- [x] user able to update profile info
 		- [ ] user able to change password
-		- [ ] pagination
+		- [x] pagination
 		- [ ] admin functionalities: manage users
 		- [ ] component testing
 		- [ ] reusable components e.g. dialog, unauthorized page, category selection...
