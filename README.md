@@ -139,14 +139,14 @@ To try out admin functionalities, visit [API users](https://api.escuelajs.co/api
 		- [x] edit product quantity in cart with input field
 		- [x] ability to change avatar
 		- [x] ability to choose product images (now hardcoded)
-		- [ ] show several pictures in single product page
-		- [ ] dropdown menu for category change in product page
+		- [x] show several pictures in single product page
+		- [ ] !dropdown menu for category change in product page!
 		- [ ] create product success and error message
 		- [ ] product updated success message
 		- [x] profile info refetched after update
-		- [ ] product card style and content
-		- [ ] home page more content
-		- [ ] cart style
+		- [ ] product card style and content!
+		- [ ] cart style!
+		- [ ] !productsPage layout!
 	- small fixes
 		- [x] headings for several pages
 		- [x] reposition filter button
@@ -155,20 +155,25 @@ To try out admin functionalities, visit [API users](https://api.escuelajs.co/api
 		- [x] style: after profile logout + after registering + not authorized
 		- [x] registration link on login page
 		- [ ] footer position
+		- [ ] per page label
+		- [ ] !create product select field!
 	- to develop further
 		- [x] user able to update profile info
 		- [ ] user able to change password
 		- [x] pagination
 		- [ ] admin functionalities: manage users
-		- [ ] component testing
-		- [ ] reusable components e.g. dialog, unauthorized page, category selection...
+		- [ ] home page more content
+		- [ ] !component testing!
+		- [ ] reusable components e.g. dialog, category selection...
 		- [ ] better exception handling & ErrorPage
 		- [ ] products page mobile layout
+		- [ ] image upload
 - redux
+	- [ ] !fix login test!
 	- to develop further
-		- [ ] Error to AxiosError
-		- [ ] RTK query: tests for retreiving single product
-		- [ ] test organization / describe sections
+		- [ ] !Error to AxiosError!
+		- [ ] RTK query: tests for retreiving single product!
+		- [ ] test organization / describe sections!
 		- [ ] refine tests
 		- [ ] better error messages for UI
 		- [ ] store persist

@@ -8,6 +8,7 @@ import { useFetchOneQuery } from "../reducers/productQuery"
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { addCartItem, deleteCartItem, updateCartItem } from "../../cart/reducers/cartReducer"
 import { CartUpdate } from "../../cart/types/CartUpdate";
+import { ImageCarousel } from "../components/ImageCarousel";
 
 export const SingleProductPage = () => {
 
@@ -77,9 +78,7 @@ export const SingleProductPage = () => {
               }
             </Grid>}
             <Grid item xs={6}>
-              <Card>
-                <CardMedia component="img" image={product.images[0]} />
-              </Card>
+                <ImageCarousel images={product.images}/>{/* <CardMedia component="img" image={product.images[0]} /> */}
             </Grid>
             <Grid item xs={6}>
               <Typography>{product.description}</Typography>
