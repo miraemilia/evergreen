@@ -137,13 +137,13 @@ To try out admin functionalities, visit [API users](https://api.escuelajs.co/api
 	- medium fixes
 		- [x] reset after checkout
 		- [x] edit product quantity in cart with input field
-		- [ ] ability to change avatar
+		- [x] ability to change avatar
 		- [ ] ability to choose product images (now hardcoded)
 		- [ ] show several pictures in single product page
 		- [ ] dropdown menu for category change in product page
 		- [ ] create product success and error message
 		- [ ] product updated success message
-		- [ ] profile info refetched after update?
+		- [x] profile info refetched after update
 		- [ ] product card style and content
 		- [ ] home page more content
 		- [ ] cart style

@@ -41,7 +41,7 @@ export const Register = () => {
           name: data.name,
           email: data.email,
           password: data.password1,
-          avatar: 'https://picsum.photos/id/866/400'
+          avatar: `https://ui-avatars.com/api/?name=${data.name}&background=f9e3e2&color=444654&length=1`
         }
         dispatch(createUser(createParams))
         if (!userError) {

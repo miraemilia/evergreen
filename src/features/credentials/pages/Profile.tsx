@@ -5,7 +5,7 @@ import { Avatar, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle,
 import EditIcon from '@mui/icons-material/Edit';
 
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
-import { logout } from "../reducers/credentialsReducer"
+import { getProfile, logout } from "../reducers/credentialsReducer"
 import { LoginPrompt } from "../../../shared/pages/LoginPrompt"
 import { useState } from "react";
 import { updateUser } from "../../users/reducers/usersReducer";
@@ -16,7 +16,7 @@ export const Profile = () => {
 
   const dispatch = useAppDispatch()
 
-  const profile = useAppSelector(state => state.credentialsReducer.profile)
+  const {profile, token} = useAppSelector(state => state.credentialsReducer)
 
   const [edit, setEdit] = useState<boolean>(false)
 
@@ -50,7 +50,8 @@ export const Profile = () => {
         id: Number(profile.id),
         update: userUpdate
       }
-      dispatch(updateUser(update))      
+      dispatch(updateUser(update))
+      dispatch(getProfile(token))
     }
 
   }
