@@ -137,11 +137,16 @@ To try out admin functionalities, visit [API users](https://api.escuelajs.co/api
 	- medium fixes
 		- [x] reset after checkout
 		- [x] edit product quantity in cart with input field
-		- [ ] ability to choose avatar or product images (now hardcoded)
+		- [ ] ability to change avatar
+		- [ ] ability to choose product images (now hardcoded)
 		- [ ] show several pictures in single product page
 		- [ ] dropdown menu for category change in product page
 		- [ ] create product success and error message
 		- [ ] product updated success message
+		- [ ] profile info refetched after update?
+		- [ ] product card style and content
+		- [ ] home page more content
+		- [ ] cart style
 	- small fixes
 		- [x] headings for several pages
 		- [x] reposition filter button
@@ -150,9 +155,9 @@ To try out admin functionalities, visit [API users](https://api.escuelajs.co/api
 		- [x] style: after profile logout + after registering + not authorized
 		- [x] registration link on login page
 		- [ ] footer position
-		- [ ] cart style
-		- [ ] product card style and content
 	- to develop further
+		- [x] user able to update profile info
+		- [ ] user able to change password
 		- [ ] pagination
 		- [ ] admin functionalities: manage users
 		- [ ] component testing
@@ -170,6 +175,6 @@ To try out admin functionalities, visit [API users](https://api.escuelajs.co/api
 		- [ ] rename credentialsReducer?
 - general
 	- [x] deployment
-	- [ ] publish code
+	- [x] publish code
 	- [ ] cleanup/lint
 	- [x] revise README

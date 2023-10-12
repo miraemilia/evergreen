@@ -41,7 +41,7 @@ export const Register = () => {
           name: data.name,
           email: data.email,
           password: data.password1,
-          avatar: "https://picsum.photos/id/866/400"
+          avatar: 'https://picsum.photos/id/866/400'
         }
         dispatch(createUser(createParams))
         if (!userError) {
