@@ -24,7 +24,10 @@ export const AdminNewProduct = () => {
         title: yup.string().required(),
         price: yup.number().required(),
         description: yup.string().required(),
-        categoryId: yup.number().required()
+        categoryId: yup.number().required(),
+        image1: yup.string().url().required(),
+        image2: yup.string().url().required(),
+        image3: yup.string().url().required()
     }).required()
   
     const { register, handleSubmit, reset, formState: { errors } } = useForm<NewProductForm>({
@@ -32,18 +35,23 @@ export const AdminNewProduct = () => {
             title: '',
             price: undefined,
             description: '',
-            categoryId: undefined
+            categoryId: undefined,
+            image1: 'https://picsum.photos/id/530/500/',
+            image2: 'https://picsum.photos/id/530/500/',
+            image3: 'https://picsum.photos/id/530/500/'
         },
         resolver: yupResolver(createProductSchema)
     })
 
     const onFormSubmit: SubmitHandler<NewProductForm> = (data) => {
+        const imageList : string[] = [data.image1, data.image2, data.image3]
+        const images = imageList.filter(i => i !== '')
         const createParams : NewProduct = {
           title: data.title,
           price: data.price,
           description: data.description,
           categoryId: data.categoryId,
-          images: ["https://picsum.photos/id/530/200/300"]
+          images: images
         }
         dispatch(createProduct(createParams))
         setDialogOpen(true)
@@ -91,13 +99,34 @@ export const AdminNewProduct = () => {
               {...register("description")}
               helperText={errors.description && (<p>{errors.description.message}</p>)}
             />
+            <TextField
+              id="image1"
+              error={errors.image1 !== undefined}
+              label="Image 1"
+              {...register("image1")}
+              helperText={errors.image1 && (<p>{errors.image1.message}</p>)}
+            />
+             <TextField
+              id="image2"
+              error={errors.image2 !== undefined}
+              label="Image 2"
+              {...register("image2")}
+              helperText={errors.image2 && (<p>{errors.image2.message}</p>)}
+            />
+             <TextField
+              id="image3"
+              error={errors.image3 !== undefined}
+              label="Image 3"
+              {...register("image3")}
+              helperText={errors.image3 && (<p>{errors.image3.message}</p>)}
+            />
             <Select
                 id="categoryId"
                 error={errors.categoryId !== undefined}
                 label="Category ID"
                 {...register("categoryId")}
             >
-                {categories.map(c => <MenuItem value={c.id}>{c.name}</MenuItem>)}
+                {categories.map(c => <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>)}
             </Select>
             {errors.categoryId && <FormHelperText>{errors.categoryId.message}</FormHelperText>}
             <Button type="submit">Create product</Button>
