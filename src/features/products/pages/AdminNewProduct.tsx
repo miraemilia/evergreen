@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { NewProduct } from "../types/NewProduct"
 import { createProduct } from "../reducers/productsReducer"
 import { NewProductForm } from "../types/NewProductForm"
+import { NotAuthorized } from "../../../shared/pages/NotAuthorized";
 
 export const AdminNewProduct = () => {
 
@@ -52,7 +53,7 @@ export const AdminNewProduct = () => {
     if (!profile || (profile && profile.role !== 'admin')) {
       return (
           <main>
-              <Typography>Not authorized</Typography>
+              <NotAuthorized />
           </main>
       )
   }
@@ -60,6 +61,7 @@ export const AdminNewProduct = () => {
   return (
     <main>
         <Button component={RouterLink} to='/admin'>Back to Admin Dashboard</Button>
+        <Typography variant="h2">Create new product</Typography>
         <Box 
           component="form" 
           display='flex' 

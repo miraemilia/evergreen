@@ -1,7 +1,8 @@
-import { Avatar, Box, Button, Grid, Link, Typography } from "@mui/material"
-import { Link as RouterLink } from "react-router-dom"
+import { Avatar, Box, Button, Grid, Typography } from "@mui/material"
+
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { logout } from "../reducers/credentialsReducer"
+import { LoginPrompt } from "../../../shared/pages/LoginPrompt"
 
 export const Profile = () => {
 
@@ -15,16 +16,14 @@ export const Profile = () => {
 
   if (!profile) {
     return (
-      <main>
-        <Link component={RouterLink} to='/login'>Please log in</Link>
-      </main>
+      <LoginPrompt />
     )
   }
   
   return (
     <main>
       <Box>
-        <Typography variant='h3'>Profile</Typography>
+        <Typography variant='h2'>Profile</Typography>
         <Grid container alignItems='center'>
           <Grid item xs={4}>
             <Avatar src={profile.avatar} alt={profile.name} sx={{height: 'auto', width: 'auto'}}/>

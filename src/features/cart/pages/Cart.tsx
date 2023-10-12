@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { Link as RouterLink} from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Link, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material"
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material"
 
 import { CartItemRow } from "../components/CartItemRow"
 import { checkoutCart, resetCart } from "../reducers/cartReducer"
+import { LoginPrompt } from "../../../shared/pages/LoginPrompt"
 
 export const Cart = () => {
 
@@ -26,15 +26,16 @@ export const Cart = () => {
 
   if (!profile) {
     return (
-      <Typography>Please <Link component={RouterLink} to='/login'>log in</Link></Typography>
+      <LoginPrompt />
     )
   }
 
   if (cart.checkedOut === true) {
     return (
       <main>
-        <Box sx={{padding: '5em'}}>
-          <Typography variant="h5" textAlign={'center'}>Thank you for ordering!</Typography>
+        <Box sx={{padding: '5em', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2em'}}>
+          <Typography variant="h5">Thank you for ordering!</Typography>
+          <Button onClick={handleReset}>Reset cart</Button>
           <Dialog open={dialogOpen}>
             <DialogContent>
                 <DialogContentText>Order complete</DialogContentText>
@@ -50,10 +51,11 @@ export const Cart = () => {
 
   return (
     <main>
+      <Typography variant='h2'>Cart</Typography>
       <Box>
         <Table>
           <TableHead>
-            <TableRow>
+            <TableRow sx={{fontStyle: 'italic'}}>
               <TableCell>Product</TableCell>
               <TableCell>Price per product</TableCell>
               <TableCell>Quantity</TableCell>
@@ -63,10 +65,10 @@ export const Cart = () => {
           <TableBody>
             {cart.cartItems.map(i => <CartItemRow key={i.product.id} item={i}/>)}
             <TableRow>
-              <TableCell>Total:</TableCell>
+              <TableCell sx={{fontSize: '125%'}}>Total:</TableCell>
               <TableCell></TableCell>
               <TableCell></TableCell>
-              <TableCell>{cart.cartItems.reduce((a, i) => a + (i.product.price * i.quantity), 0)} €</TableCell>
+              <TableCell sx={{fontSize: '125%'}}>{cart.cartItems.reduce((a, i) => a + (i.product.price * i.quantity), 0)} €</TableCell>
             </TableRow>
             <TableRow>
               <TableCell><Button onClick={handleReset}>Delete cart</Button></TableCell>

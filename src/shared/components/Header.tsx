@@ -22,7 +22,7 @@ export const Header = () => {
       <AppBar position="static" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar>
             <IconButton size="large" aria-label="open drawer" onClick={toggleDrawer}><MenuIcon /></IconButton>
-            <Typography variant="h1">Store</Typography>
+            <Typography variant="h1" component={RouterLink} to='/'>Store</Typography>
             <Box display='flex' sx={{marginLeft: 'auto', gap: '1em'}}>
             { profile &&
               <Badge badgeContent={cart.cartItems.reduce((a, ci) => ci.quantity + a, 0)} color='secondary'>
@@ -34,13 +34,13 @@ export const Header = () => {
             </Box>
         </Toolbar>
         <Drawer open={drawerOpen} onClick={toggleDrawer}>
-              <MenuItem><Link component={RouterLink} to='/'>Home</Link></MenuItem>
-              <MenuItem><Link component={RouterLink} to='/products'>Products</Link></MenuItem>
-              { profile && <MenuItem><Link component={RouterLink} to='/profile'>Profile</Link></MenuItem>}
-              { profile && <MenuItem><Link component={RouterLink} to='/cart'>Cart</Link></MenuItem>}
-              { profile && profile.role === 'admin' && <MenuItem><Link component={RouterLink} to='/admin'>Admin</Link></MenuItem>}
-              <MenuItem><Link component={RouterLink} to='/login'>{profile ? 'Log out' : 'Log in'}</Link></MenuItem>
-              {!profile && <MenuItem><Link component={RouterLink} to='/register'>Register</Link></MenuItem>}
+              <MenuItem component={RouterLink} to='/'>Home</MenuItem>
+              <MenuItem component={RouterLink} to='/products'>Products</MenuItem>
+              { profile && <MenuItem component={RouterLink} to='/profile'>Profile</MenuItem>}
+              { profile && <MenuItem component={RouterLink} to='/cart'>Cart</MenuItem>}
+              { profile && profile.role === 'admin' && <MenuItem component={RouterLink} to='/admin'>Admin</MenuItem>}
+              <MenuItem component={RouterLink} to='/login'>{profile ? 'Log out' : 'Log in'}</MenuItem>
+              {!profile && <MenuItem component={RouterLink} to='/register'>Register</MenuItem>}
         </Drawer>
       </AppBar>
   )

@@ -1,8 +1,7 @@
+import { useState } from "react";
 import { useAppDispatch } from "../../../app/hooks"
 import { Link as RouterLink } from "react-router-dom"
-import { Button, Link, TableCell, TableRow, Typography } from "@mui/material"
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { Button, Link, TableCell, TableRow, TextField } from "@mui/material"
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import { CartItem } from "../types/CartItem"
@@ -15,20 +14,14 @@ type CartItemRowProps = {
 
 export const CartItemRow = ({item} : CartItemRowProps) => {
 
+  const [quantity, setQuantity] = useState<number>(item.quantity)
+
   const dispatch = useAppDispatch()
 
-  const handleReduce = () => {
+  const handleUpdate = (e : React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const update : CartUpdate = {
       productId: item.product.id,
-      quantity: item.quantity -1
-    }
-    dispatch(updateCartItem(update))
-  }
-
-  const handleAdd = () => {
-    const update : CartUpdate = {
-      productId: item.product.id,
-      quantity: item.quantity +1
+      quantity: Number(e.target.value)
     }
     dispatch(updateCartItem(update))
   }
@@ -42,9 +35,7 @@ export const CartItemRow = ({item} : CartItemRowProps) => {
       <TableCell><Link component={RouterLink} to={`/products/${item.product.id}`}>{item.product.title}</Link></TableCell>
       <TableCell>{item.product.price} €</TableCell>
       <TableCell>
-        <Button onClick={handleReduce}><RemoveCircleOutlineIcon /></Button>
-          {item.quantity}
-        <Button onClick={handleAdd}><AddCircleOutlineIcon /></Button>
+        <TextField type='number' value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} onBlur={handleUpdate} sx={{width: '15em', fontSize: '50%'}}></TextField>
       </TableCell>
       <TableCell>{item.quantity * item.product.price} €</TableCell>
       <Button onClick={handleDelete}><DeleteIcon/></Button>

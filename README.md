@@ -103,8 +103,6 @@ This is a project for the Integrify Academy Frontend module. The task was to cre
 
 ### Functions
 
-- needs to be updated
-
 ![Diagram](readme_images/E-commerceDiagram.png)
 
 ### Flowchart
@@ -132,47 +130,46 @@ Deployed with Netlify at [https://courageous-palmier-3375a6.netlify.app](https:/
 
 ![Screenshot](readme_images/E-commerceScreenshot.png)
 
-## To do (final week)
+To try out admin functionalities, visit [API users](https://api.escuelajs.co/api/v1/users) for credentials
+
+## To do
 - UI
-	- urgent
-		- [x] admin functionalities: create product
-		- [x] hide cart icon when not logged in
-		- [x] hide admin page
-		- [x] change no matches alert (+ redux)
-	- fixes
+	- medium fixes
+		- [x] reset after checkout
+		- [x] edit product quantity in cart with input field
+		- [ ] ability to choose avatar or product images (now hardcoded)
+		- [ ] show several pictures in single product page
+		- [ ] dropdown menu for category change in product page
 		- [ ] create product success and error message
 		- [ ] product updated success message
-		- [ ] reset after checkout
-		- [ ] edit product quantity in cart with input field
-		- [ ] registration link on login page
-		- [ ] show several pictures in single product page
 	- small fixes
-		- [ ] reposition filter button
-		- [ ] AppBar heading: styling and link
+		- [x] headings for several pages
+		- [x] reposition filter button
+		- [x] AppBar heading: styling and link
 		- [x] default profile image is oval
+		- [x] style: after profile logout + after registering + not authorized
+		- [x] registration link on login page
 		- [ ] footer position
-		- [ ] style: after profile logout + after registering + not authorized
-		- [ ] headings for several pages
-	- to develop further (optional)
-		- [ ] reusable components e.g. dialog, unauthorized page...
-		- [ ] better exception handling & ErrorPage
 		- [ ] cart style
 		- [ ] product card style and content
-		- [ ] products page mobile layout
-		- [ ] dropdown menu for category change in product page
+	- to develop further
 		- [ ] pagination
-		- [ ] ability to choose avatar or product images (now hardcoded)
 		- [ ] admin functionalities: manage users
 		- [ ] component testing
+		- [ ] reusable components e.g. dialog, unauthorized page, category selection...
+		- [ ] better exception handling & ErrorPage
+		- [ ] products page mobile layout
 - redux
 	- to develop further
 		- [ ] Error to AxiosError
 		- [ ] RTK query: tests for retreiving single product
+		- [ ] test organization / describe sections
 		- [ ] refine tests
 		- [ ] better error messages for UI
 		- [ ] store persist
 		- [ ] rename credentialsReducer?
 - general
 	- [x] deployment
+	- [ ] publish code
 	- [ ] cleanup/lint
 	- [x] revise README

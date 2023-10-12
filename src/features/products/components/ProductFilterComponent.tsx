@@ -47,6 +47,11 @@ export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
       const handleTitleSearchChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setTitleSearch(e.target.value)
       }
+
+      const clearFilters = (e : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        setTitleSearch('')
+        setPriceMax('')
+      }
     
       const handleFilterChange = () => {
         let newFilter : ProductFilter[] = []
@@ -78,13 +83,14 @@ export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
         }
         console.log(newFilter)
         dispatch(fetchWithFilters(newFilter))
+        setFilterOpen(false)
       }
 
   return (
     <>
-    <Grid container spacing={0.5}>
+    <Grid container spacing={0.5} alignItems={'center'}>
       <Grid item xs={4}>
-        <FormControl sx={{ m: 2, minWidth: 150 }}>
+        <FormControl sx={{ m: 2, minWidth: 200 }}>
           <InputLabel id='sort'>Sort by price</InputLabel>
           <Select labelId='sort' value={sortDirection} onChange={handleSort}>
               <MenuItem value={'asc'}>Lowest price first</MenuItem>
@@ -102,19 +108,20 @@ export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
         <FormControl sx={{padding: '2em'}}>
         <Grid container spacing={3} direction='column'>
           <Grid item>
-            <TextField value={titleSearch} onChange={handleTitleSearchChange} label='Search in name'></TextField>
+            <TextField value={titleSearch} onChange={handleTitleSearchChange} label='Search for name'></TextField>
           </Grid>
           <Grid item>
             <TextField value={priceMax} type='number' onChange={handlePriceMaxChange} label='Maximum price'/>
           </Grid>
           <Grid item>
-            <Button type='submit' onClick={handleFilterChange}>Filter</Button>
           </Grid>
         </Grid>
         </FormControl>
       </DialogContent>
       <DialogActions>
-              <Button onClick={() => setFilterOpen(false)}>Close</Button>
+          <Button onClick={clearFilters}>Clear</Button>
+          <Button onClick={() => setFilterOpen(false)}>Cancel</Button>
+          <Button type='submit' variant='outlined' color='secondary' onClick={handleFilterChange}>Ok</Button>
       </DialogActions>
     </Dialog>
     </>

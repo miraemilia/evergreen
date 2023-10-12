@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from "@mui/material"
 import { Link as RouterLink } from "react-router-dom"
 import { useAppSelector } from "../../app/hooks"
+import { NotAuthorized } from "./NotAuthorized"
 
 export const Admin = () => {
 
@@ -8,12 +9,13 @@ export const Admin = () => {
 
     if (!profile || (profile && profile.role !== 'admin')) {
             return (
-                <Typography>Not authorized</Typography>
+                <NotAuthorized />
             )
     }
 
   return (
     <main>
+        <Typography variant="h2" textAlign={'center'}>Admin Dashboard</Typography>
         <Box display='flex' flexDirection='column' gap='2em' alignItems='center'>
             <Button component={RouterLink} to='/admin/products'>Manage products</Button>
             <Button component={RouterLink} to='/admin/newproduct'>Add products</Button>

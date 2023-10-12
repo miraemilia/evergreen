@@ -1,9 +1,9 @@
+import { useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, Link, TextField, Typography } from "@mui/material"
-import { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Box, Button, TextField, Typography } from "@mui/material"
 
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { createUser } from "../reducers/usersReducer";
@@ -50,17 +50,26 @@ export const Register = () => {
     }
 
     if (submitted) {
-      return (<Typography>Thank you for registering! <Link component={RouterLink} to='/login'>Log in</Link></Typography>)
+      return (
+        <main>
+          <Box sx={{padding: '5em', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2em'}}>
+            <Typography variant="h5">Thank you for registering!</Typography>
+            <Button component={RouterLink} to='/login'>Log in</Button>
+          </Box>
+        </main>
+      )
     }
   
     return (
       <main>
+        <Typography variant="h2" textAlign={'center'}>Register</Typography>
         {userError && <Typography>{userError}</Typography>}
         <Box 
           component="form" 
           display='flex' 
           flexDirection='column'
-          gap='1.5em'
+          alignItems='center'
+          gap='0.5em'
           onSubmit={handleSubmit(onFormSubmit)} 
           sx={{width: '25em', mx: 'auto'}}
         >

@@ -1,7 +1,8 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Alert, Box, Button, TextField, Typography } from "@mui/material"
+import { Link as RouterLink} from "react-router-dom";
+import { Alert, Box, Button, Link, TextField, Typography } from "@mui/material"
 
 import { LoginParams } from "../types/LoginParams";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
@@ -39,7 +40,7 @@ export const Login = () => {
     return (
       <main>
         <Box display='flex' flexDirection='column' alignItems='center' gap='2em'>
-          <Typography textAlign='center'>You are logged in as {profile.name}</Typography>
+          <Typography textAlign='center'>You are logged in as <Link component={RouterLink} to='/profile'>{profile.name}</Link></Typography>
           <Button onClick={onLogout}>Log out</Button>
         </Box>
       </main>
@@ -75,6 +76,7 @@ export const Login = () => {
             helperText={errors.password && (<p>{errors.password.message}</p>)}
           /> 
           <Button type="submit">Login</Button>
+          <Link component={RouterLink} to='/register'>Register</Link>
       </Box>
     </main>
   )

@@ -7,6 +7,7 @@ import { deleteProduct, fetchAllProducts, updateProduct } from "../reducers/prod
 import { ProductRow } from "../types/ProductRow";
 import { ProductUpdate, UpdateParams } from "../types/ProductUpdate";
 import { Link as RouterLink } from "react-router-dom";
+import { NotAuthorized } from "../../../shared/pages/NotAuthorized";
 
 export const AdminProducts = () => {
 
@@ -25,9 +26,7 @@ export const AdminProducts = () => {
   
     if (!profile || (profile && profile.role !== 'admin')) {
         return (
-            <main>
-                <Typography>Not authorized</Typography>
-            </main>
+            <NotAuthorized />
         )
     }
 
@@ -102,6 +101,7 @@ export const AdminProducts = () => {
     return (
         <main>
             <Button component={RouterLink} to='/admin'>Back to Admin Dashboard</Button>
+            <Typography variant="h2">Manage products</Typography>
             <Box width='100%'>
                 <Button onClick={handleDeleteSelected}>Delete</Button>
                 <DataGrid
