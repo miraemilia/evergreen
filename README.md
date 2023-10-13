@@ -36,14 +36,16 @@ This is a project for the Integrify Academy Frontend module. The task was to cre
 - able to log in
 	#### Logged in user
 	- able to view own account details
-	- *able to modify email, password, name and avatar(?) for self
+	- able to modify email, name and avatar for self
+	- *able to change password
 	- able to log out
 	- *able to delete account
 	- able to create cart
 	- able to update cart
 	- able to check out cart
 	#### Admin
-  - able to modify products (create, update, delete)
+  - able to manage products (create, update, delete)
+  - able to manage categories (update, delete)
   - *able to view all users (all details but password)
   - *able to delete users
   - *able to modify user roles
@@ -58,6 +60,7 @@ This is a project for the Integrify Academy Frontend module. The task was to cre
 
 ### Category:
 - can be viewed as list
+- can be updated and deleted by admin
 
 ### Cart:
 - can be created
@@ -140,23 +143,24 @@ To try out admin functionalities, visit [API users](https://api.escuelajs.co/api
 		- [x] ability to change avatar
 		- [x] ability to choose product images (now hardcoded)
 		- [x] show several pictures in single product page
-		- [ ] !dropdown menu for category change in product page!
+		- [x] dropdown menu for category change in product page
 		- [x] createproduct success and error message
-		- [ ] product updated success message
+		- [ ] MUI DataGrid update success message
 		- [x] profile info refetched after update
 		- [ ] product card style and content!
 		- [ ] cart style!
-		- [ ] !productsPage layout!
+		- [x] productsPage layout
+		- [ ] selectField warning(ProductFilter, AdminNewProduct)
+		- [ ] keep CardMedia/Avatar size independently from content
 	- small fixes
 		- [x] headings for several pages
 		- [x] reposition filter button
 		- [x] AppBar heading: styling and link
-		- [ ] keep profile picture circle
 		- [x] style: after profile logout + after registering + not authorized
 		- [x] registration link on login page
 		- [ ] footer position
 		- [ ] per page label
-		- [ ] !createproduct select field!
+		- [x] createproduct select field
 	- to develop further
 		- [x] user able to update profile info
 		- [ ] user able to change password
@@ -164,7 +168,7 @@ To try out admin functionalities, visit [API users](https://api.escuelajs.co/api
 		- [ ] admin functionalities: manage users
 		- [x] admin functionalities: manage categories
 		- [ ] home page more content
-		- [ ] !component testing!
+		- [ ] component testing!
 		- [ ] reusable components e.g. dialog, category selection...
 		- [ ] better exception handling & ErrorPage
 		- [ ] products page mobile layout
