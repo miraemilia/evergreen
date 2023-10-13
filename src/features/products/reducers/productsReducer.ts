@@ -12,7 +12,7 @@ const initialState: ProductsReducerState = {
     loading: false
 }
 
-export const fetchAllProducts = createAsyncThunk(
+export const fetchAllProducts = createAsyncThunk<Product[], void, {rejectValue: string}>(
     "products/getAllProducts",
     async (_, {rejectWithValue}) => {
         try {
@@ -28,7 +28,7 @@ export const fetchAllProducts = createAsyncThunk(
     }
 )
 
-export const fetchWithFilters = createAsyncThunk(
+export const fetchWithFilters = createAsyncThunk<Product[], ProductFilter[], {rejectValue: string}>(
     "products/getFiltered",
     async (filters : ProductFilter[], {rejectWithValue}) => {
         let queryParam = '?'
@@ -51,7 +51,7 @@ export const fetchWithFilters = createAsyncThunk(
     }
 )
 
-export const deleteProduct = createAsyncThunk(
+export const deleteProduct = createAsyncThunk<number, number, {rejectValue:string}>(
     "products/deleteProduct",
     async (id : number, {rejectWithValue}) => {
         try {
@@ -67,7 +67,7 @@ export const deleteProduct = createAsyncThunk(
     }
 )
 
-export const updateProduct = createAsyncThunk(
+export const updateProduct = createAsyncThunk<Product, UpdateParams, {rejectValue: string}>(
     "products/updateProduct",
     async (params : UpdateParams, {rejectWithValue} ) => {
         try {
@@ -86,7 +86,7 @@ export const updateProduct = createAsyncThunk(
     }
 )
 
-export const createProduct = createAsyncThunk(
+export const createProduct = createAsyncThunk<Product, NewProduct, {rejectValue: string}>(
     "products/createProduct",
     async (product : NewProduct, {rejectWithValue}) => {
         try {

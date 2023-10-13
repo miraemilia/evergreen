@@ -141,7 +141,7 @@ To try out admin functionalities, visit [API users](https://api.escuelajs.co/api
 		- [x] ability to choose product images (now hardcoded)
 		- [x] show several pictures in single product page
 		- [ ] !dropdown menu for category change in product page!
-		- [ ] create product success and error message
+		- [x] createproduct success and error message
 		- [ ] product updated success message
 		- [x] profile info refetched after update
 		- [ ] product card style and content!
@@ -151,17 +151,18 @@ To try out admin functionalities, visit [API users](https://api.escuelajs.co/api
 		- [x] headings for several pages
 		- [x] reposition filter button
 		- [x] AppBar heading: styling and link
-		- [x] default profile image is oval
+		- [ ] keep profile picture circle
 		- [x] style: after profile logout + after registering + not authorized
 		- [x] registration link on login page
 		- [ ] footer position
 		- [ ] per page label
-		- [ ] !create product select field!
+		- [ ] !createproduct select field!
 	- to develop further
 		- [x] user able to update profile info
 		- [ ] user able to change password
 		- [x] pagination
 		- [ ] admin functionalities: manage users
+		- [x] admin functionalities: manage categories
 		- [ ] home page more content
 		- [ ] !component testing!
 		- [ ] reusable components e.g. dialog, category selection...
@@ -169,9 +170,9 @@ To try out admin functionalities, visit [API users](https://api.escuelajs.co/api
 		- [ ] products page mobile layout
 		- [ ] image upload
 - redux
-	- [ ] !fix login test!
 	- to develop further
 		- [ ] !Error to AxiosError!
+		- [x] categoryReducer: delete, uodate + tests
 		- [ ] RTK query: tests for retreiving single product!
 		- [ ] test organization / describe sections!
 		- [ ] refine tests

@@ -68,7 +68,7 @@ export const Profile = () => {
         <Typography variant='h2'>Profile</Typography>
         <Grid container alignItems='center'>
           <Grid item xs={4}>
-            <Avatar src={profile.avatar} alt={profile.name} sx={{height: 'auto', width: 'auto'}}></Avatar>
+            <Avatar src={profile.avatar} alt={profile.name} sx={{height: 'auto', width: 'auto', backgroundSize: 'cover'}}></Avatar>
           </Grid>
           <Grid item xs={8} sx={{padding: '3em'}}>
             <Typography>Name: {profile.name}</Typography>

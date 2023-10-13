@@ -1,6 +1,6 @@
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
-import { Box, Button, Card, CardMedia, Grid, Paper, Typography } from "@mui/material"
+import { Box, Button, Grid, Paper, Typography } from "@mui/material"
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import { ErrorPage } from "../../../app/pages/ErrorPage"
@@ -78,7 +78,7 @@ export const SingleProductPage = () => {
               }
             </Grid>}
             <Grid item xs={6}>
-                <ImageCarousel images={product.images}/>{/* <CardMedia component="img" image={product.images[0]} /> */}
+                <ImageCarousel images={product.images}/>
             </Grid>
             <Grid item xs={6}>
               <Typography>{product.description}</Typography>

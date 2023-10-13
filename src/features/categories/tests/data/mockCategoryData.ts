@@ -11,4 +11,9 @@ export const mockCategories : Category[] = [
         name: 'Cutlery',
         image: 'image2.png'        
     },
+    {
+        id: 3,
+        name: 'Games',
+        image: 'image3.png'        
+    }
 ]

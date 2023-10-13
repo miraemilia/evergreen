@@ -3,7 +3,7 @@ import { Link as RouterLink } from "react-router-dom"
 import { SubmitHandler, useForm } from "react-hook-form"
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup"
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, FormHelperText, MenuItem, Select, TextField, Typography } from "@mui/material"
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material"
 
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { NewProduct } from "../types/NewProduct"
@@ -19,6 +19,7 @@ export const AdminNewProduct = () => {
     const categories = useAppSelector(state => state.categoriesReducer.categories)
 
     const [dialogOpen, setDialogOpen] = useState<boolean>(false)
+    const [dialogMessage, setDialogMessage] = useState<string>('')
 
     const createProductSchema = yup.object({
         title: yup.string().required(),
@@ -36,14 +37,14 @@ export const AdminNewProduct = () => {
             price: undefined,
             description: '',
             categoryId: undefined,
-            image1: 'https://picsum.photos/id/530/500/',
-            image2: 'https://picsum.photos/id/530/500/',
-            image3: 'https://picsum.photos/id/530/500/'
+            image1: 'https://picsum.photos/id/535/500/',
+            image2: 'https://picsum.photos/id/56/500/',
+            image3: 'https://picsum.photos/id/660/500/'
         },
         resolver: yupResolver(createProductSchema)
     })
 
-    const onFormSubmit: SubmitHandler<NewProductForm> = (data) => {
+    const onFormSubmit: SubmitHandler<NewProductForm> = async (data) => {
         const imageList : string[] = [data.image1, data.image2, data.image3]
         const images = imageList.filter(i => i !== '')
         const createParams : NewProduct = {
@@ -53,7 +54,12 @@ export const AdminNewProduct = () => {
           categoryId: data.categoryId,
           images: images
         }
-        dispatch(createProduct(createParams))
+        const response = await dispatch(createProduct(createParams))
+        if (typeof response.payload === 'string') {
+          setDialogMessage(`Failed to create new product`)
+        } else if (response.payload){
+          setDialogMessage(`New product ${response.payload.id} ${response.payload.title} added`)
+        }
         setDialogOpen(true)
         reset()
     }
@@ -120,20 +126,24 @@ export const AdminNewProduct = () => {
               {...register("image3")}
               helperText={errors.image3 && (<p>{errors.image3.message}</p>)}
             />
-            <Select
+            <FormControl>
+              <InputLabel id='cat'>Category ID</InputLabel>
+              <Select
                 id="categoryId"
                 error={errors.categoryId !== undefined}
-                label="Category ID"
+                labelId = 'cat'
+                label='Category ID'
                 {...register("categoryId")}
-            >
-                {categories.map(c => <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>)}
-            </Select>
-            {errors.categoryId && <FormHelperText>{errors.categoryId.message}</FormHelperText>}
+              >
+                  {categories.map(c => <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>)}
+              </Select>
+              {errors.categoryId && <FormHelperText>{errors.categoryId.message}</FormHelperText>}
+            </FormControl>
             <Button type="submit">Create product</Button>
         </Box>
         <Dialog open={dialogOpen}>
           <DialogContent>
-              <DialogContentText>New product created</DialogContentText>
+              <DialogContentText>{dialogMessage}</DialogContentText>
           </DialogContent>
           <DialogActions>
               <Button onClick={() => setDialogOpen(false)}>Ok</Button>

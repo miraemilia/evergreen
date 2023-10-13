@@ -19,6 +19,7 @@ import { AdminProducts } from "./features/products/pages/AdminProducts"
 import { Admin } from "./shared/pages/Admin"
 import { AdminNewProduct } from "./features/products/pages/AdminNewProduct"
 import { AdminUsersPage } from "./features/users/pages/AdminUsersPage"
+import { AdminCategories } from "./features/categories/pages/AdminCategories"
 
 const App = () => {
 
@@ -91,6 +92,10 @@ const App = () => {
         {
           path: "admin/users",
           element: <AdminUsersPage />,
+        },
+        {
+          path: "admin/categories",
+          element: <AdminCategories />,
         }
       ]
     }
