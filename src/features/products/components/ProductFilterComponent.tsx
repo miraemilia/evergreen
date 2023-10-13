@@ -111,7 +111,7 @@ export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
         </FormControl>
         <FormControl sx={{ m: 2, minWidth: 200 }}>
           <InputLabel id='cat'>Category</InputLabel>
-          <Select id='categoryId' labelId = 'cat' onChange={handleCategoryChange}>
+          <Select id='categoryId' labelId = 'cat' defaultValue={0} onChange={handleCategoryChange}>
             <MenuItem key={0} value={0}>All</MenuItem>
             {categories.map(c => <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>)}
           </Select>

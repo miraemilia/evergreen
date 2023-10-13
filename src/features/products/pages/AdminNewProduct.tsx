@@ -25,7 +25,7 @@ export const AdminNewProduct = () => {
         title: yup.string().required(),
         price: yup.number().required(),
         description: yup.string().required(),
-        categoryId: yup.number().required(),
+        categoryId: yup.number().min(1, 'A category needs to be selected').required(),
         image1: yup.string().url().required(),
         image2: yup.string().url().required(),
         image3: yup.string().url().required()
@@ -36,7 +36,7 @@ export const AdminNewProduct = () => {
             title: '',
             price: undefined,
             description: '',
-            categoryId: undefined,
+            categoryId: 0,
             image1: 'https://picsum.photos/id/535/500/',
             image2: 'https://picsum.photos/id/56/500/',
             image3: 'https://picsum.photos/id/660/500/'
@@ -133,11 +133,13 @@ export const AdminNewProduct = () => {
                 error={errors.categoryId !== undefined}
                 labelId = 'cat'
                 label='Category ID'
+                defaultValue={0}
                 {...register("categoryId")}
               >
-                  {categories.map(c => <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>)}
+                <MenuItem key='0' value={0}><em>None</em></MenuItem>
+                {categories.map(c => <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>)}
               </Select>
-              {errors.categoryId && <FormHelperText>{errors.categoryId.message}</FormHelperText>}
+              {errors.categoryId && <FormHelperText><div>{errors.categoryId.message}</div></FormHelperText>}
             </FormControl>
             <Button type="submit">Create product</Button>
         </Box>

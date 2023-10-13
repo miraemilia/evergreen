@@ -150,7 +150,7 @@ To try out admin functionalities, visit [API users](https://api.escuelajs.co/api
 		- [ ] product card style and content!
 		- [ ] cart style!
 		- [x] productsPage layout
-		- [ ] selectField warning(ProductFilter, AdminNewProduct)
+		- [x] selectField warning(ProductFilter, AdminNewProduct)!
 		- [ ] keep CardMedia/Avatar size independently from content
 	- small fixes
 		- [x] headings for several pages
@@ -175,7 +175,7 @@ To try out admin functionalities, visit [API users](https://api.escuelajs.co/api
 		- [ ] image upload
 - redux
 	- to develop further
-		- [ ] !Error to AxiosError!
+		- [ ] Error to AxiosError!
 		- [x] categoryReducer: delete, uodate + tests
 		- [ ] RTK query: tests for retreiving single product!
 		- [ ] test organization / describe sections!
