@@ -64,7 +64,7 @@ export const SingleProductPage = () => {
       <Button onClick={() => navigate(-1)}>Back</Button>
       {product && 
         <Paper>
-          <Typography variant="h3">{product.title}</Typography>
+          <Typography variant='h3'>{product.title}</Typography>
           <Grid container spacing={2} sx={{padding: '2em'}}>
             {profile && <Grid item xs={12}>
               {(cartIndex === -1)

@@ -1,6 +1,7 @@
 import { Button, Typography } from "@mui/material"
 import { useAppSelector } from "../../../app/hooks"
 import { Link as RouterLink } from "react-router-dom"
+
 import { NotAuthorized } from "../../../shared/pages/NotAuthorized"
 
 export const AdminUsersPage = () => {
@@ -20,7 +21,7 @@ export const AdminUsersPage = () => {
     
     <main>
         <Button component={RouterLink} to='/admin'>Back to Admin Dashboard</Button>
-        <Typography variant="h2">Manage users</Typography>
+        <Typography variant='h2'>Manage users</Typography>
         Users
     </main>
   )

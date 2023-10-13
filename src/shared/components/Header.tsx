@@ -1,11 +1,11 @@
-import { AppBar, Drawer, IconButton, MenuItem, Toolbar, Typography, Link, Avatar, Box, Badge } from "@mui/material"
-import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
+import { AppBar, Drawer, IconButton, MenuItem, Toolbar, Typography, Link, Avatar, Box, Badge } from "@mui/material"
+import MenuIcon from '@mui/icons-material/Menu';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
+import { AccountCircle } from "@mui/icons-material";
 
 import { useAppSelector } from "../../app/hooks";
-import { AccountCircle } from "@mui/icons-material";
 
 export const Header = () => {
 
@@ -19,10 +19,10 @@ export const Header = () => {
   }
 
   return (
-      <AppBar position="static" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+      <AppBar position='static' sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar>
-            <IconButton size="large" aria-label="open drawer" onClick={toggleDrawer}><MenuIcon /></IconButton>
-            <Typography variant="h1" component={RouterLink} to='/'>Store</Typography>
+            <IconButton size='large' aria-label='open drawer' onClick={toggleDrawer}><MenuIcon /></IconButton>
+            <Typography variant='h1' component={RouterLink} to='/'>Store</Typography>
             <Box display='flex' sx={{marginLeft: 'auto', gap: '1em'}}>
             { profile &&
               <Badge badgeContent={cart.cartItems.reduce((a, ci) => ci.quantity + a, 0)} color='secondary'>

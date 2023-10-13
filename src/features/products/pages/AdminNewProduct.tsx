@@ -75,9 +75,9 @@ export const AdminNewProduct = () => {
   return (
     <main>
         <Button component={RouterLink} to='/admin'>Back to Admin Dashboard</Button>
-        <Typography variant="h2">Create new product</Typography>
+        <Typography variant='h2'>Create new product</Typography>
         <Box 
-          component="form" 
+          component='form' 
           display='flex' 
           flexDirection='column'
           gap='1.5em'
@@ -85,63 +85,63 @@ export const AdminNewProduct = () => {
           sx={{width: '25em', mx: 'auto'}}
         >
           <TextField
-              id="title"
+              id='title'
               error={errors.title !== undefined}
-              label="Title"
-              {...register("title")}
+              label='Title'
+              {...register('title')}
               helperText={errors.title && (<p>{errors.title.message}</p>)}
             /> 
             <TextField
-              id="price"
+              id='price'
               error={errors.price !== undefined}
-              label="Price"
-              {...register("price")}
+              label='Price'
+              {...register('price')}
               helperText={errors.price && (<p>{errors.price.message}</p>)}
             /> 
             <TextField
-              id="description"
+              id='description'
               error={errors.description !== undefined}
-              label="Description"
-              {...register("description")}
+              label='Description'
+              {...register('description')}
               helperText={errors.description && (<p>{errors.description.message}</p>)}
             />
             <TextField
-              id="image1"
+              id='image1'
               error={errors.image1 !== undefined}
-              label="Image 1"
-              {...register("image1")}
+              label='Image 1'
+              {...register('image1')}
               helperText={errors.image1 && (<p>{errors.image1.message}</p>)}
             />
              <TextField
-              id="image2"
+              id='image2'
               error={errors.image2 !== undefined}
-              label="Image 2"
-              {...register("image2")}
+              label='Image 2'
+              {...register('image2')}
               helperText={errors.image2 && (<p>{errors.image2.message}</p>)}
             />
              <TextField
-              id="image3"
+              id='image3'
               error={errors.image3 !== undefined}
-              label="Image 3"
-              {...register("image3")}
+              label='Image 3'
+              {...register('image3')}
               helperText={errors.image3 && (<p>{errors.image3.message}</p>)}
             />
             <FormControl>
               <InputLabel id='cat'>Category ID</InputLabel>
               <Select
-                id="categoryId"
+                id='categoryId'
                 error={errors.categoryId !== undefined}
                 labelId = 'cat'
                 label='Category ID'
                 defaultValue={0}
-                {...register("categoryId")}
+                {...register('categoryId')}
               >
                 <MenuItem key='0' value={0}><em>None</em></MenuItem>
                 {categories.map(c => <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>)}
               </Select>
               {errors.categoryId && <FormHelperText><div>{errors.categoryId.message}</div></FormHelperText>}
             </FormControl>
-            <Button type="submit">Create product</Button>
+            <Button type='submit'>Create product</Button>
         </Box>
         <Dialog open={dialogOpen}>
           <DialogContent>

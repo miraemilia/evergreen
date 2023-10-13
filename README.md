@@ -186,5 +186,6 @@ To try out admin functionalities, visit [API users](https://api.escuelajs.co/api
 - general
 	- [x] deployment
 	- [x] publish code
-	- [ ] cleanup/lint
+	- [x] cleanup/lint: Components and Pages
+	- [ ] cleanup (setting up Prettier)
 	- [x] revise README

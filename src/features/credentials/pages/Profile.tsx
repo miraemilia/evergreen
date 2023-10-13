@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -7,7 +8,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { getProfile, logout } from "../reducers/credentialsReducer"
 import { LoginPrompt } from "../../../shared/pages/LoginPrompt"
-import { useState } from "react";
 import { updateUser } from "../../users/reducers/usersReducer";
 import { UserUpdate, UserUpdateParams } from "../../users/types/UserUpdate";
 import { UpdateUserForm } from "../../users/types/UpdateUserForm";
@@ -83,7 +83,7 @@ export const Profile = () => {
         <DialogTitle>Update profile</DialogTitle>
         <DialogContent>
           <Box 
-            component="form" 
+            component='form' 
             display='flex' 
             flexDirection='column'
             alignItems='center'
@@ -92,27 +92,27 @@ export const Profile = () => {
             sx={{width: '25em', mx: 'auto'}}
           >
             <TextField
-                id="name"
+                id='name'
                 error={errors.email !== undefined}
-                placeholder="Your name"
-                {...register("name")}
+                placeholder='Your name'
+                {...register('name')}
                 helperText={errors.name && (<p>{errors.name.message}</p>)}
               /> 
               <TextField
-                id="email"
+                id='email'
                 error={errors.email !== undefined}
-                placeholder="Your email"
-                {...register("email")}
+                placeholder='Your email'
+                {...register('email')}
                 helperText={errors.email && (<p>{errors.email.message}</p>)}
               />
               <TextField
-                id="avatar"
+                id='avatar'
                 error={errors.avatar !== undefined}
-                placeholder="Avatar"
-                {...register("avatar")}
+                placeholder='Avatar'
+                {...register('avatar')}
                 helperText={errors.avatar && (<p>{errors.avatar.message}</p>)}
               />
-            <Button type="submit">Submit</Button>
+            <Button type='submit'>Submit</Button>
         </Box>
         </DialogContent>
         <DialogActions>

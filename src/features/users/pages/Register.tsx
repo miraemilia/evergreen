@@ -53,7 +53,7 @@ export const Register = () => {
       return (
         <main>
           <Box sx={{padding: '5em', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2em'}}>
-            <Typography variant="h5">Thank you for registering!</Typography>
+            <Typography variant='h5'>Thank you for registering!</Typography>
             <Button component={RouterLink} to='/login'>Log in</Button>
           </Box>
         </main>
@@ -62,10 +62,10 @@ export const Register = () => {
   
     return (
       <main>
-        <Typography variant="h2" textAlign={'center'}>Register</Typography>
+        <Typography variant='h2' textAlign={'center'}>Register</Typography>
         {userError && <Typography>{userError}</Typography>}
         <Box 
-          component="form" 
+          component='form' 
           display='flex' 
           flexDirection='column'
           alignItems='center'
@@ -74,34 +74,34 @@ export const Register = () => {
           sx={{width: '25em', mx: 'auto'}}
         >
           <TextField
-              id="name"
+              id='name'
               error={errors.email !== undefined}
-              placeholder="Your name"
-              {...register("name")}
+              placeholder='Your name'
+              {...register('name')}
               helperText={errors.name && (<p>{errors.name.message}</p>)}
             /> 
             <TextField
-              id="email"
+              id='email'
               error={errors.email !== undefined}
-              placeholder="Your email"
-              {...register("email")}
+              placeholder='Your email'
+              {...register('email')}
               helperText={errors.email && (<p>{errors.email.message}</p>)}
             /> 
             <TextField
-              id="password1"
+              id='password1'
               error={errors.password1 !== undefined}
-              placeholder="Password"
-              {...register("password1")}
+              placeholder='Password'
+              {...register('password1')}
               helperText={errors.password1 && (<p>{errors.password1.message}</p>)}
             />
             <TextField
-              id="password2"
+              id='password2'
               error={errors.password2 !== undefined}
-              placeholder="Type password again"
-              {...register("password2")}
+              placeholder='Type password again'
+              {...register('password2')}
               helperText={errors.password2 && (<p>{errors.password2.message}</p>)}
             />
-            <Button type="submit">Register</Button>
+            <Button type='submit'>Register</Button>
         </Box>
       </main>
     )

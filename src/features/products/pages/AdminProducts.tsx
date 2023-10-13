@@ -1,12 +1,12 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from "@mui/material"
 import { useEffect, useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { DataGrid, GridRowSelectionModel } from "@mui/x-data-grid";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from "@mui/material"
 
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { deleteProduct, fetchAllProducts, updateProduct } from "../reducers/productsReducer";
 import { ProductRow } from "../types/ProductRow";
 import { ProductUpdate, UpdateParams } from "../types/ProductUpdate";
-import { Link as RouterLink } from "react-router-dom";
 import { NotAuthorized } from "../../../shared/pages/NotAuthorized";
 
 export const AdminProducts = () => {
@@ -78,17 +78,11 @@ export const AdminProducts = () => {
             update: update
         }
         dispatch(updateProduct(updateParams))
-        //handleUpdateSuccess() - if using this, row reverts to original
         return updatedRow
     }
 
     const handleUpdateError = () => {
         setAlert('Product update failed')
-        setDialogOpen(true)
-    }
-
-    const handleUpdateSuccess = () => {
-        setAlert('Product update successful')
         setDialogOpen(true)
     }
 
@@ -101,11 +95,11 @@ export const AdminProducts = () => {
     return (
         <main>
             <Button component={RouterLink} to='/admin'>Back to Admin Dashboard</Button>
-            <Typography variant="h2">Manage products</Typography>
+            <Typography variant='h2'>Manage products</Typography>
             <Box width='100%'>
                 <Button onClick={handleDeleteSelected}>Delete</Button>
                 <DataGrid
-                    editMode="row"
+                    editMode='row'
                     processRowUpdate={handleRowUpdate}
                     onProcessRowUpdateError={handleUpdateError}
                     rows={rows}

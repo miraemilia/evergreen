@@ -1,5 +1,5 @@
-import { Card, CardContent, CardMedia, Grid, Link, Typography } from "@mui/material"
 import { Link as RouterLink } from "react-router-dom"
+import { Card, CardContent, CardMedia, Grid, Link, Typography } from "@mui/material"
 
 import { Product } from "../types/Product"
 
@@ -13,7 +13,7 @@ export const ProductCard = ({ product } : Props) => {
     <Grid item xs={3}>
       <Card>
         <CardContent>
-          <CardMedia component="img" image={product.images[0]} height="300" />
+          <CardMedia component='img' image={product.images[0]} height='300' />
           <CardContent>
             <Typography>{product.category.name}</Typography>
             <Typography><Link component={RouterLink} to={`/products/${product.id}`}>{product.title}</Link></Typography>

@@ -49,8 +49,8 @@ export const Login = () => {
 
   return (
     <main>
-      <Typography variant="h2" textAlign={'center'}>Log in</Typography>
-      {error && <Alert severity="error">{error}</Alert>}
+      <Typography variant='h2' textAlign={'center'}>Log in</Typography>
+      {error && <Alert severity='error'>{error}</Alert>}
       <Box 
         component='form'
         display='flex'
@@ -61,21 +61,21 @@ export const Login = () => {
         sx={{width: '25em', mx: 'auto'}}
       >
           <TextField
-            id="email"
+            id='email'
             error={errors.email !== undefined}
-            placeholder="Your email"
-            {...register("email")}
+            placeholder='Your email'
+            {...register('email')}
             helperText={errors.email && (<p>{errors.email.message}</p>)}
           /> 
           <TextField
-            id="password"
-            type="password"
+            id='password'
+            type='password'
             error={errors.password !== undefined}
-            placeholder="Password"
-            {...register("password")}
+            placeholder='Password'
+            {...register('password')}
             helperText={errors.password && (<p>{errors.password.message}</p>)}
           /> 
-          <Button type="submit">Login</Button>
+          <Button type='submit'>Login</Button>
           <Link component={RouterLink} to='/register'>Register</Link>
       </Box>
     </main>

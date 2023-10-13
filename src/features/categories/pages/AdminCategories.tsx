@@ -78,11 +78,11 @@ export const AdminCategories = () => {
     return (
         <main>
             <Button component={RouterLink} to='/admin'>Back to Admin Dashboard</Button>
-            <Typography variant="h2">Manage categories</Typography>
+            <Typography variant='h2'>Manage categories</Typography>
             <Box width='100%'>
                 <Button onClick={handleDeleteSelected}>Delete</Button>
                 <DataGrid
-                    editMode="row"
+                    editMode='row'
                     processRowUpdate={handleRowUpdate}
                     onProcessRowUpdateError={handleUpdateError}
                     rows={rows}

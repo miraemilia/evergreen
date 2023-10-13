@@ -94,7 +94,6 @@ export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
         }
         newFilter.push(title)
       }
-      console.log(newFilter)
       dispatch(fetchWithFilters(newFilter))
       setFilterOpen(false)
     }
@@ -136,7 +135,6 @@ export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
       </DialogContent>
       <DialogActions>
           <Button onClick={clearFilters}>Clear</Button>
-          <Button onClick={() => setFilterOpen(false)}>Cancel</Button>
           <Button type='submit' variant='outlined' color='secondary' onClick={handleFilterChange}>Ok</Button>
       </DialogActions>
     </Dialog>

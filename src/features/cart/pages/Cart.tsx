@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material"
 
+import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { CartItemRow } from "../components/CartItemRow"
 import { checkoutCart, resetCart } from "../reducers/cartReducer"
 import { LoginPrompt } from "../../../shared/pages/LoginPrompt"
@@ -15,7 +15,7 @@ export const Cart = () => {
   const dispatch = useAppDispatch()
 
   const handleCheckout = () => {
-    console.log("checkout")
+    console.log('checkout')
     setDialogOpen(true)
     dispatch(checkoutCart())
   }
@@ -34,7 +34,7 @@ export const Cart = () => {
     return (
       <main>
         <Box sx={{padding: '5em', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2em'}}>
-          <Typography variant="h5">Thank you for ordering!</Typography>
+          <Typography variant='h5'>Thank you for ordering!</Typography>
           <Button onClick={handleReset}>Reset cart</Button>
           <Dialog open={dialogOpen}>
             <DialogContent>

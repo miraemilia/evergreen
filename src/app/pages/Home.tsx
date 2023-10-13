@@ -1,7 +1,7 @@
-import Box from "@mui/material/Box"
+import { Grid, Typography, Box } from "@mui/material"
+
 import { CategoryCard } from "../../features/categories/components/CategoryCard"
 import { useAppSelector } from "../hooks"
-import { Grid, Typography } from "@mui/material"
 
 export const Home = () => {
 
@@ -10,9 +10,9 @@ export const Home = () => {
   return (
     <main>
       <Box>
-        <Typography variant="h4">Shop by category</Typography>
+        <Typography variant='h4'>Shop by category</Typography>
         <Grid container spacing={4}>
-          {categories && categories.map(c => c.image === "https://placeimg.com/640/480/any" ? null : <CategoryCard category={c} key={c.id}/>)}
+          {categories && categories.map(c => c.image === 'https://placeimg.com/640/480/any' ? null : <CategoryCard category={c} key={c.id}/>)}
         </Grid>
       </Box>
     </main>

@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { Box, Grid, MenuItem, Pagination, Select, SelectChangeEvent, Stack, Typography } from "@mui/material"
-import { useAppSelector } from "../../../app/hooks"
 import { useParams } from "react-router-dom"
+import { Box, Grid, MenuItem, Pagination, Select, SelectChangeEvent, Stack, Typography } from "@mui/material"
 
+import { useAppSelector } from "../../../app/hooks"
 import { ProductCard } from "../components/ProductCard"
 import { ProductFilterComponent } from "../components/ProductFilterComponent"
 
@@ -32,15 +32,15 @@ export const ProductsPage = () => {
   
   return (
     <main>
-      <Typography variant="h2">Products {category && `- ${category.name}`}</Typography>
+      <Typography variant='h2'>Products {category && `- ${category.name}`}</Typography>
       <ProductFilterComponent categoryId={categoryId}/>
       {error && <Typography>{error}</Typography>}
       {loading && <Typography>Loading...</Typography>}
       {!loading &&
         <Box>
-          <Stack direction='row' justifyContent='space-between' alignItems="center" sx={{padding: '1em'}}>
+          <Stack direction='row' justifyContent='space-between' alignItems='center' sx={{padding: '1em'}}>
             <Typography sx={{margin: 2}}>{products.length} products</Typography>
-            <Pagination count={Math.ceil(products.length/perPage)} page={page} onChange={handlePageChange} size="large"/>
+            <Pagination count={Math.ceil(products.length/perPage)} page={page} onChange={handlePageChange} size='large'/>
             <Select value={perPage} onChange={handlePerPageChange}> 
               <MenuItem value={12}>12</MenuItem>
               <MenuItem value={24}>24</MenuItem>
