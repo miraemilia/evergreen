@@ -40,7 +40,7 @@ export const deleteCategory = createAsyncThunk<number, number, {rejectValue:stri
 )
 
 export const updateCategory = createAsyncThunk<Category, CategoryUpdateParams, {rejectValue: string}>(
-    "products/updateProduct",
+    "categories/updateCategory",
     async (params : CategoryUpdateParams, {rejectWithValue} ) => {
         try {
             const response = await axios.put<Category>(
@@ -78,11 +78,14 @@ const categoriesSlice = createSlice({
             state.categories = state.categories.filter(p => p.id !== action.payload)
         })
         builder.addCase(deleteCategory.rejected, (state, action) => {
-                state.loading = false
-                state.error = action.payload
+            state.loading = false
+            state.error = action.payload
         })
         builder.addCase(updateCategory.fulfilled, (state, action) => {
-            state.categories.map(p => p.id === action.payload.id ? action.payload : p)
+            const catIndex = state.categories.findIndex(c => c.id === action.payload.id)
+            if (catIndex >= 0) {
+                state.categories[catIndex] = action.payload
+            }
         })
         builder.addCase(updateCategory.rejected, (state, action) => {
             state.error = action.payload as string
