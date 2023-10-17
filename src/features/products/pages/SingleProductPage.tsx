@@ -1,9 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom"
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
-import { Box, Button, Grid, Paper, Typography } from "@mui/material"
+import { Alert, Box, Button, Grid, Paper, Typography } from "@mui/material"
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { ErrorPage } from "../../../app/pages/ErrorPage"
 import { useFetchOneQuery } from "../reducers/productQuery"
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { addCartItem, deleteCartItem, updateCartItem } from "../../cart/reducers/cartReducer"
@@ -14,7 +13,7 @@ export const SingleProductPage = () => {
 
   const productId = useParams().productId
 
-  const product = useFetchOneQuery(Number(productId)).data
+  const {data: product, isLoading, isError} = useFetchOneQuery(Number(productId))
   const profile = useAppSelector(state => state.credentialsReducer.profile)
   const cart = useAppSelector(state => state.cartReducer.cart)
 
@@ -55,12 +54,10 @@ export const SingleProductPage = () => {
     dispatch(deleteCartItem(Number(productId)))
   }
 
-  if (!product) {
-    <ErrorPage />
-  }
-
   return (
     <main>
+      {isLoading && 'Loading...'}
+      {isError && <Alert severity='error'>Could not retrieve product data</Alert>}
       <Button onClick={() => navigate(-1)}>Back</Button>
       {product && 
         <Paper>

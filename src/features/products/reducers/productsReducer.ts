@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 import { ProductsReducerState } from "../types/ProductsReducerState";
 import { UpdateParams } from "../types/ProductUpdate";
@@ -22,7 +22,7 @@ export const fetchAllProducts = createAsyncThunk<Product[], void, {rejectValue: 
             }
             return response.data
         } catch (e) {
-            const error = e as Error
+            const error = e as AxiosError
             return rejectWithValue(error.message)
         }
     }
@@ -45,7 +45,7 @@ export const fetchWithFilters = createAsyncThunk<Product[], ProductFilter[], {re
             }
             return response.data
         } catch (e) {
-            const error = e as Error
+            const error = e as AxiosError
             return rejectWithValue(error.message)
         }
     }
@@ -61,7 +61,7 @@ export const deleteProduct = createAsyncThunk<number, number, {rejectValue:strin
             }
             return id
         } catch (e) {
-            const error = e as Error
+            const error = e as AxiosError
             return rejectWithValue(error.message)
         }
     }
@@ -80,7 +80,7 @@ export const updateProduct = createAsyncThunk<Product, UpdateParams, {rejectValu
             }
             return response.data
         } catch (e) {
-            const error = e as Error
+            const error = e as AxiosError
             return rejectWithValue(error.message)
         }
     }
@@ -96,7 +96,7 @@ export const createProduct = createAsyncThunk<Product, NewProduct, {rejectValue:
             }
             return response.data
         } catch (e) {
-            const error = e as Error
+            const error = e as AxiosError
             return rejectWithValue(error.message)
         }
     }

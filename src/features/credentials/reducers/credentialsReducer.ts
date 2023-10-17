@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 import { LoginParams } from "../types/LoginParams";
 import { Credentials } from "../types/Credentials";
@@ -23,7 +23,8 @@ export const login = createAsyncThunk<string, LoginParams, {rejectValue: string}
                 return access_token
             }
         } catch (e) {
-            const error = e as Error
+            const error = e as AxiosError
+            console.log(error)
             return rejectWithValue(error.message)
         }
     }
@@ -41,7 +42,7 @@ export const getProfile = createAsyncThunk<Partial<User>, string, {rejectValue: 
             const profileResponse = await axios.get('https://api.escuelajs.co/api/v1/auth/profile', config)
             return profileResponse.data
         } catch (e) {
-            const error = e as Error
+            const error = e as AxiosError
             return rejectWithValue(error.message)
         }
     }

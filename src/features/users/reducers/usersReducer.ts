@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 import { UsersReducerState } from "../types/UsersReducerState";
 import { UserUpdateParams } from "../types/UserUpdate";
@@ -22,7 +22,7 @@ export const fetchAllUsers = createAsyncThunk(
             }
             return response.data
         } catch (e) {
-            const error = e as Error
+            const error = e as AxiosError
             return rejectWithValue(error.message)
         }
     }
@@ -38,7 +38,7 @@ export const deleteUser = createAsyncThunk(
             }
             return id
         } catch (e) {
-            const error = e as Error
+            const error = e as AxiosError
             return rejectWithValue(error.message)
         }
     }
@@ -57,7 +57,7 @@ export const updateUser = createAsyncThunk(
             }
             return response.data
         } catch (e) {
-            const error = e as Error
+            const error = e as AxiosError
             return rejectWithValue(error.message)
         }
     }
@@ -76,7 +76,7 @@ export const updateUserRole = createAsyncThunk(
             }
             return response.data
         } catch (e) {
-            const error = e as Error
+            const error = e as AxiosError
             return rejectWithValue(error.message)
         }
     }
@@ -92,7 +92,7 @@ export const createUser = createAsyncThunk(
             }
             return response.data
         } catch (e) {
-            const error = e as Error
+            const error = e as AxiosError
             return rejectWithValue(error.message)
         }            
     }

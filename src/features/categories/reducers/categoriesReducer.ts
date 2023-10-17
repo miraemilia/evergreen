@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 import { Category } from "../types/Category";
 import { CategoryReducerState } from "../types/CategoryReducerState";
@@ -17,7 +17,7 @@ export const fetchAllCategories = createAsyncThunk<Category[], void, { rejectVal
             const response = await axios.get('https://api.escuelajs.co/api/v1/categories')
             return response.data
         } catch (e) {
-            const error = e as Error
+            const error = e as AxiosError
             return rejectWithValue(error.message)
         }
     }
@@ -33,7 +33,7 @@ export const deleteCategory = createAsyncThunk<number, number, {rejectValue:stri
             }
             return id
         } catch (e) {
-            const error = e as Error
+            const error = e as AxiosError
             return rejectWithValue(error.message)
         }
     }
@@ -52,7 +52,7 @@ export const updateCategory = createAsyncThunk<Category, CategoryUpdateParams, {
             }
             return response.data
         } catch (e) {
-            const error = e as Error
+            const error = e as AxiosError
             return rejectWithValue(error.message)
         }
     }
