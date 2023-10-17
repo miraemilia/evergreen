@@ -177,7 +177,7 @@ To try out admin functionalities, visit [API users](https://api.escuelajs.co/api
 	- to develop further
 		- [ ] Error to AxiosError!
 		- [x] categoryReducer: delete, uodate + tests
-		- [ ] RTK query: tests for retreiving single product!
+		- [x] RTK query: tests for retreiving single product!
 		- [ ] test organization / describe sections!
 		- [ ] refine tests
 		- [ ] better error messages for UI

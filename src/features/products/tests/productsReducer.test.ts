@@ -1,5 +1,6 @@
 import { createStore } from "../../../app/store";
 import { mockCategories } from "../../categories/tests/data/mockCategoryData";
+import productQueries from "../reducers/productQuery";
 import productsReducer, { createProduct, deleteProduct, fetchAllProducts, fetchWithFilters, sortByPrice, updateProduct } from "../reducers/productsReducer";
 import { NewProduct } from "../types/NewProduct";
 import { UpdateParams } from "../types/ProductUpdate";
@@ -7,7 +8,7 @@ import { ProductsReducerState } from "../types/ProductsReducerState";
 import { mockProductData } from "./data/mockProductData";
 import productsServer from "./productsServer";
 
-describe('Products reducer: GET', () => {
+describe('Products reducer', () => {
 
     let store = createStore()
     beforeEach(() => {store = createStore()})
@@ -42,7 +43,7 @@ describe('Products reducer: sort', () => {
 
 })
 
-describe('Product reducer: DELETE, PUT, POST', () => {
+describe('Product reducer: GET, DELETE, PUT, POST', () => {
 
     let store = createStore()
     beforeEach(() => {store = createStore()})
@@ -55,6 +56,16 @@ describe('Product reducer: DELETE, PUT, POST', () => {
         await store.dispatch(fetchAllProducts())
         const stateproducts = store.getState().productsReducer.products
         expect(stateproducts.length).toBe(4)
+    })
+
+    test('should get one product', async () => {
+        const result = await store.dispatch(productQueries.endpoints.fetchOne.initiate(3))
+        expect(result.data).toEqual(mockProductData[2])
+    })
+
+    test('should return error string when getting unexisting product', async () => {
+        const result = await store.dispatch(productQueries.endpoints.fetchOne.initiate(799))
+        expect(result.error).toHaveProperty("data", {name: "EntityNotFoundError"})
     })
 
     test('should filter', async () => {

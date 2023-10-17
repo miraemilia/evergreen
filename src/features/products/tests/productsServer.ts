@@ -17,6 +17,18 @@ export const handlers = [
             return res(ctx.json(filteredData))
         } 
     }),
+    rest.get("https://api.escuelajs.co/api/v1/products/:id", async (req, res, ctx) => {
+        const { id } = req.params
+        const product = mockProductData.find(c => c.id === Number(id))
+        if (product) {
+            return res(ctx.json(product))
+        } else {
+            return res(
+                ctx.status(400),
+                ctx.json({name: "EntityNotFoundError"})
+            )
+        }
+    }),
     rest.delete("https://api.escuelajs.co/api/v1/products/:id", async (req, res, ctx) => {
         const { id } = req.params
         if (mockProductData.find(p => p.id == Number(id))) {
@@ -43,7 +55,9 @@ export const handlers = [
             }
             return res(ctx.json(product))
         } else {
-            ctx.status(400)
+            return res(
+                ctx.status(400)
+            )
         }
     }),
     rest.put("https://api.escuelajs.co/api/v1/products/:id", async (req, res, ctx) => {
