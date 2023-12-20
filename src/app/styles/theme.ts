@@ -3,40 +3,40 @@ import createTheme from "@mui/material/styles/createTheme";
 export const siteTheme = createTheme({
     palette: {
         primary: {
-            main: '#444654',
-            light: '#8286a1'
+            main: '#003805',
+            light: '#49a364'
         },
         secondary: {
-            main: '#804340',
-            light: '#f9e3e2'
+            main: '#04240d',
+            light: '#e0ecf5'
         },
         background: {
-            paper: '#f9e3e2'
+            paper: '#d1e0d8'
         }
     },
     typography: {
         fontFamily: 'K2D',
         h1: {
-            fontFamily: 'Pacifico',
-            fontSize: '50px',
-            color: '#804340',
+            fontFamily: 'Whisper',
+            fontSize: '60px',
+            color: '#04240d',
         },
         h2: {
-            color: '#804340',
+            color: '#04240d',
             padding: '0.5em'
         },
         h3: {
-            color: '#804340',
+            color: '#04240d',
             padding: '0.5em'
         },
         h4: {
-            color: '#804340',
+            color: '#04240d',
             padding: '0.5em'
         },
         h5: {
             fontFamily: 'Pacifico',
             fontSize: 'xx-large',
-            color: '#804340'
+            color: '#04240d'
         },
         body1: {
             fontSize: 'large',
@@ -49,9 +49,9 @@ export const siteTheme = createTheme({
         MuiAppBar: {
             styleOverrides: {
                 root: {
-                    background: '#f9e3e2',
-                    backgroundImage: 'url(https://picsum.photos/id/866/2000)',
-                    backgroundSize: 'cover',
+                    background: '#87ab9d',
+                    //backgroundImage: 'url(https://picsum.photos/id/866/2000)',
+                    //backgroundSize: 'cover',
                     padding: '1.5em'
                 }
             },
@@ -59,7 +59,7 @@ export const siteTheme = createTheme({
         MuiButton: {
             styleOverrides: {
                 root: {
-                    background: '#f9e3e2',
+                    background: '#d1e0d8',
                     width: 'fit-content',
                     padding: '1em',
                     margin: '0.2em'
