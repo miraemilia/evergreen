@@ -10,11 +10,13 @@ const initialState: CategoryReducerState = {
     loading: false
 }
 
+const baseUrl = 'http://localhost:5180/api/v1/categories'
+
 export const fetchAllCategories = createAsyncThunk<Category[], void, { rejectValue : string}>(
     "categories/getAllCategories",
     async (_, {rejectWithValue}) => {
         try {
-            const response = await axios.get('https://api.escuelajs.co/api/v1/categories')
+            const response = await axios.get(baseUrl)
             return response.data
         } catch (e) {
             const error = e as AxiosError

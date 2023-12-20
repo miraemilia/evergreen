@@ -45,7 +45,7 @@ export const AdminCategories = () => {
     const rows : Category[] = categories.map<Category>(p => ({
         id : p.id,
         name: p.name,
-        image: p.image
+        imageUrl: p.imageUrl
     }))
 
     const handleRowUpdate = (updatedRow : Category, originalRow: Category) => {
@@ -54,7 +54,7 @@ export const AdminCategories = () => {
         }
         const update : CategoryUpdate = {
             name: updatedRow.name,
-            image: updatedRow.image
+            image: updatedRow.imageUrl
         }
         const updateParams : CategoryUpdateParams = {
             id: updatedRow.id,

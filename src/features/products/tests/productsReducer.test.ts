@@ -59,12 +59,12 @@ describe('Product reducer: GET, DELETE, PUT, POST', () => {
     })
 
     test('should get one product', async () => {
-        const result = await store.dispatch(productQueries.endpoints.fetchOne.initiate(3))
+        const result = await store.dispatch(productQueries.endpoints.fetchOne.initiate("3"))
         expect(result.data).toEqual(mockProductData[2])
     })
 
     test('should return error string when getting unexisting product', async () => {
-        const result = await store.dispatch(productQueries.endpoints.fetchOne.initiate(799))
+        const result = await store.dispatch(productQueries.endpoints.fetchOne.initiate("799"))
         expect(result.error).toHaveProperty("data", {name: "EntityNotFoundError"})
     })
 
@@ -75,32 +75,41 @@ describe('Product reducer: GET, DELETE, PUT, POST', () => {
     })
 
     test('should delete existing product', async () => {
-        const result = await store.dispatch(deleteProduct(3))
-        expect(result.payload).toBe(3)
+        const result = await store.dispatch(deleteProduct("3"))
+        expect(result.payload).toBe("3")
     })
 
     test('should return error string when deleting unexisting product', async () => {
-        const result = await store.dispatch(deleteProduct(35))
+        const result = await store.dispatch(deleteProduct("35"))
         expect(result.payload).toEqual('Could not delete product')
     })
 
     test('should update existing product', async () => {
         const updateParams : UpdateParams = {
-            id: 2,
+            id: "2",
             update: {
                 price: 150000
             }
         }
         const result = await store.dispatch(updateProduct(updateParams))
         expect(result.payload).toMatchObject({
-            id: 2,
+            id: "2",
             title: "Handcrafted Soft Computer",
             price: 150000,
             description: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
-            images: [
-            "https://picsum.photos/640/640?r=7332",
-            "https://picsum.photos/640/640?r=9493",
-            "https://picsum.photos/640/640?r=1246"
+            productImages: [
+                {
+                    id: "w54t89htuij",
+                    imageUrl: "https://picsum.photos/640/640?r=7332"
+                },
+                {
+                    id: "w5yt98gjejg",
+                    imageUrl: "https://picsum.photos/640/640?r=9493"
+                },
+                {
+                    id: "q3thuifkjng",
+                    imageUrl: "https://picsum.photos/640/640?r=1246"
+                }
             ],
             category: mockCategories[1]
             })
@@ -108,7 +117,7 @@ describe('Product reducer: GET, DELETE, PUT, POST', () => {
 
     test('should return error string when updating unexisting product', async () => {
         const updateParams : UpdateParams = {
-            id: 99999999,
+            id: "99999999",
             update: {title: "New title"}
         }
         const result = await store.dispatch(updateProduct(updateParams))

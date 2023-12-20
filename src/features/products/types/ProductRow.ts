@@ -1,5 +1,5 @@
 export interface ProductRow {
-    id: number
+    id: string
     title: string
     price: number
     description: string

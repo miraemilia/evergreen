@@ -33,7 +33,8 @@ export const AdminProducts = () => {
     const columns = [
         {
             field: 'id',
-            headerName: 'ID'
+            headerName: 'ID'//,
+            //type: 'string'
         },
         {
             field: 'title',
@@ -88,7 +89,7 @@ export const AdminProducts = () => {
 
     const handleDeleteSelected = () => {
         selection.forEach(s => {
-            dispatch(deleteProduct(Number(s)))
+            dispatch(deleteProduct(s))
         })
     }
 

@@ -11,13 +11,13 @@ import { ImageCarousel } from "../components/ImageCarousel";
 
 export const SingleProductPage = () => {
 
-  const productId = useParams().productId
+  const productId = useParams().productId!
 
-  const {data: product, isLoading, isError} = useFetchOneQuery(Number(productId))
+  const {data: product, isLoading, isError} = useFetchOneQuery(productId)
   const profile = useAppSelector(state => state.credentialsReducer.profile)
   const cart = useAppSelector(state => state.cartReducer.cart)
 
-  const cartIndex = cart.cartItems.findIndex(i => i.product.id === Number(productId))
+  const cartIndex = cart.cartItems.findIndex(i => i.product.id === productId)
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -32,7 +32,7 @@ export const SingleProductPage = () => {
     const cartItem = cart.cartItems[cartIndex]
     if (cartItem) {
     const update : CartUpdate = {
-      productId: Number(productId),
+      productId: productId,
       quantity: cartItem.quantity -1
     }
     dispatch(updateCartItem(update))
@@ -43,7 +43,7 @@ export const SingleProductPage = () => {
     const cartItem = cart.cartItems[cartIndex]
     if (cartItem) {
       const update : CartUpdate = {
-        productId: Number(productId),
+        productId: productId,
         quantity: cartItem.quantity +1
       }
       dispatch(updateCartItem(update))
@@ -51,7 +51,7 @@ export const SingleProductPage = () => {
   }
 
   const handleDelete = () => {
-    dispatch(deleteCartItem(Number(productId)))
+    dispatch(deleteCartItem(productId))
   }
 
   return (
@@ -75,7 +75,7 @@ export const SingleProductPage = () => {
               }
             </Grid>}
             <Grid item xs={6}>
-                <ImageCarousel images={product.images}/>
+                <ImageCarousel images={product.productImages.map(pi => pi.imageUrl)}/>
             </Grid>
             <Grid item xs={6}>
               <Typography>{product.description}</Typography>

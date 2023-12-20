@@ -14,7 +14,7 @@ export const CategoryCard = ( { category } : Props ) => {
       <Card>
         <CardActionArea component={RouterLink} to={`/products/category/${category.id}`}>
           <CardContent>
-            <CardMedia component='img' image={category.image}/>
+            <CardMedia component='img' image={category.imageUrl}/>
             <Box sx={{textAlign: 'center'}}>
               <Typography>{category.name}</Typography>
             </Box>

@@ -16,7 +16,7 @@ export const fetchAllProducts = createAsyncThunk<Product[], void, {rejectValue: 
     "products/getAllProducts",
     async (_, {rejectWithValue}) => {
         try {
-            const response = await axios.get<Product[]>('https://api.escuelajs.co/api/v1/products')
+            const response = await axios.get<Product[]>('http://localhost:5180/api/v1/products')
             if (!response.data) {
                 throw new Error("Could not retreive products")
             }
@@ -51,9 +51,9 @@ export const fetchWithFilters = createAsyncThunk<Product[], ProductFilter[], {re
     }
 )
 
-export const deleteProduct = createAsyncThunk<number, number, {rejectValue:string}>(
+export const deleteProduct = createAsyncThunk<string, string, {rejectValue:string}>(
     "products/deleteProduct",
-    async (id : number, {rejectWithValue}) => {
+    async (id : string, {rejectWithValue}) => {
         try {
             const response = await axios.delete<boolean>(`https://api.escuelajs.co/api/v1/products/${id}`)
             if (!response.data) {

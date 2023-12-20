@@ -19,7 +19,7 @@ export const handlers = [
     }),
     rest.get("https://api.escuelajs.co/api/v1/products/:id", async (req, res, ctx) => {
         const { id } = req.params
-        const product = mockProductData.find(c => c.id === Number(id))
+        const product = mockProductData.find(c => c.id === id)
         if (product) {
             return res(ctx.json(product))
         } else {
@@ -31,7 +31,7 @@ export const handlers = [
     }),
     rest.delete("https://api.escuelajs.co/api/v1/products/:id", async (req, res, ctx) => {
         const { id } = req.params
-        if (mockProductData.find(p => p.id == Number(id))) {
+        if (mockProductData.find(p => p.id == id)) {
             return res(
                 ctx.json(true)
             )
@@ -46,11 +46,11 @@ export const handlers = [
         const category = mockCategories.find(c => c.id === input.categoryId)
         if (category) {
             const product : Product = {
-                id: mockProductData.length + 1,
+                id: "sgnskjgnskne",//mockProductData.length + 1,
                 title: input.title,
                 description: input.description,
                 price: input.price,
-                images: [],
+                productImages: [],
                 category
             }
             return res(ctx.json(product))
@@ -63,7 +63,7 @@ export const handlers = [
     rest.put("https://api.escuelajs.co/api/v1/products/:id", async (req, res, ctx) => {
         let input : ProductUpdate = await req.json()
         const { id } = req.params
-        const productIndex = mockProductData.findIndex(p => p.id === Number(id))
+        const productIndex = mockProductData.findIndex(p => p.id === id)
         if (productIndex > -1) {
                 const updatedProduct : Product = {
                     ...mockProductData[productIndex],

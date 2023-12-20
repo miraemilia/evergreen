@@ -6,6 +6,6 @@ export interface ProductUpdate {
 }
 
 export type UpdateParams = {
-    id: number,
+    id: string,
     update: ProductUpdate
 }

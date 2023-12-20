@@ -42,7 +42,7 @@ const cartSlice = createSlice({
                 }
             }
         },
-        deleteCartItem: (state, action : PayloadAction<number>) => {
+        deleteCartItem: (state, action : PayloadAction<string>) => {
             const foundIndex = state.cart.cartItems.findIndex(i => i.product.id === action.payload)
             if (foundIndex !== -1) {
                 state.cart.cartItems.splice(foundIndex, 1)

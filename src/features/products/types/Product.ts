@@ -1,10 +1,11 @@
 import { Category } from "../../categories/types/Category"
+import { ProductImage } from "./ProductImage"
 
 export interface Product {
-    id: number
+    id: string
     title: string
     price: number
     description: string
-    images: string[]
+    productImages: ProductImage[]
     category: Category
 }
