@@ -25,9 +25,9 @@ export const fetchAllCategories = createAsyncThunk<Category[], void, { rejectVal
     }
 )
 
-export const deleteCategory = createAsyncThunk<number, number, {rejectValue:string}>(
+export const deleteCategory = createAsyncThunk<string, string, {rejectValue:string}>(
     "categories/deleteCategory",
-    async (id : number, {rejectWithValue}) => {
+    async (id : string, {rejectWithValue}) => {
         try {
             const response = await axios.delete<boolean>(`https://api.escuelajs.co/api/v1/categories/${id}`)
             if (!response.data) {

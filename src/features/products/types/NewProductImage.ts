@@ -1,5 +1,4 @@
-export interface ProductImage {
-    id: string
+export interface NewProductImage {
     imageUrl: string
     description?: string
 }

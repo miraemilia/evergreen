@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/material"
 
-import { fetchAllProducts, fetchWithFilters, sortByPrice } from "../reducers/productsReducer"
-import { ProductFilter } from "../types/ProductFilter"
+import { setId, setPriceMax, setSearch, sortByPrice } from "../reducers/productsReducer"
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 
 type FilterProps = {
@@ -17,21 +16,9 @@ export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
 
     const categories = useAppSelector(state => state.categoriesReducer.categories)
 
-    useEffect(() => {
-      if (categoryId) {
-        const categoryFilter : ProductFilter = {
-          name: 'categoryId',
-          value: categoryId
-        }
-        dispatch(fetchWithFilters([categoryFilter]))
-      } else {
-        dispatch(fetchAllProducts())
-      }
-    }, [categoryId])
-
     const [filterOpen, setFilterOpen] = useState<boolean>(false)
     const [sortDirection, setSortDirection] = useState<'asc' | 'desc' | ''>('')
-    const [priceMax, setPriceMax] = useState<string>('')
+    const [max, setMax] = useState<string>('')
     const [titleSearch, setTitleSearch] = useState<string>('')
 
     const handleOpenFilter = () => {
@@ -45,8 +32,8 @@ export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
         }
       }
 
-    const handleCategoryChange = (e : SelectChangeEvent<number>) => {
-      if (e.target.value === 0) {
+    const handleCategoryChange = (e : SelectChangeEvent<string>) => {
+      if (e.target.value === '0'){
         navigate('/products')
       } else {
         navigate(`/products/category/${e.target.value}`)
@@ -54,7 +41,7 @@ export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
     }
     
     const handlePriceMaxChange = (e : React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      setPriceMax(e.target.value)
+      setMax(e.target.value)
     }
 
     const handleTitleSearchChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -63,38 +50,13 @@ export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
 
     const clearFilters = (e : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       setTitleSearch('')
-      setPriceMax('')
+      setMax('')
     }
 
     const handleFilterChange = () => {
-      let newFilter : ProductFilter[] = []
-      if (priceMax) {
-        const min : ProductFilter = {
-          name: 'price_min',
-          value: 1
-        }
-        newFilter.push(min)
-        const max : ProductFilter = {
-          name: 'price_max',
-          value: Number(priceMax)
-        }
-        newFilter.push(max)
-      }
-      if (categoryId) {
-        const cat : ProductFilter = {
-          name: 'categoryId',
-          value: Number(categoryId)
-        }
-        newFilter.push(cat)
-      }
-      if (titleSearch) {
-        const title : ProductFilter = {
-          name: 'title',
-          value: titleSearch
-        }
-        newFilter.push(title)
-      }
-      dispatch(fetchWithFilters(newFilter))
+      dispatch(setPriceMax(Number(max)))
+      dispatch(setId(categoryId))
+      dispatch(setSearch(titleSearch))
       setFilterOpen(false)
     }
 
@@ -110,8 +72,8 @@ export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
         </FormControl>
         <FormControl sx={{ m: 2, minWidth: 200 }}>
           <InputLabel id='cat'>Category</InputLabel>
-          <Select id='categoryId' labelId = 'cat' defaultValue={0} onChange={handleCategoryChange}>
-            <MenuItem key={0} value={0}>All</MenuItem>
+          <Select id='categoryId' labelId = 'cat' defaultValue={'0'} onChange={handleCategoryChange}>
+            <MenuItem key={'0'} value={'0'}>All</MenuItem>
             {categories.map(c => <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>)}
           </Select>
         </FormControl>
@@ -126,7 +88,7 @@ export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
             <TextField value={titleSearch} onChange={handleTitleSearchChange} label='Search for name'></TextField>
           </Grid>
           <Grid item>
-            <TextField value={priceMax} type='number' onChange={handlePriceMaxChange} label='Maximum price'/>
+            <TextField value={max} type='number' onChange={handlePriceMaxChange} label='Maximum price'/>
           </Grid>
           <Grid item>
           </Grid>

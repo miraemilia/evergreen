@@ -1,0 +1,1 @@
+export type ProductSize = "Small" | "Medium"| "Large" 

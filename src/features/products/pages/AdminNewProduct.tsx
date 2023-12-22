@@ -10,6 +10,7 @@ import { NewProduct } from "../types/NewProduct"
 import { createProduct } from "../reducers/productsReducer"
 import { NewProductForm } from "../types/NewProductForm"
 import { NotAuthorized } from "../../../shared/pages/NotAuthorized";
+import { NewProductImage } from "../types/NewProductImage";
 
 export const AdminNewProduct = () => {
 
@@ -25,10 +26,11 @@ export const AdminNewProduct = () => {
         title: yup.string().required(),
         price: yup.number().required(),
         description: yup.string().required(),
-        categoryId: yup.number().min(1, 'A category needs to be selected').required(),
-        image1: yup.string().url().required(),
-        image2: yup.string().url().required(),
-        image3: yup.string().url().required()
+        categoryId: yup.string().min(1, 'A category needs to be selected').required(),
+        imageUrl1: yup.string().url().required(),
+        imageUrl2: yup.string().url().required(),
+        imageUrl3: yup.string().url().required(),
+        inventory: yup.number().required()
     }).required()
   
     const { register, handleSubmit, reset, formState: { errors } } = useForm<NewProductForm>({
@@ -36,23 +38,28 @@ export const AdminNewProduct = () => {
             title: '',
             price: undefined,
             description: '',
-            categoryId: 0,
-            image1: 'https://picsum.photos/id/535/500/',
-            image2: 'https://picsum.photos/id/56/500/',
-            image3: 'https://picsum.photos/id/660/500/'
+            categoryId: '',
+            imageUrl1: 'https://picsum.photos/id/535/500/',
+            imageUrl2: 'https://picsum.photos/id/56/500/',
+            imageUrl3: 'https://picsum.photos/id/660/500/',
+            inventory: undefined
         },
         resolver: yupResolver(createProductSchema)
     })
 
     const onFormSubmit: SubmitHandler<NewProductForm> = async (data) => {
-        const imageList : string[] = [data.image1, data.image2, data.image3]
-        const images = imageList.filter(i => i !== '')
+        const image1 : NewProductImage = {imageUrl: data.imageUrl1}
+        const image2 : NewProductImage = {imageUrl: data.imageUrl2}
+        const image3 : NewProductImage = {imageUrl: data.imageUrl3}
+        const imageList : NewProductImage[] = [image1, image2, image3]
+        const images = imageList.filter(i => i.imageUrl !== '')
         const createParams : NewProduct = {
           title: data.title,
           price: data.price,
           description: data.description,
           categoryId: data.categoryId,
-          images: images
+          productImages: images,
+          inventory: data.inventory
         }
         const response = await dispatch(createProduct(createParams))
         if (typeof response.payload === 'string') {
@@ -106,26 +113,33 @@ export const AdminNewProduct = () => {
               helperText={errors.description && (<p>{errors.description.message}</p>)}
             />
             <TextField
-              id='image1'
-              error={errors.image1 !== undefined}
+              id='imageUrl1'
+              error={errors.imageUrl1 !== undefined}
               label='Image 1'
-              {...register('image1')}
-              helperText={errors.image1 && (<p>{errors.image1.message}</p>)}
+              {...register('imageUrl1')}
+              helperText={errors.imageUrl1 && (<p>{errors.imageUrl1.message}</p>)}
             />
              <TextField
-              id='image2'
-              error={errors.image2 !== undefined}
+              id='imageUrl2'
+              error={errors.imageUrl2 !== undefined}
               label='Image 2'
-              {...register('image2')}
-              helperText={errors.image2 && (<p>{errors.image2.message}</p>)}
+              {...register('imageUrl2')}
+              helperText={errors.imageUrl2 && (<p>{errors.imageUrl2.message}</p>)}
             />
              <TextField
-              id='image3'
-              error={errors.image3 !== undefined}
+              id='imageUrl3'
+              error={errors.imageUrl3 !== undefined}
               label='Image 3'
-              {...register('image3')}
-              helperText={errors.image3 && (<p>{errors.image3.message}</p>)}
+              {...register('imageUrl3')}
+              helperText={errors.imageUrl3 && (<p>{errors.imageUrl3.message}</p>)}
             />
+            <TextField
+              id='inventory'
+              error={errors.inventory !== undefined}
+              label='Inventory'
+              {...register('inventory')}
+              helperText={errors.inventory && (<p>{errors.inventory.message}</p>)}
+            /> 
             <FormControl>
               <InputLabel id='cat'>Category ID</InputLabel>
               <Select

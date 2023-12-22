@@ -4,86 +4,98 @@ import { Product } from "../../types/Product";
 export const mockProductData : Product[] = [
     {
     id: "1",
-    title: "Fantastic Concrete Sausages",
-    price: 597,
-    description: "Carbonite web goalkeeper gloves are ergonomically designed to give easy fit",
+    title: "ZZ Plant",
+    latinName: "Zamioculcas zamiifolia",
+    price: 24.99,
+    description: "Drought-tolerant tropical houseplant with glossy, dark green foliage, ideal for beginners.",
+    category: mockCategories[0],
     productImages: [
-    {
-        id: "sugsegn",
-        imageUrl: "https://picsum.photos/640/640?r=5668"
-    },
-    {
-        id: "gnaueingauwe",
-        imageUrl: "https://picsum.photos/640/640?r=9335"
-    },
-    {
-        id: "t34th9gnuejge",
-        imageUrl: "https://picsum.photos/640/640?r=3472"
-    }
+      {
+        id: "20d13d2d-7a32-42e5-9eb8-7b5899974d76",
+        imageUrl: "https://source.unsplash.com/a-potted-plant-sitting-on-top-of-a-table-0KG5ca7_RCo"
+      }
     ],
-    category: mockCategories[0]
+    productDetails: {
+      size: "Large",
+      watering: "Medium",
+      light: "Medium",
+      difficulty: "High",
+      hanging: true,
+      nonToxic: false,
+      airPurifying: false
+    },
+    inventory: 4
     },
     {
     id: "2",
-    title: "Handcrafted Soft Computer",
-    price: 1878,
-    description: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+    title: "Alocasia",
+    latinName: "Alocasia spp.",
+    price: 31.99,
+    description: "Dramatic tropical houseplant with large, arrow-shaped leaves, adds a touch of drama to your home.",
+    category: mockCategories[1],
     productImages: [
-        {
-            id: "w54t89htuij",
-            imageUrl: "https://picsum.photos/640/640?r=7332"
-        },
-        {
-            id: "w5yt98gjejg",
-            imageUrl: "https://picsum.photos/640/640?r=9493"
-        },
-        {
-            id: "q3thuifkjng",
-            imageUrl: "https://picsum.photos/640/640?r=1246"
-        }
+      {
+        id: "453afde8-5ac9-4ec9-8b46-189d39a22ffe",
+        imageUrl: "https://source.unsplash.com/potted-green-snake-plant-on-white-chair-GY6ViMxtmDE"
+      }
     ],
-    category: mockCategories[1]
+    productDetails: {
+      size: "Medium",
+      watering: "Medium",
+      light: "High",
+      difficulty: "Low",
+      hanging: false,
+      nonToxic: false,
+      airPurifying: false
+    },
+    inventory: 22
     },
     {
     id: "3",
-    title: "Handcrafted Frozen Keyboard",
-    price: 48,
-    description: "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
+    title: "Calathea",
+    latinName: "Calathea spp.",
+    price: 17.99,
+    description: "Colorful and patterned tropical houseplant, perfect for adding vibrancy to your indoor space.",
+    category: mockCategories[1],
     productImages: [
-        {
-            id: "7hwt478h4etne",
-            imageUrl: "https://picsum.photos/640/640?r=9921"
-        },
-        {
-            id: "3498thundrjgd",
-            imageUrl: "https://picsum.photos/640/640?r=5769"
-        },
-        {
-            id: "q498tjurngkdjg",
-            imageUrl: "https://picsum.photos/640/640?r=1370"
-        }
+      {
+        id: "30844ca5-5d8b-4b0f-a150-c75ac83d0d83",
+        imageUrl: "https://source.unsplash.com/green-leaves-in-white-background-86DQhpMi2_8"
+      }
     ],
-    category: mockCategories[1]
+    productDetails: {
+      size: "Medium",
+      watering: "Medium",
+      light: "High",
+      difficulty: "Low",
+      hanging: false,
+      nonToxic: false,
+      airPurifying: false
+    },
+    inventory: 12
     },
     {
     id: "4",
-    title: "Oriental Cotton Hat",
-    price: 951,
-    description: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+    title: "Rubber Plant",
+    latinName: "Ficus elastica",
+    price: 26.99,
+    description: "Sturdy and upright tropical houseplant with glossy, burgundy-hued leaves.",
+    category: mockCategories[1],
     productImages: [
-        {
-            id: "43tqh8h34ntgsg",
-            imageUrl: "https://picsum.photos/640/640?r=6719"
-        },
-        {
-            id: "q784thuhfidrngd",
-            imageUrl: "https://picsum.photos/640/640?r=4678"
-        },
-        {
-            id: "q3489thiufnfsgd",
-            imageUrl: "https://picsum.photos/640/640?r=1442"
-        }
+      {
+        id: "4a424592-01c6-4e4a-a02f-772aa12418e5",
+        imageUrl: "https://source.unsplash.com/potted-green-plant-beside-wall-DpphPG9ENsI"
+      }
     ],
-    category: mockCategories[1]
+    productDetails: {
+      size: "Medium",
+      watering: "Medium",
+      light: "Medium",
+      difficulty: "Medium",
+      hanging: true,
+      nonToxic: true,
+      airPurifying: true
+    },
+    "inventory": 11
     },
 ]

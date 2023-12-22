@@ -1,0 +1,1 @@
+export type DetailsOption = "Low" | "Medium" | "High"

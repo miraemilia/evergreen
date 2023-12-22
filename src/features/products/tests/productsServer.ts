@@ -13,7 +13,7 @@ export const handlers = [
         if (!productId) {
             return res(ctx.json(mockProductData))    
         } else {
-            const filteredData = mockProductData.filter(p => p.category.id === Number(productId))
+            const filteredData = mockProductData.filter(p => p.category.id === productId)
             return res(ctx.json(filteredData))
         } 
     }),
@@ -51,7 +51,8 @@ export const handlers = [
                 description: input.description,
                 price: input.price,
                 productImages: [],
-                category
+                category,
+                inventory: input.inventory
             }
             return res(ctx.json(product))
         } else {

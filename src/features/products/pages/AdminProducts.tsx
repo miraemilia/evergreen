@@ -4,7 +4,7 @@ import { DataGrid, GridRowSelectionModel } from "@mui/x-data-grid";
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from "@mui/material"
 
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { deleteProduct, fetchAllProducts, updateProduct } from "../reducers/productsReducer";
+import { fetchAllProducts, updateProduct } from "../reducers/productsReducer";
 import { ProductRow } from "../types/ProductRow";
 import { ProductUpdate, UpdateParams } from "../types/ProductUpdate";
 import { NotAuthorized } from "../../../shared/pages/NotAuthorized";
@@ -62,7 +62,8 @@ export const AdminProducts = () => {
         title: p.title,
         price: p.price,
         description: p.description,
-        category: p.category.name
+        category: p.category.name,
+        inventory: p.inventory
     }))
 
     const handleRowUpdate = (updatedRow : ProductRow, originalRow: ProductRow) => {
@@ -89,7 +90,7 @@ export const AdminProducts = () => {
 
     const handleDeleteSelected = () => {
         selection.forEach(s => {
-            dispatch(deleteProduct(s))
+            //dispatch(deleteProduct(s))
         })
     }
 

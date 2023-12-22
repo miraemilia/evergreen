@@ -11,7 +11,7 @@ export const handlers = [
     }),
     rest.delete("https://api.escuelajs.co/api/v1/categories/:id", async (req, res, ctx) => {
         const { id } = req.params
-        if (mockCategories.find(c => c.id == Number(id))) {
+        if (mockCategories.find(c => c.id == id)) {
             return res(
                 ctx.json(true)
             )
@@ -24,7 +24,7 @@ export const handlers = [
     rest.put("https://api.escuelajs.co/api/v1/categories/:id", async (req, res, ctx) => {
         let input : CategoryUpdate = await req.json()
         const { id } = req.params
-        const categoryIndex = mockCategories.findIndex(p => p.id === Number(id))
+        const categoryIndex = mockCategories.findIndex(p => p.id === id)
         if (categoryIndex > -1) {
                 const updatedCategory : Category = {
                     ...mockCategories[categoryIndex],

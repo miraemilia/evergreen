@@ -21,18 +21,18 @@ describe('Categories reducer', () => {
     })
 
     test('should delete existing product', async () => {
-        const result = await store.dispatch(deleteCategory(3))
+        const result = await store.dispatch(deleteCategory('3'))
         expect(result.payload).toBe(3)
     })
 
     test('should return error string when deleting unexisting product', async () => {
-        const result = await store.dispatch(deleteCategory(30))
+        const result = await store.dispatch(deleteCategory('30'))
         expect(result.payload).toEqual('Could not delete category')
     })
 
     test('should update existing product', async () => {
         const updateParams : CategoryUpdateParams = {
-            id: 2,
+            id: '2',
             update: {
                 name: 'Appliances'
             }
@@ -47,7 +47,7 @@ describe('Categories reducer', () => {
 
     test('should return error string when updating unexisting product', async () => {
         const updateParams : CategoryUpdateParams = {
-            id: 99999999,
+            id: '99999999',
             update: {name: 'New name'}
         }
         const result = await store.dispatch(updateCategory(updateParams))

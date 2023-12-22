@@ -1,9 +1,9 @@
 export interface CategoryUpdate {
     name?: string
-    image?: string
+    imageUrl?: string
 }
 
 export interface CategoryUpdateParams {
-    id: number
+    id: string
     update: CategoryUpdate
 }

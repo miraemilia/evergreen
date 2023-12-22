@@ -4,4 +4,5 @@ export interface ProductRow {
     price: number
     description: string
     category: string
+    inventory: number
 }
