@@ -11,7 +11,7 @@ import { AppState } from "../../../app/store";
 
 const initialState: ProductsReducerState = {
     products: [],
-    filters: { limit: 12, offset: 0, search: '' } as ProductFilter,
+    filters: { limit: 12, offset: 0, search: undefined, sortOrder: 'desc', sortCriterion: 'createdAt', priceMax: undefined, priceMin: undefined} as ProductFilter,
     totalProducts: 0,
     totalPages: 0,
     page: 1,
@@ -27,9 +27,21 @@ export const fetchAllProducts = createAsyncThunk<PageableProducts, void, {reject
         let queryParam = '?'
         const state = getState() as AppState
         const filter = state.productsReducer.filters
-        queryParam += `Limit=${filter.limit}&Offset=${filter.offset}&`//&Search=${filter.search}&`
+        queryParam += `Limit=${filter.limit}&Offset=${filter.offset}&`
         if (filter.id !== undefined){
             queryParam += `Id=${filter.id}&`
+        }
+        if (filter.search !== undefined)
+        {
+            queryParam += `Search=${filter.search}&`
+        }
+        if (filter.priceMax !== undefined)
+        {
+            queryParam += `PriceMax=${filter.priceMax}&`
+        }
+        if (filter.priceMin !== undefined)
+        {
+            queryParam += `PriceMin=${filter.priceMin}&`
         }
         try {
             const response = await axios.get<PageableProducts>(`http://localhost:5180/api/v1/products${queryParam}`)
@@ -144,7 +156,7 @@ const productsSlice = createSlice({
             state.filters.id = action.payload
             state.filters.offset = 0
         },
-        setSearch: (state, action: PayloadAction<string>) => {
+        setSearch: (state, action: PayloadAction<string | undefined>) => {
             state.filters.search = action.payload
             state.filters.offset = 0
         },
@@ -156,11 +168,11 @@ const productsSlice = createSlice({
             state.filters.sortCriterion = action.payload
             state.filters.offset = 0
         },
-        setPriceMax: (state, action: PayloadAction<number>) => {
+        setPriceMax: (state, action: PayloadAction<number | undefined>) => {
             state.filters.priceMax = action.payload
             state.filters.offset = 0
         },
-        setPriceMin: (state, action: PayloadAction<number>) => {
+        setPriceMin: (state, action: PayloadAction<number | undefined>) => {
             state.filters.priceMin = action.payload
             state.filters.offset = 0
         }

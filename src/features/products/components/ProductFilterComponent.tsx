@@ -54,9 +54,11 @@ export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
     }
 
     const handleFilterChange = () => {
-      dispatch(setPriceMax(Number(max)))
+      var newMax = max === '0' || max === '' ? undefined : Number(max)
+      dispatch(setPriceMax(newMax))
       dispatch(setId(categoryId))
-      dispatch(setSearch(titleSearch))
+      var newSearch = titleSearch === '' ? undefined : titleSearch
+      dispatch(setSearch(newSearch))
       setFilterOpen(false)
     }
 
