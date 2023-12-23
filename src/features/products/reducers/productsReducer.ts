@@ -28,6 +28,7 @@ export const fetchAllProducts = createAsyncThunk<PageableProducts, void, {reject
         const state = getState() as AppState
         const filter = state.productsReducer.filters
         queryParam += `Limit=${filter.limit}&Offset=${filter.offset}&`
+        queryParam += `SortOrder=${filter.sortOrder}&SortCriterion=${filter.sortCriterion}&`
         if (filter.id !== undefined){
             queryParam += `Id=${filter.id}&`
         }

@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/material"
 
-import { setId, setPriceMax, setSearch, sortByPrice } from "../reducers/productsReducer"
+import { setId, setPriceMax, setSearch, setSortCriterion, setSortOrder, sortByPrice } from "../reducers/productsReducer"
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 
 type FilterProps = {
@@ -25,10 +25,15 @@ export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
       setFilterOpen(true)
     }
 
-    const handleSort = (e : SelectChangeEvent<'asc' | 'desc'>) => {
+    const handleSort = (e : SelectChangeEvent<'asc' | 'desc' | 'new'>) => {
         if (e.target.value === 'asc' || e.target.value === 'desc') {
-            setSortDirection(e.target.value)
-            dispatch(sortByPrice(e.target.value))
+            dispatch(setSortOrder(e.target.value))
+            dispatch(setSortCriterion('price'))
+        }
+        if (e.target.value === 'new')
+        {
+            dispatch(setSortOrder('desc'))
+            dispatch(setSortCriterion('createdAt'))
         }
       }
 
@@ -68,6 +73,7 @@ export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
         <FormControl sx={{ minWidth: 200 }}>
           <InputLabel id='sort'>Sort by price</InputLabel>
           <Select id='sorting' labelId='sort' value={sortDirection} onChange={handleSort}>
+              <MenuItem value={'new'}>Newest first</MenuItem>
               <MenuItem value={'asc'}>Lowest price first</MenuItem>
               <MenuItem value={'desc'}>Highest price first</MenuItem>
           </Select>
