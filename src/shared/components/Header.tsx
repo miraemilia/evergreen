@@ -37,8 +37,8 @@ export const Header = () => {
               <MenuItem component={RouterLink} to='/'>Home</MenuItem>
               <MenuItem component={RouterLink} to='/products'>Products</MenuItem>
               { profile && <MenuItem component={RouterLink} to='/profile'>Profile</MenuItem>}
-              { profile && <MenuItem component={RouterLink} to='/cart'>Cart</MenuItem>}
-              { profile && profile.role === 'admin' && <MenuItem component={RouterLink} to='/admin'>Admin</MenuItem>}
+              { profile && profile.role === 'Customer' && <MenuItem component={RouterLink} to='/cart'>Cart</MenuItem>}
+              { profile && profile.role === 'Admin' && <MenuItem component={RouterLink} to='/admin'>Admin</MenuItem>}
               <MenuItem component={RouterLink} to='/login'>{profile ? 'Log out' : 'Log in'}</MenuItem>
               {!profile && <MenuItem component={RouterLink} to='/register'>Register</MenuItem>}
         </Drawer>

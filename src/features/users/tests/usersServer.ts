@@ -28,7 +28,7 @@ export const handlers = [
                 id: mockUserData.length +1,
                 name: input.name,
                 email: input.email,
-                role: "customer"
+                role: "Customer"
         }
         return res(ctx.json(user))
     }),

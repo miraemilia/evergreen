@@ -20,7 +20,7 @@ export const AdminCategories = () => {
     const [dialogOpen, setDialogOpen] = useState<boolean>(false)
     const [selection, setSelection] = useState<GridRowSelectionModel>([])
   
-    if (!profile || (profile && profile.role !== 'admin')) {
+    if (!profile || (profile && profile.role !== 'Admin')) {
         return (
             <NotAuthorized />
         )
@@ -37,8 +37,8 @@ export const AdminCategories = () => {
             editable: true
         },
         {
-            field: 'image',
-            headerName: 'Image',
+            field: 'imageUrl',
+            headerName: 'Image url',
             editable: true
         }
     ]
@@ -80,7 +80,7 @@ export const AdminCategories = () => {
             <Button component={RouterLink} to='/admin'>Back to Admin Dashboard</Button>
             <Typography variant='h2'>Manage categories</Typography>
             <Box width='100%'>
-                <Button onClick={handleDeleteSelected}>Delete</Button>
+                <Button onClick={handleDeleteSelected} disabled>Delete</Button>
                 <DataGrid
                     editMode='row'
                     processRowUpdate={handleRowUpdate}

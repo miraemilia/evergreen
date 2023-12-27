@@ -14,17 +14,16 @@ export const login = createAsyncThunk<string, LoginParams, {rejectValue: string}
     "credentials/login",
     async (params, { rejectWithValue, dispatch }) => {
         try {
-            const response = await axios.post('https://api.escuelajs.co/api/v1/auth/login', params)
-            const { access_token } = response.data
-            const profileResponse = await dispatch(getProfile(access_token))
+            const response = await axios.post('http://localhost:5180/api/v1/auth/login', params)
+            const token = response.data
+            const profileResponse = await dispatch(getProfile(token))
             if (typeof profileResponse === 'string' || !profileResponse.payload) {
                 throw Error('Could not log in')
             } else {
-                return access_token
+                return token
             }
         } catch (e) {
             const error = e as AxiosError
-            console.log(error)
             return rejectWithValue(error.message)
         }
     }
@@ -39,7 +38,7 @@ export const getProfile = createAsyncThunk<Partial<User>, string, {rejectValue: 
                     "Authorization": `Bearer ${token}`
                 }
             }
-            const profileResponse = await axios.get('https://api.escuelajs.co/api/v1/auth/profile', config)
+            const profileResponse = await axios.get('http://localhost:5180/api/v1/auth/profile', config)
             return profileResponse.data
         } catch (e) {
             const error = e as AxiosError
@@ -63,6 +62,7 @@ const credentialsSlice = createSlice({
             state.error = action.payload
         })
         builder.addCase(getProfile.fulfilled, (state, action) => {
+            console.log(action.payload)
             state.profile = action.payload
         })
         builder.addCase(getProfile.rejected, (state, action) => {

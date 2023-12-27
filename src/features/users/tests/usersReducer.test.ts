@@ -74,7 +74,7 @@ describe('User reducer: DELETE, PUT, POST', () => {
     test('should update user role', async () => {
         const updateParams : RoleUpdateParams = {
             id: 2,
-            role: "admin"
+            role: "Admin"
         }
         const result = await store.dispatch(updateUserRole(updateParams))
         expect(result.payload).toMatchObject({

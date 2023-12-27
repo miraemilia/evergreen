@@ -41,7 +41,7 @@ describe('Logout tests', () => {
                 email: 'profile@mail.com',
                 name: 'Jane',
                 avatar: 'pic.pgn',
-                role: 'customer'
+                role: 'Customer'
             }
         }
         const credentials = credentialsReducer(state, logout())

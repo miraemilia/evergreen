@@ -9,7 +9,7 @@ export const AdminUsersPage = () => {
   const profile = useAppSelector(state => state.credentialsReducer.profile)
 
 
-  if (!profile || (profile && profile.role !== 'admin')) {
+  if (!profile || (profile && profile.role !== 'Admin')) {
       return (
         <main>
           <NotAuthorized />

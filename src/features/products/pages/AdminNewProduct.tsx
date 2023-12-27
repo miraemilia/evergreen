@@ -71,7 +71,7 @@ export const AdminNewProduct = () => {
         reset()
     }
 
-    if (!profile || (profile && profile.role !== 'admin')) {
+    if (!profile || (profile && profile.role !== 'Admin')) {
       return (
           <main>
               <NotAuthorized />

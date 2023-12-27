@@ -4,6 +4,7 @@ import axios, { AxiosError } from "axios";
 import { Category } from "../types/Category";
 import { CategoryReducerState } from "../types/CategoryReducerState";
 import { CategoryUpdateParams } from "../types/CategoryUpdate";
+import { AppState } from "../../../app/store";
 
 const initialState: CategoryReducerState = {
     categories: [],
@@ -29,7 +30,7 @@ export const deleteCategory = createAsyncThunk<string, string, {rejectValue:stri
     "categories/deleteCategory",
     async (id : string, {rejectWithValue}) => {
         try {
-            const response = await axios.delete<boolean>(`https://api.escuelajs.co/api/v1/categories/${id}`)
+            const response = await axios.delete<boolean>(`http://localhost:5180/api/v1/categories/${id}`)
             if (!response.data) {
                 throw new Error("Could not delete category")
             }
@@ -43,11 +44,19 @@ export const deleteCategory = createAsyncThunk<string, string, {rejectValue:stri
 
 export const updateCategory = createAsyncThunk<Category, CategoryUpdateParams, {rejectValue: string}>(
     "categories/updateCategory",
-    async (params : CategoryUpdateParams, {rejectWithValue} ) => {
+    async (params : CategoryUpdateParams, {rejectWithValue, getState } ) => {
         try {
-            const response = await axios.put<Category>(
-                `https://api.escuelajs.co/api/v1/categories/${params.id}`,
-                params.update
+            const state = getState() as AppState
+            const token = state.credentialsReducer.token
+            const config = {
+                headers : {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+            const response = await axios.patch<Category>(
+                `http://localhost:5180/api/v1/categories/${params.id}`,
+                params.update,
+                config
             )
             if (!response.data) {
                 throw new Error("Could not update category")

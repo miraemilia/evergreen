@@ -24,7 +24,7 @@ export const AdminProducts = () => {
     const [dialogOpen, setDialogOpen] = useState<boolean>(false)
     const [selection, setSelection] = useState<GridRowSelectionModel>([])
   
-    if (!profile || (profile && profile.role !== 'admin')) {
+    if (!profile || (profile && profile.role !== 'Admin')) {
         return (
             <NotAuthorized />
         )

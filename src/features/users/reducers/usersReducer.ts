@@ -6,6 +6,8 @@ import { UserUpdateParams } from "../types/UserUpdate";
 import { NewUser } from "../types/NewUser"
 import { RoleUpdateParams } from "../types/RoleUpdate";
 import { User } from "../types/User";
+import { PageableUsers } from "../types/PageableUsers";
+import { AppState } from "../../../app/store";
 
 const initialState: UsersReducerState = {
     users: [],
@@ -16,7 +18,7 @@ export const fetchAllUsers = createAsyncThunk(
     "users/getAllUsers",
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.get<User[]>('https://api.escuelajs.co/api/v1/users')
+            const response = await axios.get<PageableUsers>('https://localhost:5180/api/v1/users/?Limit=100')
             if (!response.data) {
                 throw new Error("Could not retreive users")
             }
@@ -46,11 +48,19 @@ export const deleteUser = createAsyncThunk(
 
 export const updateUser = createAsyncThunk(
     "users/updateUser",
-    async (params : UserUpdateParams, { rejectWithValue }) => {
+    async (params : UserUpdateParams, { rejectWithValue, getState }) => {
         try {
-            const response = await axios.put<User>(
-                `https://api.escuelajs.co/api/v1/users/${params.id}`,
-                params.update
+            const state = getState() as AppState
+            const token = state.credentialsReducer.token
+            const config = {
+                headers : {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+            const response = await axios.patch<User>(
+                `http://localhost:5180/api/v1/auth/profile/`,
+                params.update,
+                config
             )
             if (!response.data.name) {
                 throw new Error("Could not update user")
@@ -86,7 +96,9 @@ export const createUser = createAsyncThunk(
     "users/createUser",
     async (user : NewUser, { rejectWithValue }) => {
         try {
-            const response = await axios.post<User>(`https://api.escuelajs.co/api/v1/users/`, user)
+            console.log(user)
+            const response = await axios.post<User>(`http://localhost:5180/api/v1/auth/profile/`, user)
+            console.log(response)
             if (!response.data) {
                 throw new Error("Could not add user")
             }
@@ -104,10 +116,10 @@ const userSlice = createSlice({
     reducers: {
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchAllUsers.fulfilled, (state, action : PayloadAction<User[]>) => {
+        builder.addCase(fetchAllUsers.fulfilled, (state, action : PayloadAction<PageableUsers>) => {
             return {
                 ...state,
-                users: action.payload,
+                users: action.payload.items,
                 loading: false
             }
         })
