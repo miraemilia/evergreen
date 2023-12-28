@@ -22,6 +22,7 @@ export const Admin = () => {
             <Button component={RouterLink} to='/admin/products' disabled>Manage products</Button>
             <Button component={RouterLink} to='/admin/categories'>Manage categories</Button>
             <Button component={RouterLink} to='/admin/users' disabled>Manage users</Button>
+            <Button component={RouterLink} to='/admin/orders'>View orders</Button>
         </Box>
     </main>
   )

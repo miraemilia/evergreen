@@ -20,6 +20,7 @@ import { Admin } from "./shared/pages/Admin"
 import { AdminNewProduct } from "./features/products/pages/AdminNewProduct"
 import { AdminUsersPage } from "./features/users/pages/AdminUsersPage"
 import { AdminCategories } from "./features/categories/pages/AdminCategories"
+import { AdminOrders } from "./features/order/pages/AdminOrders"
 
 const App = () => {
 
@@ -96,6 +97,10 @@ const App = () => {
         {
           path: "admin/categories",
           element: <AdminCategories />,
+        },
+        {
+          path: "admin/orders",
+          element: <AdminOrders />,
         }
       ]
     }

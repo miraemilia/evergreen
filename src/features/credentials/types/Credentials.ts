@@ -1,7 +1,7 @@
-import { User } from "../../users/types/User";
+import { UserProfile } from "./UserProfile"
 
 export interface Credentials {
-    profile: Partial<User> | undefined
+    profile: UserProfile | undefined
     token: string
     error?: string
 }

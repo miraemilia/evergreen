@@ -6,6 +6,7 @@ import productQuery from "../features/products/reducers/productQuery";
 import usersReducer from "../features/users/reducers/usersReducer";
 import cartReducer from "../features/cart/reducers/cartReducer";
 import credentialsReducer from "../features/credentials/reducers/credentialsReducer";
+import ordersReducer from "../features/order/reducers/ordersReducer";
 
 export const createStore = () => {
     return configureStore({
@@ -15,6 +16,7 @@ export const createStore = () => {
             usersReducer,
             cartReducer,
             credentialsReducer,
+            ordersReducer,
             [productQuery.reducerPath]: productQuery.reducer
         },
         middleware: (getDefaultMiddleware) =>

@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Avatar, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, TextField, Typography } from "@mui/material"
+import { Avatar, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material"
 import EditIcon from '@mui/icons-material/Edit';
 
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
@@ -11,6 +11,7 @@ import { LoginPrompt } from "../../../shared/pages/LoginPrompt"
 import { updateUser } from "../../users/reducers/usersReducer";
 import { UserUpdate, UserUpdateParams } from "../../users/types/UserUpdate";
 import { UpdateUserForm } from "../../users/types/UpdateUserForm";
+import { OrderTable } from "../../order/components/OrderTable";
 
 export const Profile = () => {
 
@@ -19,6 +20,10 @@ export const Profile = () => {
   const {profile, token} = useAppSelector(state => state.credentialsReducer)
 
   const [edit, setEdit] = useState<boolean>(false)
+
+  useEffect(() => {
+    dispatch(getProfile(token))
+  }, [])
 
   const onLogout = () => {
     dispatch(logout())
@@ -64,19 +69,28 @@ export const Profile = () => {
 
   return (
     <main>
-      <Box>
+      <Box padding={2}>
         <Typography variant='h2'>Profile</Typography>
         <Grid container alignItems='center'>
-          <Grid item xs={4}>
+          <Grid item xs={6}>
             <Avatar src={profile.avatar} alt={profile.name} sx={{height: 'auto', width: 'auto', backgroundSize: 'cover'}}></Avatar>
           </Grid>
-          <Grid item xs={8} sx={{padding: '3em'}}>
+          <Grid item xs={6} sx={{padding: '3em'}}>
             <Typography>Name: {profile.name}</Typography>
             <Typography>Email address: {profile.email}</Typography>
             <Typography>Role: {profile.role}</Typography>
             <Button onClick={onLogout}>Log out</Button>
             <Button variant='outlined' onClick={() => setEdit(true)}><EditIcon/></Button>
           </Grid>
+        </Grid>
+      </Box>
+      <Box padding={2}>
+        <Grid container alignItems='center'>
+          <Grid item xs={1}></Grid>
+          <Grid item xs={10}>
+            <OrderTable orders={profile.orders}></OrderTable>
+          </Grid>
+          <Grid item xs={1}></Grid>
         </Grid>
       </Box>
       <Dialog open={edit}>

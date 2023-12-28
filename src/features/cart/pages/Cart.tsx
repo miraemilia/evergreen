@@ -5,17 +5,31 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { CartItemRow } from "../components/CartItemRow"
 import { checkoutCart, resetCart } from "../reducers/cartReducer"
 import { LoginPrompt } from "../../../shared/pages/LoginPrompt"
+import { createOrder } from "../../order/reducers/ordersReducer"
+import { NewOrder, NewOrderDetails } from "../../order/types/NewOrder"
 
 export const Cart = () => {
 
   const cart = useAppSelector(state => state.cartReducer.cart)
   const profile = useAppSelector(state => state.credentialsReducer.profile)
+  const orderError = useAppSelector(state => state.ordersReducer.error)
   const [dialogOpen, setDialogOpen] = useState<boolean>(false)
 
   const dispatch = useAppDispatch()
 
   const handleCheckout = () => {
     console.log('checkout')
+    var checkedOut : NewOrder = {
+      orderDetails: []
+    }
+    cart.cartItems.forEach((item) => {
+      const orderProduct : NewOrderDetails = {
+        productId: item.product.id,
+        quantity: item.quantity
+      }
+      checkedOut.orderDetails.push(orderProduct)
+    })
+    dispatch(createOrder(checkedOut))
     setDialogOpen(true)
     dispatch(checkoutCart())
   }
@@ -38,7 +52,7 @@ export const Cart = () => {
           <Button onClick={handleReset}>Reset cart</Button>
           <Dialog open={dialogOpen}>
             <DialogContent>
-                <DialogContentText>Order complete</DialogContentText>
+                <DialogContentText>{orderError ? orderError : "Order complete"}</DialogContentText>
             </DialogContent>
             <DialogActions>
                 <Button onClick={() => setDialogOpen(false)}>Close</Button>

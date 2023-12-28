@@ -4,6 +4,7 @@ import axios, { AxiosError } from "axios";
 import { LoginParams } from "../types/LoginParams";
 import { Credentials } from "../types/Credentials";
 import { User } from "../../users/types/User";
+import { UserProfile } from "../types/UserProfile";
 
 const initialState : Credentials = {
     token: '',
@@ -29,7 +30,7 @@ export const login = createAsyncThunk<string, LoginParams, {rejectValue: string}
     }
 )
 
-export const getProfile = createAsyncThunk<Partial<User>, string, {rejectValue: string}>(
+export const getProfile = createAsyncThunk<UserProfile, string, {rejectValue: string}>(
     'credentials/getProfile',
     async (token, { rejectWithValue }) => {
         try {
