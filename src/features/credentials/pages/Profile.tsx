@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Avatar, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material"
+import { Avatar, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, TextField, Typography } from "@mui/material"
 import EditIcon from '@mui/icons-material/Edit';
 
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
@@ -12,13 +12,10 @@ import { updateUser } from "../../users/reducers/usersReducer";
 import { UserUpdate, UserUpdateParams } from "../../users/types/UserUpdate";
 import { UpdateUserForm } from "../../users/types/UpdateUserForm";
 import { OrderTable } from "../../order/components/OrderTable";
-import { restElement } from "@babel/types";
-import { reset } from "yargs";
 
 export const Profile = () => {
 
   const dispatch = useAppDispatch()
-  const { reset } = useForm();
 
   const {profile, token} = useAppSelector(state => state.credentialsReducer)
   const {error} = useAppSelector(state => state.usersReducer)
@@ -34,13 +31,18 @@ export const Profile = () => {
     dispatch(logout())
   }
 
+  const handleClose = () => {
+    setEdit(false)
+    setDialogMessage('')
+  }
+
   const registerSchema = yup.object({
     name: yup.string().optional(),
     email: yup.string().email().optional(),
     avatar: yup.string().url().optional()
   }).required()
 
-  const { register, handleSubmit, formState: { errors } } = useForm<UpdateUserForm>({
+  const { reset, register, handleSubmit, formState: { errors } } = useForm<UpdateUserForm>({
     defaultValues: {
         name: undefined,
         email: undefined,
@@ -67,7 +69,6 @@ export const Profile = () => {
         update: userUpdate
       }
       dispatch(updateUser(update))
-      //dispatch(getProfile(token))
       reset()
       if (!error){
         setDialogMessage('Profile updated successfully')
@@ -99,7 +100,7 @@ export const Profile = () => {
           </Grid>
         </Grid>
       </Box>
-      <Box padding={2}>
+      {profile.role === 'Customer' && <Box padding={2}>
         <Grid container alignItems='center'>
           <Grid item xs={1}></Grid>
           <Grid item xs={10}>
@@ -107,7 +108,7 @@ export const Profile = () => {
           </Grid>
           <Grid item xs={1}></Grid>
         </Grid>
-      </Box>
+      </Box>}
       <Dialog open={edit}>
         <DialogTitle>Update profile</DialogTitle>
         <DialogContent>
@@ -147,7 +148,7 @@ export const Profile = () => {
         </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setEdit(false)}>Close</Button>
+          <Button onClick={() => handleClose()}>Close</Button>
         </DialogActions>
       </Dialog>
     </main>

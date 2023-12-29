@@ -24,7 +24,7 @@ export const Header = () => {
             <IconButton size='large' aria-label='open drawer' onClick={toggleDrawer}><MenuIcon /></IconButton>
             <Typography variant='h1' component={RouterLink} to='/'>Evergreen Botanics</Typography>
             <Box display='flex' sx={{marginLeft: 'auto', gap: '1em'}}>
-            { profile &&
+            { profile && profile.role === 'Customer' &&
               <Badge badgeContent={cart.cartItems.reduce((a, ci) => ci.quantity + a, 0)} color='secondary'>
                 <Link component={RouterLink} to='/cart'><LocalGroceryStoreIcon color='secondary' fontSize='large'/></Link>
               </Badge>

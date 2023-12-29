@@ -7,6 +7,7 @@ import { checkoutCart, resetCart } from "../reducers/cartReducer"
 import { LoginPrompt } from "../../../shared/pages/LoginPrompt"
 import { createOrder } from "../../order/reducers/ordersReducer"
 import { NewOrder, NewOrderDetails } from "../../order/types/NewOrder"
+import { NotAuthorized } from "../../../shared/pages/NotAuthorized"
 
 export const Cart = () => {
 
@@ -41,6 +42,12 @@ export const Cart = () => {
   if (!profile) {
     return (
       <LoginPrompt />
+    )
+  }
+
+  if (profile.role !== 'Customer') {
+    return (
+      <NotAuthorized />
     )
   }
 
