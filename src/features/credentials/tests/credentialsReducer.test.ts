@@ -37,7 +37,7 @@ describe('Logout tests', () => {
         const state : Credentials = {
             token: 'segsuegnosen',
             profile: {
-                id: 1,
+                id: "1",
                 email: 'profile@mail.com',
                 name: 'Jane',
                 avatar: 'pic.pgn',

@@ -12,34 +12,39 @@ import { updateUser } from "../../users/reducers/usersReducer";
 import { UserUpdate, UserUpdateParams } from "../../users/types/UserUpdate";
 import { UpdateUserForm } from "../../users/types/UpdateUserForm";
 import { OrderTable } from "../../order/components/OrderTable";
+import { restElement } from "@babel/types";
+import { reset } from "yargs";
 
 export const Profile = () => {
 
   const dispatch = useAppDispatch()
+  const { reset } = useForm();
 
   const {profile, token} = useAppSelector(state => state.credentialsReducer)
+  const {error} = useAppSelector(state => state.usersReducer)
 
   const [edit, setEdit] = useState<boolean>(false)
+  const [dialogMessage, setDialogMessage] = useState<string>('')
 
   useEffect(() => {
     dispatch(getProfile(token))
-  }, [])
+  }, [profile])
 
   const onLogout = () => {
     dispatch(logout())
   }
 
   const registerSchema = yup.object({
-    name: yup.string().required(),
-    email: yup.string().email().required(),
-    avatar: yup.string().url().required()
+    name: yup.string().optional(),
+    email: yup.string().email().optional(),
+    avatar: yup.string().url().optional()
   }).required()
 
   const { register, handleSubmit, formState: { errors } } = useForm<UpdateUserForm>({
     defaultValues: {
-        name: profile && profile.name,
-        email: profile && profile.email,
-        avatar: profile && profile.avatar
+        name: undefined,
+        email: undefined,
+        avatar: undefined
     },
     resolver: yupResolver(registerSchema)
   })
@@ -47,16 +52,26 @@ export const Profile = () => {
   const onFormSubmit: SubmitHandler<UpdateUserForm> = (data) => {
     if (profile) {
       const userUpdate : UserUpdate = {
-        name: data.name,
-        email: data.email,
-        avatar: data.avatar
+      }
+      if (data.name || data.name !== ''){
+        userUpdate.name = data.name
+      }
+      if (data.email || data.email !== ''){
+        userUpdate.email = data.email
+      }
+      if (data.avatar || data.avatar !== ''){
+        userUpdate.avatar = data.avatar
       }
       const update : UserUpdateParams = {
-        id: Number(profile.id),
+        id: profile.id,
         update: userUpdate
       }
       dispatch(updateUser(update))
-      dispatch(getProfile(token))
+      //dispatch(getProfile(token))
+      reset()
+      if (!error){
+        setDialogMessage('Profile updated successfully')
+      }
     }
 
   }
@@ -105,6 +120,8 @@ export const Profile = () => {
             onSubmit={handleSubmit(onFormSubmit)} 
             sx={{width: '25em', mx: 'auto'}}
           >
+            {dialogMessage && dialogMessage}
+            {error && error}
             <TextField
                 id='name'
                 error={errors.email !== undefined}

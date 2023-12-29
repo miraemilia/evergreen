@@ -1,6 +1,6 @@
 import { UserRole } from "./UserRole"
 
 export interface RoleUpdateParams {
-    id: number
+    id: string
     role: UserRole
 }

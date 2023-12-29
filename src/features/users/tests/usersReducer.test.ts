@@ -26,24 +26,24 @@ describe('User reducer: DELETE, PUT, POST', () => {
     afterAll(() => usersServer.close())
 
     test('should get all users into store', async () => {
-        await store.dispatch(fetchAllUsers())
+        await store.dispatch(fetchAllUsers({limit: 20, offset: 0}))
         const stateUsers = store.getState().usersReducer.users
         expect(stateUsers.length).toBe(3)
     })
 
     test('should delete existing user', async () => {
-        const result = await store.dispatch(deleteUser(1))
-        expect(result.payload).toBe(1)
+        const result = await store.dispatch(deleteUser("1"))
+        expect(result.payload).toBe("1")
     })
 
     test('should return error string when deleting unexisting user', async () => {
-        const result = await store.dispatch(deleteUser(10))
+        const result = await store.dispatch(deleteUser("10"))
         expect(result.payload).toEqual('Could not delete user')
     })
 
     test('should update existing user', async () => {
             const updateParams : UserUpdateParams = {
-                id: 1,
+                id: "1",
                 update: {
                     name: "John",
                 }
@@ -51,7 +51,7 @@ describe('User reducer: DELETE, PUT, POST', () => {
             const result = await store.dispatch(updateUser(updateParams))
             expect(result.payload).toMatchObject(
                 {
-                    id: 1,
+                    id: "1",
                     email: "john@mail.com",
                     name: "John",
                     role: "customer",
@@ -64,7 +64,7 @@ describe('User reducer: DELETE, PUT, POST', () => {
 
     test('should return error string when updating unexisting user', async () => {
         const updateParams : UserUpdateParams = {
-            id: 99999999,
+            id: "99999999",
             update: {name: "John"}
         }
         const result = await store.dispatch(updateUser(updateParams))
@@ -73,12 +73,12 @@ describe('User reducer: DELETE, PUT, POST', () => {
 
     test('should update user role', async () => {
         const updateParams : RoleUpdateParams = {
-            id: 2,
+            id: "2",
             role: "Admin"
         }
         const result = await store.dispatch(updateUserRole(updateParams))
         expect(result.payload).toMatchObject({
-                id: 2,
+                id: "2",
                 email: "maria@mail.com",
                 name: "Maria",
                 role: "admin",

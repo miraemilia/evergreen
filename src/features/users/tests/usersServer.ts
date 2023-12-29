@@ -12,7 +12,7 @@ export const handlers = [
     }),
     rest.delete("https://api.escuelajs.co/api/v1/users/:id", async (req, res, ctx) => {
         const { id } = req.params
-        if (mockUserData.find(u => u.id == Number(id))) {
+        if (mockUserData.find(u => u.id == id)) {
             return res(
                 ctx.json(true)
             )
@@ -25,7 +25,7 @@ export const handlers = [
     rest.post("https://api.escuelajs.co/api/v1/users", async (req, res, ctx) => {
         const input : NewUser = await req.json()
         const user : User = {
-                id: mockUserData.length +1,
+                id: (mockUserData.length +1).toString(),
                 name: input.name,
                 email: input.email,
                 role: "Customer"
@@ -35,7 +35,7 @@ export const handlers = [
     rest.put("https://api.escuelajs.co/api/v1/users/:id", async (req, res, ctx) => {
         const input : UserUpdate = await req.json()
         const { id } = req.params
-        const userIndex = mockUserData.findIndex(u => u.id === Number(id))
+        const userIndex = mockUserData.findIndex(u => u.id === id)
         if (userIndex > -1) {
                 const updatedUser : User = {
                     ...mockUserData[userIndex],

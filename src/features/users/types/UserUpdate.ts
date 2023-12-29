@@ -5,7 +5,7 @@ export interface UserUpdate {
 }
 
 export type UserUpdateParams = {
-    id: number,
+    id: string,
     update: UserUpdate
 }
 
@@ -14,6 +14,6 @@ export interface PasswordUpdate {
 }
 
 export type PasswordUpdateParams = {
-    id: number,
+    id: string,
     update: PasswordUpdate
 }

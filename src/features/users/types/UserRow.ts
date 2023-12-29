@@ -1,9 +1,8 @@
 import { UserRole } from "./UserRole"
 
-export interface User {
+export interface UserRow {
     id: string
 	email: string
 	name: string
 	role: UserRole
-	avatar?: string
 }

@@ -1,5 +1,5 @@
 export interface UpdateUserForm {
-    name: string
-    email: string
-    avatar: string
+    name?: string
+    email?: string
+    avatar?: string
 }

@@ -8,17 +8,29 @@ import { RoleUpdateParams } from "../types/RoleUpdate";
 import { User } from "../types/User";
 import { PageableUsers } from "../types/PageableUsers";
 import { AppState } from "../../../app/store";
+import { GetAllParams } from "../../../shared/types/GetAllParams";
 
 const initialState: UsersReducerState = {
     users: [],
+    totalUsers: 0,
     loading: false
 }
 
-export const fetchAllUsers = createAsyncThunk(
+const baseUrl = 'http://localhost:5180/api/v1/users'
+const profileBaseUrl = 'http://localhost:5180/api/v1/auth/profile/'
+
+export const fetchAllUsers = createAsyncThunk<PageableUsers, GetAllParams, {rejectValue: string}>(
     "users/getAllUsers",
-    async (_, { rejectWithValue }) => {
+    async (GetAllParams, { rejectWithValue, getState }) => {
         try {
-            const response = await axios.get<PageableUsers>('https://localhost:5180/api/v1/users/?Limit=100')
+            const state = getState() as AppState
+            const token = state.credentialsReducer.token
+            const config = {
+                headers : {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+            const response = await axios.get<PageableUsers>(`${baseUrl}/?Limit=${GetAllParams.limit}&Offset=${GetAllParams.offset}`, config)
             if (!response.data) {
                 throw new Error("Could not retreive users")
             }
@@ -30,11 +42,18 @@ export const fetchAllUsers = createAsyncThunk(
     }
 )
 
-export const deleteUser = createAsyncThunk(
+export const deleteUser = createAsyncThunk<string, string, {rejectValue:string}>(
     "users/deleteUser",
-    async (id : number, { rejectWithValue }) => {
+    async (id : string, { rejectWithValue, getState }) => {
         try {
-            const response = await axios.delete<boolean>(`https://api.escuelajs.co/api/v1/users/${id}`)
+            const state = getState() as AppState
+            const token = state.credentialsReducer.token
+            const config = {
+                headers : {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+            const response = await axios.delete<boolean>(`${baseUrl}/${id}`, config)
             if (!response.data) {
                 throw new Error("Could not delete user")
             }
@@ -58,16 +77,17 @@ export const updateUser = createAsyncThunk(
                 }
             }
             const response = await axios.patch<User>(
-                `http://localhost:5180/api/v1/auth/profile/`,
+                profileBaseUrl,
                 params.update,
                 config
             )
-            if (!response.data.name) {
+            if (!response.data) {
                 throw new Error("Could not update user")
             }
             return response.data
         } catch (e) {
             const error = e as AxiosError
+            console.log(error)
             return rejectWithValue(error.message)
         }
     }
@@ -75,11 +95,19 @@ export const updateUser = createAsyncThunk(
 
 export const updateUserRole = createAsyncThunk(
     "users/updateUserRole",
-    async (params : RoleUpdateParams, { rejectWithValue }) => {
+    async (params : RoleUpdateParams, { rejectWithValue, getState }) => {
         try {
-            const response = await axios.put<User>(
-                `https://api.escuelajs.co/api/v1/users/${params.id}`,
-                { "role" : params.role }
+            const state = getState() as AppState
+            const token = state.credentialsReducer.token
+            const config = {
+                headers : {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+            const response = await axios.patch<User>(
+                `${baseUrl}/${params.id}`,
+                { "role" : params.role },
+                config
             )
             if (!response.data.name) {
                 throw new Error("Could not update user role")
@@ -97,7 +125,7 @@ export const createUser = createAsyncThunk(
     async (user : NewUser, { rejectWithValue }) => {
         try {
             console.log(user)
-            const response = await axios.post<User>(`http://localhost:5180/api/v1/auth/profile/`, user)
+            const response = await axios.post<User>(baseUrl, user)
             console.log(response)
             if (!response.data) {
                 throw new Error("Could not add user")
@@ -120,7 +148,9 @@ const userSlice = createSlice({
             return {
                 ...state,
                 users: action.payload.items,
-                loading: false
+                totalUsers: action.payload.totalItems,
+                loading: false,
+                error: undefined
             }
         })
         builder.addCase(fetchAllUsers.pending, (state, action) => {
@@ -130,16 +160,16 @@ const userSlice = createSlice({
             }
         })
         builder.addCase(fetchAllUsers.rejected, (state, action) => {
-            if (action.payload instanceof Error) {
-                return {
-                    ...state,
-                    loading: false,
-                    error: action.payload.message
-                }  
+            const error = action.payload as string
+            return {
+                ...state,
+                users: [],
+                loading: false,
+                error: error
             }
         })
-        builder.addCase(deleteUser.fulfilled, (state, action : PayloadAction<number>) => {
-            state.users = state.users.filter(p => p.id !== action.payload)
+        builder.addCase(deleteUser.fulfilled, (state, action) => {
+            state.users = state.users.filter(u => u.id !== action.payload)
         })
         builder.addCase(deleteUser.rejected, (state, action) => {
             state.error = action.payload as string

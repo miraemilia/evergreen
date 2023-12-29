@@ -8,7 +8,7 @@ import { ProductFilter } from "../types/ProductFilter";
 import { Product } from "../types/Product";
 import { PageableProducts } from "../types/PageableProducts";
 import { AppState } from "../../../app/store";
-import { GetAllParams } from "../types/GetAllParams";
+import { GetAllParams } from "../../../shared/types/GetAllParams";
 
 const initialState: ProductsReducerState = {
     products: [],
