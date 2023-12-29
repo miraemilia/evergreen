@@ -7,6 +7,7 @@ import { Alert, Box, Button, Link, TextField, Typography } from "@mui/material"
 import { LoginParams } from "../types/LoginParams";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { login, logout } from "../reducers/credentialsReducer";
+import { resetCart } from "../../cart/reducers/cartReducer";
 
 export const Login = () => {
 
@@ -34,6 +35,7 @@ export const Login = () => {
 
   const onLogout = () => {
     dispatch(logout())
+    dispatch(resetCart())
   }
 
   if (profile) {

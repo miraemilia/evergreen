@@ -12,6 +12,7 @@ import { updateUser } from "../../users/reducers/usersReducer";
 import { UserUpdate, UserUpdateParams } from "../../users/types/UserUpdate";
 import { UpdateUserForm } from "../../users/types/UpdateUserForm";
 import { OrderTable } from "../../order/components/OrderTable";
+import { resetCart } from "../../cart/reducers/cartReducer";
 
 export const Profile = () => {
 
@@ -29,6 +30,7 @@ export const Profile = () => {
 
   const onLogout = () => {
     dispatch(logout())
+    dispatch(resetCart())
   }
 
   const handleClose = () => {

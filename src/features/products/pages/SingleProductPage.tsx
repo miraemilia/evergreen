@@ -63,7 +63,8 @@ export const SingleProductPage = () => {
         <Paper>
           <Typography variant='h3'>{product.title}</Typography>
           <Grid container spacing={2} sx={{padding: '2em'}}>
-            {profile && <Grid item xs={12}>
+            {profile && profile.role === 'Customer' &&
+              <Grid item xs={12}>
               {(cartIndex === -1)
                 ? <Button onClick={handleAddToCart}>Add to cart <LocalGroceryStoreIcon/></Button>
                 : <Box>
