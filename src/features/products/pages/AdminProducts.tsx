@@ -4,7 +4,7 @@ import { DataGrid, GridRowSelectionModel } from "@mui/x-data-grid";
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from "@mui/material"
 
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { fetchAllProducts, updateProduct } from "../reducers/productsReducer";
+import { deleteProduct, fetchAllProducts, updateProduct } from "../reducers/productsReducer";
 import { ProductRow } from "../types/ProductRow";
 import { ProductUpdate, UpdateParams } from "../types/ProductUpdate";
 import { NotAuthorized } from "../../../shared/pages/NotAuthorized";
@@ -13,16 +13,18 @@ export const AdminProducts = () => {
 
     const dispatch = useAppDispatch()
 
-    useEffect(() => {
-        dispatch(fetchAllProducts())
-    }, [])
-
     const profile = useAppSelector(state => state.credentialsReducer.profile)
-    const products = useAppSelector(state => state.productsReducer.products)
+    const {adminProducts, adminTotalProducts} = useAppSelector(state => state.productsReducer)
 
     const [alert, setAlert] = useState<string>('')
     const [dialogOpen, setDialogOpen] = useState<boolean>(false)
     const [selection, setSelection] = useState<GridRowSelectionModel>([])
+    const [paginationModel, setPaginationModel] = useState({page: 0, pageSize: 20})
+
+    useEffect(() => {
+        console.log(`changed with page ${paginationModel.page}, pageSize ${paginationModel.pageSize}`)
+        dispatch(fetchAllProducts({limit: paginationModel.pageSize, offset: (paginationModel.page)*paginationModel.pageSize}))
+    }, [paginationModel])
   
     if (!profile || (profile && profile.role !== 'Admin')) {
         return (
@@ -33,12 +35,15 @@ export const AdminProducts = () => {
     const columns = [
         {
             field: 'id',
-            headerName: 'ID'//,
-            //type: 'string'
-        },
+            headerName: 'ID'        },
         {
             field: 'title',
             headerName: 'Title',
+            editable: true
+        },
+        {
+            field: 'latinName',
+            headerName: 'Latin name',
             editable: true
         },
         {
@@ -55,11 +60,17 @@ export const AdminProducts = () => {
             headerName: 'Price',
             type: 'number',
             editable: true
+        },
+        {
+            field: 'inventory',
+            headerName: 'Inventory',
+            type: 'number'
         }
     ]
-    const rows : ProductRow[] = products.map<ProductRow>(p => ({
+    const rows : ProductRow[] = adminProducts.map<ProductRow>(p => ({
         id : p.id,
         title: p.title,
+        latinName: p.latinName,
         price: p.price,
         description: p.description,
         category: p.category.name,
@@ -72,6 +83,7 @@ export const AdminProducts = () => {
         }
         const update : ProductUpdate = {
             title: updatedRow.title,
+            latinName: updatedRow.latinName,
             price: updatedRow.price,
             description: updatedRow.description
         }
@@ -90,7 +102,8 @@ export const AdminProducts = () => {
 
     const handleDeleteSelected = () => {
         selection.forEach(s => {
-            //dispatch(deleteProduct(s))
+            const id = s.toString()
+            dispatch(deleteProduct(id))
         })
     }
 
@@ -109,14 +122,11 @@ export const AdminProducts = () => {
                     checkboxSelection
                     disableRowSelectionOnClick
                     onRowSelectionModelChange={setSelection}
-                    initialState={{
-                    pagination: {
-                        paginationModel: {
-                        pageSize: 20,
-                        },
-                    },
-                    }}
-                    pageSizeOptions={[10, 20, 50]}
+                    paginationMode="server"
+                    rowCount = {adminTotalProducts}
+                    pageSizeOptions={[20, 30, 40]}
+                    paginationModel={paginationModel}
+                    onPaginationModelChange={setPaginationModel}
                 />
                 <Dialog open={dialogOpen}>
                     <DialogContent>

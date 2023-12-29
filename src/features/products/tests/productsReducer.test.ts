@@ -26,9 +26,11 @@ describe('Products reducer: sort', () => {
     
     const state: ProductsReducerState = {
             products: mockProducts,
+            adminProducts: [],
             filters: <ProductFilter>{ limit: 12, offset: 0 },
             totalProducts: 45,
             totalPages: 3,
+            adminTotalProducts: 45,
             page: 1,
             priceMax: 100,
             priceMin: 0,
@@ -60,7 +62,7 @@ describe('Product reducer: GET, DELETE, PUT, POST', () => {
     afterAll(() => productsServer.close())
 
     test('should get all products into store', async () => {
-        await store.dispatch(fetchAllProducts())
+        await store.dispatch(fetchAllProducts({limit: 40, offset: 0}))
         const stateproducts = store.getState().productsReducer.products
         expect(stateproducts.length).toBe(4)
     })

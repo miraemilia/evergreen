@@ -8,12 +8,15 @@ import { ProductFilter } from "../types/ProductFilter";
 import { Product } from "../types/Product";
 import { PageableProducts } from "../types/PageableProducts";
 import { AppState } from "../../../app/store";
+import { GetAllParams } from "../types/GetAllParams";
 
 const initialState: ProductsReducerState = {
     products: [],
+    adminProducts: [],
     filters: { limit: 12, offset: 0, search: undefined, sortOrder: 'desc', sortCriterion: 'createdAt', priceMax: undefined, priceMin: undefined} as ProductFilter,
     totalProducts: 0,
     totalPages: 0,
+    adminTotalProducts: 0,
     page: 1,
     priceMax: 0,
     priceMin: 0,
@@ -22,8 +25,28 @@ const initialState: ProductsReducerState = {
 
 const baseUrl = 'http://localhost:5180/api/v1/products'
 
-export const fetchAllProducts = createAsyncThunk<PageableProducts, void, {rejectValue: string}>(
+export const fetchAllProducts = createAsyncThunk<PageableProducts, GetAllParams, {rejectValue: string}>(
     "products/getAllProducts",
+    async (GetAllParams, {rejectWithValue}) => {
+        try {
+            const response = await axios.get<PageableProducts>(`${baseUrl}/?Limit=${GetAllParams.limit}&Offset=${GetAllParams.offset}`)
+            console.log(response)
+            if (!response.data) {
+                throw new Error("Could not retreive products")
+            }
+            if (response.data.items.length < 1) {
+                throw new Error("No matches")
+            }
+            return response.data
+        } catch (e) {
+            const error = e as AxiosError
+            return rejectWithValue(error.message)
+        }
+    }
+)
+
+export const fetchProductsWithFilters = createAsyncThunk<PageableProducts, void, {rejectValue: string}>(
+    "products/getProductsWithFilters",
     async (_, {rejectWithValue, getState}) => {
         let queryParam = '?'
         const state = getState() as AppState
@@ -62,34 +85,18 @@ export const fetchAllProducts = createAsyncThunk<PageableProducts, void, {reject
     }
 )
 
-/* export const fetchWithFilters = createAsyncThunk<PageableProducts, ProductFilter[], {rejectValue: string}>(
-    "products/getFiltered",
-    async (filters : ProductFilter[], {rejectWithValue}) => {
-        let queryParam = '?'
-        filters.forEach(f =>
-            queryParam += `${f.name}=${f.value}&`
-        )
-        try {
-            const response = await axios.get<PageableProducts>(`https://api.escuelajs.co/api/v1/products/${queryParam}`)
-            if (!response.data) {
-                throw new Error("Could not retreive products")
-            }
-            if (response.data.items.length < 1) {
-                throw new Error("No matches")
-            }
-            return response.data
-        } catch (e) {
-            const error = e as AxiosError
-            return rejectWithValue(error.message)
-        }
-    }
-) */
-
 export const deleteProduct = createAsyncThunk<string, string, {rejectValue:string}>(
     "products/deleteProduct",
-    async (id : string, {rejectWithValue}) => {
+    async (id : string, {rejectWithValue, getState}) => {
         try {
-            const response = await axios.delete<boolean>(`${baseUrl}/${id}`)
+            const state = getState() as AppState
+            const token = state.credentialsReducer.token
+            const config = {
+                headers : {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+            const response = await axios.delete<boolean>(`${baseUrl}/${id}`, config)
             if (!response.data) {
                 throw new Error("Could not delete product")
             }
@@ -103,11 +110,19 @@ export const deleteProduct = createAsyncThunk<string, string, {rejectValue:strin
 
 export const updateProduct = createAsyncThunk<Product, UpdateParams, {rejectValue: string}>(
     "products/updateProduct",
-    async (params : UpdateParams, {rejectWithValue} ) => {
+    async (params : UpdateParams, {rejectWithValue, getState} ) => {
         try {
-            const response = await axios.put<Product>(
+            const state = getState() as AppState
+            const token = state.credentialsReducer.token
+            const config = {
+                headers : {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+            const response = await axios.patch<Product>(
                 `${baseUrl}/${params.id}`,
-                params.update
+                params.update,
+                config
             )
             if (!response.data) {
                 throw new Error("Could not update product")
@@ -188,13 +203,11 @@ const productsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchAllProducts.fulfilled, (state, action) => {
-            console.log(action.payload)
             return {
                 ...state,
-                products: action.payload.items,
-                totalProducts: action.payload.totalItems,
-                totalPages: action.payload.totalPages,
-                page: action.payload.page,
+                adminProducts: action.payload.items,
+                adminTotalProducts: action.payload.totalItems,
+                adminTotalPages: action.payload.totalPages,
                 loading: false,
                 error: undefined
             }
@@ -210,6 +223,34 @@ const productsSlice = createSlice({
             const error = action.payload as string
             return {
                 ...state,
+                adminProducts: [],
+                loading: false,
+                error: error
+            }
+        })
+        builder.addCase(fetchProductsWithFilters.fulfilled, (state, action) => {
+            console.log(action.payload)
+            return {
+                ...state,
+                products: action.payload.items,
+                totalProducts: action.payload.totalItems,
+                totalPages: action.payload.totalPages,
+                page: action.payload.page,
+                loading: false,
+                error: undefined
+            }
+        })
+        builder.addCase(fetchProductsWithFilters.pending, (state, action) => {
+            return {
+                ...state,
+                loading: true,
+                error: undefined
+            }
+        })
+        builder.addCase(fetchProductsWithFilters.rejected, (state, action) => {
+            const error = action.payload as string
+            return {
+                ...state,
                 products: [],
                 totalProducts: 0,
                 totalPages: 0,
@@ -217,32 +258,6 @@ const productsSlice = createSlice({
                 error: error
             }
         })
-/*         builder.addCase(fetchWithFilters.fulfilled, (state, action) => {
-            return {
-                ...state,
-                products: action.payload.items,
-                totalProducts: action.payload.totalItems,
-                totalPages: action.payload.pages,
-                loading: false,
-                error: undefined
-            }
-        })
-        builder.addCase(fetchWithFilters.pending, (state, action) => {
-            return {
-                ...state,
-                loading: true,
-                error: undefined
-            }
-        })
-        builder.addCase(fetchWithFilters.rejected, (state, action) => {
-            const error = action.payload as string
-            return {
-                ...state,
-                products: [],
-                loading: false,
-                error: error
-            }
-        }) */
         builder.addCase(deleteProduct.fulfilled, (state, action) => {
             state.products = state.products.filter(p => p.id !== action.payload)
         })
