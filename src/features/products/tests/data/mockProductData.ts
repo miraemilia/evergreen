@@ -1,5 +1,7 @@
 import { mockCategories } from "../../../categories/tests/data/mockCategoryData";
+import { DetailsOption } from "../../types/DetailsOption";
 import { Product } from "../../types/Product";
+import { ProductSize } from "../../types/ProductSize";
 
 export const mockProductData : Product[] = [
     {
@@ -16,10 +18,10 @@ export const mockProductData : Product[] = [
       }
     ],
     productDetails: {
-      size: "Large",
-      watering: "Medium",
-      light: "Medium",
-      difficulty: "High",
+      size: ProductSize.Large,
+      watering: DetailsOption.Medium,
+      light: DetailsOption.Medium,
+      difficulty: DetailsOption.High,
       hanging: true,
       nonToxic: false,
       airPurifying: false
@@ -40,10 +42,10 @@ export const mockProductData : Product[] = [
       }
     ],
     productDetails: {
-      size: "Medium",
-      watering: "Medium",
-      light: "High",
-      difficulty: "Low",
+      size: ProductSize.Medium,
+      watering: DetailsOption.Medium,
+      light: DetailsOption.High,
+      difficulty: DetailsOption.Low,
       hanging: false,
       nonToxic: false,
       airPurifying: false
@@ -64,10 +66,10 @@ export const mockProductData : Product[] = [
       }
     ],
     productDetails: {
-      size: "Medium",
-      watering: "Medium",
-      light: "High",
-      difficulty: "Low",
+      size: ProductSize.Medium,
+      watering: DetailsOption.Medium,
+      light: DetailsOption.High,
+      difficulty: DetailsOption.Low,
       hanging: false,
       nonToxic: false,
       airPurifying: false
@@ -88,10 +90,10 @@ export const mockProductData : Product[] = [
       }
     ],
     productDetails: {
-      size: "Medium",
-      watering: "Medium",
-      light: "Medium",
-      difficulty: "Medium",
+      size: ProductSize.Medium,
+      watering: DetailsOption.Medium,
+      light: DetailsOption.Medium,
+      difficulty: DetailsOption.Medium,
       hanging: true,
       nonToxic: true,
       airPurifying: true

@@ -20,6 +20,7 @@ const initialState: ProductsReducerState = {
     loading: false
 }
 
+const baseUrl = 'http://localhost:5180/api/v1/products'
 
 export const fetchAllProducts = createAsyncThunk<PageableProducts, void, {rejectValue: string}>(
     "products/getAllProducts",
@@ -45,7 +46,7 @@ export const fetchAllProducts = createAsyncThunk<PageableProducts, void, {reject
             queryParam += `PriceMin=${filter.priceMin}&`
         }
         try {
-            const response = await axios.get<PageableProducts>(`http://localhost:5180/api/v1/products${queryParam}`)
+            const response = await axios.get<PageableProducts>(`${baseUrl}/${queryParam}`)
             console.log(response)
             if (!response.data) {
                 throw new Error("Could not retreive products")
@@ -88,7 +89,7 @@ export const deleteProduct = createAsyncThunk<string, string, {rejectValue:strin
     "products/deleteProduct",
     async (id : string, {rejectWithValue}) => {
         try {
-            const response = await axios.delete<boolean>(`https://api.escuelajs.co/api/v1/products/${id}`)
+            const response = await axios.delete<boolean>(`${baseUrl}/${id}`)
             if (!response.data) {
                 throw new Error("Could not delete product")
             }
@@ -105,7 +106,7 @@ export const updateProduct = createAsyncThunk<Product, UpdateParams, {rejectValu
     async (params : UpdateParams, {rejectWithValue} ) => {
         try {
             const response = await axios.put<Product>(
-                `https://api.escuelajs.co/api/v1/products/${params.id}`,
+                `${baseUrl}/${params.id}`,
                 params.update
             )
             if (!response.data) {
@@ -121,9 +122,16 @@ export const updateProduct = createAsyncThunk<Product, UpdateParams, {rejectValu
 
 export const createProduct = createAsyncThunk<Product, NewProduct, {rejectValue: string}>(
     "products/createProduct",
-    async (product : NewProduct, {rejectWithValue}) => {
+    async (product : NewProduct, {rejectWithValue, getState}) => {
         try {
-            const response = await axios.post<Product>("https://api.escuelajs.co/api/v1/products/", product)
+            const state = getState() as AppState
+            const token = state.credentialsReducer.token
+            const config = {
+                headers : {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+            const response = await axios.post<Product>(baseUrl, product, config)
             if (!response.data) {
                 throw new Error("Could not add product")
             }

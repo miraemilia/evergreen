@@ -26,12 +26,12 @@ export const AdminOrders = () => {
     }
 
     return (
-        <>
+        <main>
             <Button component={RouterLink} to='/admin'>Back to Admin Dashboard</Button>
             <Typography variant='h2'>View orders</Typography>
             <Box padding={4}>
                 <OrderTable orders = {orders}></OrderTable>
             </Box>
-        </>
+        </main>
     )
 }

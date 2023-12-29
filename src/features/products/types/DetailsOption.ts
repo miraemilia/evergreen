@@ -1,1 +1,5 @@
-export type DetailsOption = "Low" | "Medium" | "High"
+export enum DetailsOption {
+    Low = "Low",
+    Medium = "Medium",
+    High = "High"
+}

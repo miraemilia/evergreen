@@ -1,3 +1,6 @@
+import { DetailsOption } from "./DetailsOption"
+import { ProductSize } from "./ProductSize"
+
 export interface NewProductForm {
     title: string
     latinName?: string
@@ -10,10 +13,10 @@ export interface NewProductForm {
     imageDescription1?: string,
     imageDescription2?: string,
     imageDescription3?: string
-    size?: string
-    watering?: string
-    light?: string
-    difficulty?: string
+    size: ProductSize
+    watering: DetailsOption
+    light: DetailsOption
+    difficulty: DetailsOption
     hanging?: boolean
     nonToxic?: boolean
     airPurifying?: boolean
