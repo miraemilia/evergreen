@@ -1,4 +1,5 @@
 import { createStore } from "../../../app/store"
+import { UserRole } from "../../users/types/UserRole"
 import credentialsReducer, { login, logout } from "../reducers/credentialsReducer"
 import { Credentials } from "../types/Credentials"
 import { LoginParams } from "../types/LoginParams"
@@ -41,7 +42,7 @@ describe('Logout tests', () => {
                 email: 'profile@mail.com',
                 name: 'Jane',
                 avatar: 'pic.pgn',
-                role: 'Customer',
+                role: UserRole.Customer,
                 orders: []
             }
         }

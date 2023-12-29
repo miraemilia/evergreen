@@ -4,6 +4,7 @@ import { createUser, deleteUser, fetchAllUsers, updateUser, updateUserRole } fro
 import { NewUser } from "../types/NewUser"
 import { RoleUpdateParams } from "../types/RoleUpdate"
 import { UserUpdateParams } from "../types/UserUpdate"
+import { UserRole } from "../types/UserRole"
 
 describe('Users reducer: GET', () => {
 
@@ -54,7 +55,7 @@ describe('User reducer: DELETE, PUT, POST', () => {
                     id: "1",
                     email: "john@mail.com",
                     name: "John",
-                    role: "customer",
+                    role: UserRole.Customer,
                     avatar: "https://i.imgur.com/fpT4052.jpeg",
                     creationAt: "2023-09-28T21:17:43.000Z",
                     updatedAt: "2023-09-28T21:17:43.000Z"
@@ -74,7 +75,7 @@ describe('User reducer: DELETE, PUT, POST', () => {
     test('should update user role', async () => {
         const updateParams : RoleUpdateParams = {
             id: "2",
-            role: "Admin"
+            role: UserRole.Admin
         }
         const result = await store.dispatch(updateUserRole(updateParams))
         expect(result.payload).toMatchObject({

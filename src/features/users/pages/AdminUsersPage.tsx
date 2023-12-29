@@ -8,6 +8,7 @@ import { useEffect, useState } from "react"
 import { deleteUser, fetchAllUsers, updateUser, updateUserRole } from "../reducers/usersReducer"
 import { UserRow } from "../types/UserRow"
 import { RoleUpdateParams } from "../types/RoleUpdate"
+import { UserRole } from "../types/UserRole"
 
 export const AdminUsersPage = () => {
 
@@ -35,10 +36,12 @@ export const AdminUsersPage = () => {
     const columns = [
         {
             field: 'id',
-            headerName: 'ID'        },
+            headerName: 'ID'        
+        },
         {
             field: 'name',
-            headerName: 'Name'        },
+            headerName: 'Name'        
+        },
         {
             field: 'email',
             headerName: 'Email',
@@ -46,7 +49,9 @@ export const AdminUsersPage = () => {
         {
             field: 'role',
             headerName: 'Role',
-            editable: true
+            editable: true,
+            type: 'singleSelect',
+            valueOptions: Object.values(UserRole)
         }
     ]
     const rows : UserRow[] = users.map<UserRow>(u => ({

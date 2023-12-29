@@ -8,6 +8,7 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, T
 import { DataGrid, GridRowSelectionModel } from "@mui/x-data-grid"
 import { OrderRow } from "../types/OrderRow"
 import { OrderUpdate, OrderUpdateParams } from "../types/OrderUpdateParams"
+import { OrderStatus } from "../types/OrderStatus"
 
 
 export const AdminOrders = () => {
@@ -48,7 +49,9 @@ export const AdminOrders = () => {
         {
             field: 'status',
             headerName: 'Order status',
-            editable: true
+            editable: true,
+            type: 'singleSelect',
+            valueOptions: Object.values(OrderStatus)
         },
         {
             field: 'total',

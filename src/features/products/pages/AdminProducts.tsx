@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { DataGrid, GridRowSelectionModel } from "@mui/x-data-grid";
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from "@mui/material"
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Link, Typography } from "@mui/material"
 
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { deleteProduct, fetchAllProducts, updateProduct } from "../reducers/productsReducer";
 import { ProductRow } from "../types/ProductRow";
 import { ProductUpdate, UpdateParams } from "../types/ProductUpdate";
 import { NotAuthorized } from "../../../shared/pages/NotAuthorized";
+import { OrderRow } from "../../order/types/OrderRow";
 
 export const AdminProducts = () => {
 
@@ -38,7 +39,10 @@ export const AdminProducts = () => {
         {
             field: 'title',
             headerName: 'Title',
-            editable: true
+            editable: true,
+            renderCell: (params : any) => (
+                <Link component={RouterLink} to={`/admin/products/${params.value.id}`}>{params.value.title}</Link>
+              )
         },
         {
             field: 'latinName',
@@ -68,7 +72,7 @@ export const AdminProducts = () => {
     ]
     const rows : ProductRow[] = adminProducts.map<ProductRow>(p => ({
         id : p.id,
-        title: p.title,
+        title: {title: p.title, id: p.id},
         latinName: p.latinName,
         price: p.price,
         description: p.description,
@@ -81,7 +85,7 @@ export const AdminProducts = () => {
             return originalRow
         }
         const update : ProductUpdate = {
-            title: updatedRow.title,
+            title: updatedRow.title.title,
             latinName: updatedRow.latinName,
             price: updatedRow.price,
             description: updatedRow.description

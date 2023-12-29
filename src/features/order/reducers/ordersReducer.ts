@@ -32,7 +32,7 @@ export const fetchAllOrders = createAsyncThunk<PageableOrders, GetAllParams, { r
                     "Authorization": `Bearer ${token}`
                 }
             }
-            const response = await axios.get(`${baseUrl}/?Limit=${GetAllParams.limit}&Offset=${GetAllParams.offset}`, config)
+            const response = await axios.get(`${baseUrl}/?Limit=${GetAllParams.limit}`, config)
             return response.data
         } catch (e) {
             const error = e as AxiosError

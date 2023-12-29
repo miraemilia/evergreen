@@ -5,6 +5,7 @@ import { mockUserData } from "./data/mockUserData"
 import { NewUser } from "../types/NewUser"
 import { User } from "../types/User"
 import { UserUpdate } from "../types/UserUpdate"
+import { UserRole } from "../types/UserRole"
 
 export const handlers = [
     rest.get('https://api.escuelajs.co/api/v1/users', (req, res, ctx) => {
@@ -28,7 +29,7 @@ export const handlers = [
                 id: (mockUserData.length +1).toString(),
                 name: input.name,
                 email: input.email,
-                role: "Customer"
+                role: UserRole.Customer
         }
         return res(ctx.json(user))
     }),
