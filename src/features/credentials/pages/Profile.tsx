@@ -26,7 +26,7 @@ export const Profile = () => {
 
   useEffect(() => {
     dispatch(getProfile(token))
-  }, [profile])
+  }, [edit])
 
   const onLogout = () => {
     dispatch(logout())

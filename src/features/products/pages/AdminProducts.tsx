@@ -22,7 +22,6 @@ export const AdminProducts = () => {
     const [paginationModel, setPaginationModel] = useState({page: 0, pageSize: 20})
 
     useEffect(() => {
-        console.log(`changed with page ${paginationModel.page}, pageSize ${paginationModel.pageSize}`)
         dispatch(fetchAllProducts({limit: paginationModel.pageSize, offset: (paginationModel.page)*paginationModel.pageSize}))
     }, [paginationModel])
   

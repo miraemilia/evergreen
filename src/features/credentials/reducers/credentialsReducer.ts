@@ -11,11 +11,13 @@ const initialState : Credentials = {
     profile: undefined
 }
 
+const baseUrl = 'http://localhost:5180/api/v1/auth'
+
 export const login = createAsyncThunk<string, LoginParams, {rejectValue: string}>(
     "credentials/login",
     async (params, { rejectWithValue, dispatch }) => {
         try {
-            const response = await axios.post('http://localhost:5180/api/v1/auth/login', params)
+            const response = await axios.post(`${baseUrl}/login`, params)
             const token = response.data
             const profileResponse = await dispatch(getProfile(token))
             if (typeof profileResponse === 'string' || !profileResponse.payload) {
@@ -39,7 +41,7 @@ export const getProfile = createAsyncThunk<UserProfile, string, {rejectValue: st
                     "Authorization": `Bearer ${token}`
                 }
             }
-            const profileResponse = await axios.get('http://localhost:5180/api/v1/auth/profile', config)
+            const profileResponse = await axios.get(`${baseUrl}/profile`, config)
             return profileResponse.data
         } catch (e) {
             const error = e as AxiosError

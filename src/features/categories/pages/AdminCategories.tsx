@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { NotAuthorized } from "../../../shared/pages/NotAuthorized";
 import { Category } from "../types/Category";
 import { CategoryUpdate, CategoryUpdateParams } from "../types/CategoryUpdate";
-import { updateCategory } from "../reducers/categoriesReducer";
+import { deleteCategory, updateCategory } from "../reducers/categoriesReducer";
 
 export const AdminCategories = () => {
 
@@ -71,7 +71,7 @@ export const AdminCategories = () => {
 
     const handleDeleteSelected = () => {
         selection.forEach(s => {
-            //dispatch(deleteCategory(s))
+            dispatch(deleteCategory(s.toString()))
         })
     }
 

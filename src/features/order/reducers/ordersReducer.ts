@@ -7,6 +7,7 @@ import { PageableOrders } from "../types/PageableOrders";
 import { Order } from "../types/Order";
 import { OrderUpdateParams } from "../types/OrderUpdateParams";
 import { NewOrder } from "../types/NewOrder";
+import { GetAllParams } from "../../../shared/types/GetAllParams";
 
 const initialState: OrdersReducerState = {
     orders: [],
@@ -20,9 +21,9 @@ const initialState: OrdersReducerState = {
 
 const baseUrl = 'http://localhost:5180/api/v1/orders'
 
-export const fetchAllOrders = createAsyncThunk<PageableOrders, void, { rejectValue : string}>(
+export const fetchAllOrders = createAsyncThunk<PageableOrders, GetAllParams, { rejectValue : string}>(
     "orders/getAllOrders",
-    async (_, {rejectWithValue, getState}) => {
+    async (GetAllParams, {rejectWithValue, getState}) => {
         try {
             const state = getState() as AppState
             const token = state.credentialsReducer.token
@@ -31,7 +32,7 @@ export const fetchAllOrders = createAsyncThunk<PageableOrders, void, { rejectVal
                     "Authorization": `Bearer ${token}`
                 }
             }
-            const response = await axios.get(baseUrl, config)
+            const response = await axios.get(`${baseUrl}/?Limit=${GetAllParams.limit}&Offset=${GetAllParams.offset}`, config)
             return response.data
         } catch (e) {
             const error = e as AxiosError

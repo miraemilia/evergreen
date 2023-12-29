@@ -30,7 +30,7 @@ export const deleteCategory = createAsyncThunk<string, string, {rejectValue:stri
     "categories/deleteCategory",
     async (id : string, {rejectWithValue}) => {
         try {
-            const response = await axios.delete<boolean>(`http://localhost:5180/api/v1/categories/${id}`)
+            const response = await axios.delete<boolean>(`${baseUrl}/${id}`)
             if (!response.data) {
                 throw new Error("Could not delete category")
             }
@@ -54,7 +54,7 @@ export const updateCategory = createAsyncThunk<Category, CategoryUpdateParams, {
                 }
             }
             const response = await axios.patch<Category>(
-                `http://localhost:5180/api/v1/categories/${params.id}`,
+                `${baseUrl}/${params.id}`,
                 params.update,
                 config
             )
