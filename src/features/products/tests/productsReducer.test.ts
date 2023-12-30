@@ -2,8 +2,10 @@ import { createStore } from "../../../app/store";
 import { mockCategories } from "../../categories/tests/data/mockCategoryData";
 import productQueries from "../reducers/productQuery";
 import productsReducer, { createProduct, deleteProduct, fetchAllProducts, sortByPrice, updateProduct } from "../reducers/productsReducer";
+import { DetailsOption } from "../types/DetailsOption";
 import { NewProduct } from "../types/NewProduct";
 import { ProductFilter } from "../types/ProductFilter";
+import { ProductSize } from "../types/ProductSize";
 import { UpdateParams } from "../types/ProductUpdate";
 import { ProductsReducerState } from "../types/ProductsReducerState";
 import { mockProductData } from "./data/mockProductData";
@@ -63,7 +65,7 @@ describe('Product reducer: GET, DELETE, PUT, POST', () => {
 
     test('should get all products into store', async () => {
         await store.dispatch(fetchAllProducts({limit: 40, offset: 0}))
-        const stateproducts = store.getState().productsReducer.products
+        const stateproducts = store.getState().productsReducer.adminProducts
         expect(stateproducts.length).toBe(4)
     })
 
@@ -76,12 +78,6 @@ describe('Product reducer: GET, DELETE, PUT, POST', () => {
         const result = await store.dispatch(productQueries.endpoints.fetchOne.initiate("799"))
         expect(result.error).toHaveProperty("data", {name: "EntityNotFoundError"})
     })
-
-/*     test('should filter', async () => {
-        await store.dispatch(fetchWithFilters([{name: "categoryId", value: 1}]))
-        const products = store.getState().productsReducer.products
-        expect(products.length).toBe(1)
-    }) */
 
     test('should delete existing product', async () => {
         const result = await store.dispatch(deleteProduct("3"))
@@ -103,24 +99,27 @@ describe('Product reducer: GET, DELETE, PUT, POST', () => {
         const result = await store.dispatch(updateProduct(updateParams))
         expect(result.payload).toMatchObject({
             id: "2",
-            title: "Handcrafted Soft Computer",
+            title: "Alocasia",
+            latinName: "Alocasia spp.",
             price: 150000,
-            description: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+            description: "Dramatic tropical houseplant with large, arrow-shaped leaves, adds a touch of drama to your home.",
+            category: mockCategories[1],
             productImages: [
-                {
-                    id: "w54t89htuij",
-                    imageUrl: "https://picsum.photos/640/640?r=7332"
-                },
-                {
-                    id: "w5yt98gjejg",
-                    imageUrl: "https://picsum.photos/640/640?r=9493"
-                },
-                {
-                    id: "q3thuifkjng",
-                    imageUrl: "https://picsum.photos/640/640?r=1246"
-                }
+              {
+                id: "453afde8-5ac9-4ec9-8b46-189d39a22ffe",
+                imageUrl: "https://source.unsplash.com/potted-green-snake-plant-on-white-chair-GY6ViMxtmDE"
+              }
             ],
-            category: mockCategories[1]
+            productDetails: {
+              size: ProductSize.Medium,
+              watering: DetailsOption.Medium,
+              light: DetailsOption.High,
+              difficulty: DetailsOption.Low,
+              hanging: false,
+              nonToxic: false,
+              airPurifying: false
+            },
+            inventory: 22
             })
     })
 

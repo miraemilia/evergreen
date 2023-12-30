@@ -28,7 +28,7 @@ export const handlers = [
             )
         }
     }),
-    rest.post(baseUrl, async (req, res, ctx) => {
+    rest.post(profileBaseUrl, async (req, res, ctx) => {
         const input : NewUser = await req.json()
         const user : User = {
                 id: (mockUserData.length +1).toString(),

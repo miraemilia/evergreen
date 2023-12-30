@@ -6,18 +6,16 @@ import { NewProduct } from "../types/NewProduct"
 import { Product } from "../types/Product"
 import { mockCategories } from "../../categories/tests/data/mockCategoryData"
 import { ProductUpdate } from "../types/ProductUpdate"
+import { PageableProducts } from "../types/PageableProducts"
+
+const baseUrl = 'http://localhost:5180/api/v1/products'
 
 export const handlers = [
-    rest.get("https://api.escuelajs.co/api/v1/products", (req, res, ctx) => {
-        const productId = req.url.searchParams.get('categoryId')
-        if (!productId) {
-            return res(ctx.json(mockProductData))    
-        } else {
-            const filteredData = mockProductData.filter(p => p.category.id === productId)
-            return res(ctx.json(filteredData))
-        } 
+    rest.get(baseUrl, (req, res, ctx) => {
+        const mockResponse : PageableProducts = {items: mockProductData, totalItems: mockProductData.length, totalPages: 1, page: 1}
+        return res(ctx.json(mockResponse))
     }),
-    rest.get("https://api.escuelajs.co/api/v1/products/:id", async (req, res, ctx) => {
+    rest.get(`${baseUrl}/:id`, async (req, res, ctx) => {
         const { id } = req.params
         const product = mockProductData.find(c => c.id === id)
         if (product) {
@@ -29,7 +27,7 @@ export const handlers = [
             )
         }
     }),
-    rest.delete("https://api.escuelajs.co/api/v1/products/:id", async (req, res, ctx) => {
+    rest.delete(`${baseUrl}/:id`, async (req, res, ctx) => {
         const { id } = req.params
         if (mockProductData.find(p => p.id == id)) {
             return res(
@@ -41,12 +39,12 @@ export const handlers = [
             )
         }
     }),
-    rest.post("https://api.escuelajs.co/api/v1/products", async (req, res, ctx) => {
+    rest.post(`${baseUrl}/:id`, async (req, res, ctx) => {
         const input : NewProduct = await req.json()
         const category = mockCategories.find(c => c.id === input.categoryId)
         if (category) {
             const product : Product = {
-                id: "sgnskjgnskne",//mockProductData.length + 1,
+                id: (mockProductData.length + 1).toString(),
                 title: input.title,
                 description: input.description,
                 price: input.price,
@@ -61,7 +59,7 @@ export const handlers = [
             )
         }
     }),
-    rest.put("https://api.escuelajs.co/api/v1/products/:id", async (req, res, ctx) => {
+    rest.patch(`${baseUrl}/:id`, async (req, res, ctx) => {
         let input : ProductUpdate = await req.json()
         const { id } = req.params
         const productIndex = mockProductData.findIndex(p => p.id === id)
