@@ -3,12 +3,12 @@ import { ProductFilter } from "./ProductFilter";
 
 export interface ProductsReducerState {
     products: Product[],
+    product: Product | undefined,
     adminProducts: Product[],
     filters: ProductFilter,
     totalProducts: number,
     totalPages: number,
     adminTotalProducts: number,
-    page: number,
     priceMax: number,
     priceMin: number,
     loading: boolean

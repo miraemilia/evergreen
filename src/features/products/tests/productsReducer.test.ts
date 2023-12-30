@@ -26,12 +26,12 @@ describe('Products reducer: sort', () => {
     
     const state: ProductsReducerState = {
             products: mockProducts,
+            product: mockProducts[1],
             adminProducts: [],
             filters: <ProductFilter>{ limit: 12, offset: 0 },
             totalProducts: 45,
             totalPages: 3,
             adminTotalProducts: 45,
-            page: 1,
             priceMax: 100,
             priceMin: 0,
             loading: false,

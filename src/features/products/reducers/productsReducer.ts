@@ -2,28 +2,32 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 
 import { ProductsReducerState } from "../types/ProductsReducerState";
-import { UpdateParams } from "../types/ProductUpdate";
+import { DetailsUpdateParams, InventoryUpdateParams, UpdateParams } from "../types/ProductUpdate";
 import { NewProduct } from "../types/NewProduct";
 import { ProductFilter } from "../types/ProductFilter";
 import { Product } from "../types/Product";
 import { PageableProducts } from "../types/PageableProducts";
 import { AppState } from "../../../app/store";
 import { GetAllParams } from "../../../shared/types/GetAllParams";
+import { ProductImage } from "../types/ProductImage";
+import { NewProductImage } from "../types/NewProductImage";
+import { ProductDetails } from "../types/ProductDetails";
 
 const initialState: ProductsReducerState = {
     products: [],
+    product: undefined,
     adminProducts: [],
     filters: { limit: 12, offset: 0, search: undefined, sortOrder: 'desc', sortCriterion: 'createdAt', priceMax: undefined, priceMin: undefined} as ProductFilter,
     totalProducts: 0,
     totalPages: 0,
     adminTotalProducts: 0,
-    page: 1,
     priceMax: 0,
     priceMin: 0,
     loading: false
 }
 
 const baseUrl = 'http://localhost:5180/api/v1/products'
+const imageBaseUrl = 'http://localhost:5180/api/v1/images'
 
 export const fetchAllProducts = createAsyncThunk<PageableProducts, GetAllParams, {rejectValue: string}>(
     "products/getAllProducts",
@@ -36,6 +40,23 @@ export const fetchAllProducts = createAsyncThunk<PageableProducts, GetAllParams,
             }
             if (response.data.items.length < 1) {
                 throw new Error("No matches")
+            }
+            return response.data
+        } catch (e) {
+            const error = e as AxiosError
+            return rejectWithValue(error.message)
+        }
+    }
+)
+
+export const fetchOneProduct = createAsyncThunk<Product, string, {rejectValue: string}>(
+    "products/getOneProduct",
+    async (id : string, {rejectWithValue}) => {
+        try {
+            const response = await axios.get<Product>(`${baseUrl}/${id}`)
+            console.log(response)
+            if (!response.data) {
+                throw new Error("Could not retreive products")
             }
             return response.data
         } catch (e) {
@@ -108,6 +129,30 @@ export const deleteProduct = createAsyncThunk<string, string, {rejectValue:strin
     }
 )
 
+export const deleteProductImage = createAsyncThunk<string, string, {rejectValue:string}>(
+    "products/deleteProductImage",
+    async (id : string, {rejectWithValue, getState}) => {
+        try {
+            const state = getState() as AppState
+            const token = state.credentialsReducer.token
+            const config = {
+                headers : {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+            const response = await axios.delete<boolean>(`${imageBaseUrl}/${id}`, config)
+            if (!response.data) {
+                throw new Error("Could not delete image")
+            }
+            return id
+        } catch (e) {
+            const error = e as AxiosError
+            console.log(error)
+            return rejectWithValue(error.message)
+        }
+    }
+)
+
 export const updateProduct = createAsyncThunk<Product, UpdateParams, {rejectValue: string}>(
     "products/updateProduct",
     async (params : UpdateParams, {rejectWithValue, getState} ) => {
@@ -135,6 +180,62 @@ export const updateProduct = createAsyncThunk<Product, UpdateParams, {rejectValu
     }
 )
 
+export const updateProductInventory = createAsyncThunk<Product, InventoryUpdateParams, {rejectValue: string}>(
+    "products/updateProductInventory",
+    async (params : InventoryUpdateParams, {rejectWithValue, getState} ) => {
+        try {
+            const state = getState() as AppState
+            const token = state.credentialsReducer.token
+            const config = {
+                headers : {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+            const response = await axios.patch<Product>(
+                `${baseUrl}/inventory/${params.id}`,
+                params.update,
+                config
+            )
+            if (!response.data) {
+                throw new Error("Could not update product inventory")
+            }
+            console.log(response.data)
+            return response.data
+        } catch (e) {
+            const error = e as AxiosError
+            console.log(error)
+            return rejectWithValue(error.message)
+        }
+    }
+)
+
+export const updateProductDetails = createAsyncThunk<ProductDetails, DetailsUpdateParams, {rejectValue: string}>(
+    "products/updateProductDetails",
+    async (params : DetailsUpdateParams, {rejectWithValue, getState} ) => {
+        try {
+            const state = getState() as AppState
+            const token = state.credentialsReducer.token
+            const config = {
+                headers : {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+            const response = await axios.patch<ProductDetails>(
+                `${baseUrl}/details/${params.id}`,
+                params.update,
+                config
+            )
+            if (!response.data) {
+                throw new Error("Could not update product details")
+            }
+            return response.data
+        } catch (e) {
+            const error = e as AxiosError
+            return rejectWithValue(error.message)
+        }
+    }
+)
+
 export const createProduct = createAsyncThunk<Product, NewProduct, {rejectValue: string}>(
     "products/createProduct",
     async (product : NewProduct, {rejectWithValue, getState}) => {
@@ -149,6 +250,29 @@ export const createProduct = createAsyncThunk<Product, NewProduct, {rejectValue:
             const response = await axios.post<Product>(baseUrl, product, config)
             if (!response.data) {
                 throw new Error("Could not add product")
+            }
+            return response.data
+        } catch (e) {
+            const error = e as AxiosError
+            return rejectWithValue(error.message)
+        }
+    }
+)
+
+export const createProductImage = createAsyncThunk<ProductImage, NewProductImage, {rejectValue: string}>(
+    "products/createProductImage",
+    async (image : NewProductImage, {rejectWithValue, getState}) => {
+        try {
+            const state = getState() as AppState
+            const token = state.credentialsReducer.token
+            const config = {
+                headers : {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+            const response = await axios.post<ProductImage>(imageBaseUrl, image, config)
+            if (!response.data) {
+                throw new Error("Could not add image")
             }
             return response.data
         } catch (e) {
@@ -228,6 +352,30 @@ const productsSlice = createSlice({
                 error: error
             }
         })
+        builder.addCase(fetchOneProduct.fulfilled, (state, action) => {
+            return {
+                ...state,
+                product: action.payload,
+                loading: false,
+                error: undefined
+            }
+        })
+        builder.addCase(fetchOneProduct.pending, (state, action) => {
+            return {
+                ...state,
+                loading: true,
+                error: undefined
+            }
+        })
+        builder.addCase(fetchOneProduct.rejected, (state, action) => {
+            const error = action.payload as string
+            return {
+                ...state,
+                product: undefined,
+                loading: false,
+                error: error
+            }
+        })
         builder.addCase(fetchProductsWithFilters.fulfilled, (state, action) => {
             console.log(action.payload)
             return {
@@ -269,16 +417,55 @@ const productsSlice = createSlice({
                 error
             }
         })
+        builder.addCase(deleteProductImage.fulfilled, (state, action) => {
+            if (state.product){
+                state.product.productImages = state.product?.productImages.filter(i => i.id !== action.payload)
+            }
+        })
+        builder.addCase(deleteProductImage.rejected, (state, action) => {
+            const error = action.payload as string
+            return {
+                ...state,
+                loading: false,
+                error
+            }
+        })
         builder.addCase(updateProduct.fulfilled, (state, action) => {
             state.products.map(p => p.id === action.payload.id ? action.payload : p)
         })
         builder.addCase(updateProduct.rejected, (state, action) => {
             state.error = action.payload as string
         })
+        builder.addCase(updateProductInventory.fulfilled, (state, action) => {
+            console.log(action.payload)
+            state.product = action.payload
+        })
+        builder.addCase(updateProductInventory.rejected, (state, action) => {
+            state.error = action.payload as string
+        })
+        builder.addCase(updateProductDetails.fulfilled, (state, action) => {
+            if (state.product){
+                state.product.productDetails = action.payload
+            }
+            
+        })
+        builder.addCase(updateProductDetails.rejected, (state, action) => {
+            state.error = action.payload as string
+        })
         builder.addCase(createProduct.fulfilled, (state, action) => {
             state.products.push(action.payload)
         })
         builder.addCase(createProduct.rejected, (state, action) => {
+            state.error = action.payload as string
+        })
+        builder.addCase(createProductImage.fulfilled, (state, action) => {
+            if (state.product){
+                console.log(action.payload)
+                state.product.productImages.push(action.payload)
+            }
+            
+        })
+        builder.addCase(createProductImage.rejected, (state, action) => {
             state.error = action.payload as string
         })
     },
