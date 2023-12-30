@@ -5,11 +5,13 @@ import { mockCategories } from "./data/mockCategoryData"
 import { CategoryUpdate } from "../types/CategoryUpdate"
 import { Category } from "../types/Category"
 
+const baseUrl = 'http://localhost:5180/api/v1/categories'
+
 export const handlers = [
-    rest.get('https://api.escuelajs.co/api/v1/categories', (req, res, ctx) => {
+    rest.get(baseUrl, (req, res, ctx) => {
         return res(ctx.json(mockCategories))
     }),
-    rest.delete("https://api.escuelajs.co/api/v1/categories/:id", async (req, res, ctx) => {
+    rest.delete(`${baseUrl}/:id`, async (req, res, ctx) => {
         const { id } = req.params
         if (mockCategories.find(c => c.id == id)) {
             return res(
@@ -21,7 +23,7 @@ export const handlers = [
             )
         }
     }),
-    rest.put("https://api.escuelajs.co/api/v1/categories/:id", async (req, res, ctx) => {
+    rest.patch(`${baseUrl}/:id`, async (req, res, ctx) => {
         let input : CategoryUpdate = await req.json()
         const { id } = req.params
         const categoryIndex = mockCategories.findIndex(p => p.id === id)

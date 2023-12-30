@@ -20,17 +20,17 @@ describe('Categories reducer', () => {
         expect(stateCategories.length).toBe(3)
     })
 
-    test('should delete existing product', async () => {
+    test('should delete existing category', async () => {
         const result = await store.dispatch(deleteCategory('3'))
-        expect(result.payload).toBe(3)
+        expect(result.payload).toBe("3")
     })
 
-    test('should return error string when deleting unexisting product', async () => {
+    test('should return error string when deleting unexisting category', async () => {
         const result = await store.dispatch(deleteCategory('30'))
         expect(result.payload).toEqual('Could not delete category')
     })
 
-    test('should update existing product', async () => {
+    test('should update existing category', async () => {
         const updateParams : CategoryUpdateParams = {
             id: '2',
             update: {
@@ -39,13 +39,13 @@ describe('Categories reducer', () => {
         }
         const result = await store.dispatch(updateCategory(updateParams))
         expect(result.payload).toMatchObject({
-            id: 2,
+            id: '2',
             name: 'Appliances',
-            image: 'image2.png'
+            imageUrl: 'image2.png'
             })
     })
 
-    test('should return error string when updating unexisting product', async () => {
+    test('should return error string when updating unexisting category', async () => {
         const updateParams : CategoryUpdateParams = {
             id: '99999999',
             update: {name: 'New name'}
