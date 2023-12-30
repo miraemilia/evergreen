@@ -65,7 +65,6 @@ const credentialsSlice = createSlice({
             state.error = action.payload
         })
         builder.addCase(getProfile.fulfilled, (state, action) => {
-            console.log(action.payload)
             state.profile = action.payload
         })
         builder.addCase(getProfile.rejected, (state, action) => {

@@ -1,13 +1,18 @@
 import { createStore } from "../../../app/store"
 import { UserRole } from "../../users/types/UserRole"
-import credentialsReducer, { login, logout } from "../reducers/credentialsReducer"
+import credentialsReducer, { getProfile, login, logout } from "../reducers/credentialsReducer"
 import { Credentials } from "../types/Credentials"
 import { LoginParams } from "../types/LoginParams"
+import credentialsServer from "./credentialsServer"
 
 describe('Login tests', () => {
 
     let store = createStore()
     beforeEach(() => {store = createStore()})
+
+    beforeAll(() => credentialsServer.listen())
+    afterEach(() => credentialsServer.resetHandlers())
+    afterAll(() => credentialsServer.close())
 
     test('should login', async () => {
         const loginParams : LoginParams = {
@@ -28,6 +33,13 @@ describe('Login tests', () => {
         const credentials = store.getState().credentialsReducer
         expect(credentials.error).toEqual('Request failed with status code 401')
         expect(credentials.token).toEqual("")      
+    })
+
+    test('should get profile', async () => {
+        const token = 'my-token-2'
+        await store.dispatch(getProfile(token))
+        const credentials = store.getState().credentialsReducer
+        expect(credentials.profile?.name).toEqual("Maria")        
     })
 
 })
