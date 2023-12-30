@@ -14,7 +14,7 @@ export const AdminUsersPage = () => {
 
   const dispatch = useAppDispatch()
 
-    const profile = useAppSelector(state => state.credentialsReducer.profile)
+    const {profile, token} = useAppSelector(state => state.credentialsReducer)
     const {users, totalUsers} = useAppSelector(state => state.usersReducer)
 
     const [alert, setAlert] = useState<string>('')
@@ -24,7 +24,7 @@ export const AdminUsersPage = () => {
 
     useEffect(() => {
         console.log(`changed with page ${paginationModel.page}, pageSize ${paginationModel.pageSize}`)
-        dispatch(fetchAllUsers({limit: paginationModel.pageSize, offset: (paginationModel.page)*paginationModel.pageSize}))
+        dispatch(fetchAllUsers({limit: paginationModel.pageSize, offset: (paginationModel.page)*paginationModel.pageSize, token: token}))
     }, [paginationModel])
   
     if (!profile || (profile && profile.role !== 'Admin')) {
@@ -67,7 +67,8 @@ export const AdminUsersPage = () => {
         }
         const updateParams : RoleUpdateParams = {
             id: updatedRow.id,
-            role: updatedRow.role
+            role: updatedRow.role,
+            token: token
         }
         dispatch(updateUserRole(updateParams))
         return updatedRow
@@ -80,8 +81,8 @@ export const AdminUsersPage = () => {
 
     const handleDeleteSelected = () => {
         selection.forEach(s => {
-            const id = s.toString()
-            dispatch(deleteUser(id))
+            const deleteParams = {id: s.toString(), token: token}
+            dispatch(deleteUser(deleteParams))
         })
     }
 

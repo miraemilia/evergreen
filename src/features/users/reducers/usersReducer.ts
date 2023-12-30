@@ -7,8 +7,8 @@ import { NewUser } from "../types/NewUser"
 import { RoleUpdateParams } from "../types/RoleUpdate";
 import { User } from "../types/User";
 import { PageableUsers } from "../types/PageableUsers";
-import { AppState } from "../../../app/store";
 import { GetAllParams } from "../../../shared/types/GetAllParams";
+import { DeleteParams } from "../../../shared/types/DeleteParams";
 
 const initialState: UsersReducerState = {
     users: [],
@@ -21,16 +21,14 @@ const profileBaseUrl = 'http://localhost:5180/api/v1/auth/profile/'
 
 export const fetchAllUsers = createAsyncThunk<PageableUsers, GetAllParams, {rejectValue: string}>(
     "users/getAllUsers",
-    async (GetAllParams, { rejectWithValue, getState }) => {
+    async (params : GetAllParams, { rejectWithValue }) => {
         try {
-            const state = getState() as AppState
-            const token = state.credentialsReducer.token
             const config = {
                 headers : {
-                    "Authorization": `Bearer ${token}`
+                    "Authorization": `Bearer ${params.token}`
                 }
             }
-            const response = await axios.get<PageableUsers>(`${baseUrl}/?Limit=${GetAllParams.limit}&Offset=${GetAllParams.offset}`, config)
+            const response = await axios.get<PageableUsers>(`${baseUrl}/?Limit=${params.limit}&Offset=${params.offset}`, config)
             if (!response.data) {
                 throw new Error("Could not retreive users")
             }
@@ -42,22 +40,20 @@ export const fetchAllUsers = createAsyncThunk<PageableUsers, GetAllParams, {reje
     }
 )
 
-export const deleteUser = createAsyncThunk<string, string, {rejectValue:string}>(
+export const deleteUser = createAsyncThunk<string, DeleteParams, {rejectValue:string}>(
     "users/deleteUser",
-    async (id : string, { rejectWithValue, getState }) => {
+    async (params : DeleteParams, { rejectWithValue }) => {
         try {
-            const state = getState() as AppState
-            const token = state.credentialsReducer.token
             const config = {
                 headers : {
-                    "Authorization": `Bearer ${token}`
+                    "Authorization": `Bearer ${params.token}`
                 }
             }
-            const response = await axios.delete<boolean>(`${baseUrl}/${id}`, config)
+            const response = await axios.delete<boolean>(`${baseUrl}/${params.id}`, config)
             if (!response.data) {
                 throw new Error("Could not delete user")
             }
-            return id
+            return params.id
         } catch (e) {
             const error = e as AxiosError
             return rejectWithValue(error.message)
@@ -65,15 +61,13 @@ export const deleteUser = createAsyncThunk<string, string, {rejectValue:string}>
     }
 )
 
-export const updateUser = createAsyncThunk(
+export const updateUser = createAsyncThunk<User, UserUpdateParams, {rejectValue:string}>(
     "users/updateUser",
-    async (params : UserUpdateParams, { rejectWithValue, getState }) => {
+    async (params : UserUpdateParams, { rejectWithValue }) => {
         try {
-            const state = getState() as AppState
-            const token = state.credentialsReducer.token
             const config = {
                 headers : {
-                    "Authorization": `Bearer ${token}`
+                    "Authorization": `Bearer ${params.token}`
                 }
             }
             const response = await axios.patch<User>(
@@ -87,21 +81,18 @@ export const updateUser = createAsyncThunk(
             return response.data
         } catch (e) {
             const error = e as AxiosError
-            console.log(error)
             return rejectWithValue(error.message)
         }
     }
 )
 
-export const updateUserRole = createAsyncThunk(
+export const updateUserRole = createAsyncThunk<User, RoleUpdateParams, {rejectValue:string}>(
     "users/updateUserRole",
-    async (params : RoleUpdateParams, { rejectWithValue, getState }) => {
+    async (params : RoleUpdateParams, { rejectWithValue }) => {
         try {
-            const state = getState() as AppState
-            const token = state.credentialsReducer.token
             const config = {
                 headers : {
-                    "Authorization": `Bearer ${token}`
+                    "Authorization": `Bearer ${params.token}`
                 }
             }
             const response = await axios.patch<User>(
@@ -120,14 +111,12 @@ export const updateUserRole = createAsyncThunk(
     }
 )
 
-export const createUser = createAsyncThunk(
+export const createUser = createAsyncThunk<User, NewUser, {rejectValue:string}>(
     "users/createUser",
     async (user : NewUser, { rejectWithValue }) => {
         try {
-            console.log(user)
-            const response = await axios.post<User>(baseUrl, user)
-            console.log(response)
-            if (!response.data) {
+            const response = await axios.post<User>(profileBaseUrl, user)
+            if (!response.data.id) {
                 throw new Error("Could not add user")
             }
             return response.data
@@ -160,7 +149,7 @@ const userSlice = createSlice({
             }
         })
         builder.addCase(fetchAllUsers.rejected, (state, action) => {
-            const error = action.payload as string
+            const error = action.payload
             return {
                 ...state,
                 users: [],
@@ -172,25 +161,25 @@ const userSlice = createSlice({
             state.users = state.users.filter(u => u.id !== action.payload)
         })
         builder.addCase(deleteUser.rejected, (state, action) => {
-            state.error = action.payload as string
+            state.error = action.payload
         })
         builder.addCase(updateUser.fulfilled, (state, action : PayloadAction<User>) => {
             state.users.map(p => p.id === action.payload.id ? action.payload : p)
         })
         builder.addCase(updateUser.rejected, (state, action) => {
-            state.error = action.payload as string
+            state.error = action.payload
         })
         builder.addCase(updateUserRole.fulfilled, (state, action : PayloadAction<User>) => {
             state.users.map(p => p.id === action.payload.id ? action.payload : p)
         })
         builder.addCase(updateUserRole.rejected, (state, action) => {
-            state.error = action.payload as string
+            state.error = action.payload
         })
         builder.addCase(createUser.fulfilled, (state, action : PayloadAction<User>) => {
             state.users.push(action.payload)
         })
         builder.addCase(createUser.rejected, (state, action) => {
-            state.error = action.payload as string
+            state.error = action.payload
         })
     },
 })

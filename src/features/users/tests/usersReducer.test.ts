@@ -27,27 +27,27 @@ describe('User reducer: DELETE, PUT, POST', () => {
     afterAll(() => usersServer.close())
 
     test('should get all users into store', async () => {
-        await store.dispatch(fetchAllUsers({limit: 20, offset: 0}))
+        await store.dispatch(fetchAllUsers({limit: 20, offset: 0, token: 'my-token'}))
         const stateUsers = store.getState().usersReducer.users
         expect(stateUsers.length).toBe(3)
     })
 
     test('should delete existing user', async () => {
-        const result = await store.dispatch(deleteUser("1"))
+        const result = await store.dispatch(deleteUser({id: "1", token: "my-token"}))
         expect(result.payload).toBe("1")
     })
 
     test('should return error string when deleting unexisting user', async () => {
-        const result = await store.dispatch(deleteUser("10"))
+        const result = await store.dispatch(deleteUser({id: "10", token: "my-token"}))
         expect(result.payload).toEqual('Could not delete user')
     })
 
     test('should update existing user', async () => {
             const updateParams : UserUpdateParams = {
-                id: "1",
                 update: {
                     name: "John",
-                }
+                },
+                token: 'my-token-1'
             }
             const result = await store.dispatch(updateUser(updateParams))
             expect(result.payload).toMatchObject(
@@ -56,17 +56,15 @@ describe('User reducer: DELETE, PUT, POST', () => {
                     email: "john@mail.com",
                     name: "John",
                     role: UserRole.Customer,
-                    avatar: "https://i.imgur.com/fpT4052.jpeg",
-                    creationAt: "2023-09-28T21:17:43.000Z",
-                    updatedAt: "2023-09-28T21:17:43.000Z"
+                    avatar: "https://i.imgur.com/fpT4052.jpeg"
                 }
             )
     })
 
     test('should return error string when updating unexisting user', async () => {
         const updateParams : UserUpdateParams = {
-            id: "99999999",
-            update: {name: "John"}
+            update: {name: "John"},
+            token: 'my-token-9'
         }
         const result = await store.dispatch(updateUser(updateParams))
         expect(result.payload).toEqual("Request failed with status code 400")
@@ -75,17 +73,16 @@ describe('User reducer: DELETE, PUT, POST', () => {
     test('should update user role', async () => {
         const updateParams : RoleUpdateParams = {
             id: "2",
-            role: UserRole.Admin
+            role: UserRole.Admin,
+            token: "admin-token"
         }
         const result = await store.dispatch(updateUserRole(updateParams))
         expect(result.payload).toMatchObject({
                 id: "2",
                 email: "maria@mail.com",
                 name: "Maria",
-                role: "admin",
-                avatar: "https://i.imgur.com/uDpzwEk.jpeg",
-                creationAt: "2023-09-28T21:17:43.000Z",
-                updatedAt: "2023-09-28T21:17:43.000Z"
+                role: "Admin",
+                avatar: "https://i.imgur.com/uDpzwEk.jpeg"
         })
     })
 
@@ -94,7 +91,7 @@ describe('User reducer: DELETE, PUT, POST', () => {
                     name: "Rubber duck",
                     email: "duck@quack.com",
                     password: "quaaack123",
-                    avatar: "https://picsum.photos/id/306/640/640"
+                    avatar: "https://picsum.photos/id/306/640/640",
             }
             const result = await store.dispatch(createUser(newUser))
             expect(store.getState().usersReducer.users.length).toBe(1)

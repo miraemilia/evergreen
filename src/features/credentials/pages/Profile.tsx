@@ -67,8 +67,8 @@ export const Profile = () => {
         userUpdate.avatar = data.avatar
       }
       const update : UserUpdateParams = {
-        id: profile.id,
-        update: userUpdate
+        update: userUpdate,
+        token: token
       }
       dispatch(updateUser(update))
       reset()

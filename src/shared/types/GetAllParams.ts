@@ -1,4 +1,5 @@
 export type GetAllParams = {
     limit: number,
-    offset: number
+    offset: number,
+    token: string
 }

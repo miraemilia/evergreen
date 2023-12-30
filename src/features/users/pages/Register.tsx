@@ -3,12 +3,13 @@ import { Link as RouterLink } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, TextField, Typography } from "@mui/material"
+import { Alert, Box, Button, TextField, Typography } from "@mui/material"
 
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { createUser } from "../reducers/usersReducer";
 import { NewUser } from "../types/NewUser";
 import { NewUserForm } from "../types/NewUserForm";
+import { UserRole } from "../types/UserRole";
 
 export const Register = () => {
     
@@ -41,7 +42,7 @@ export const Register = () => {
           name: data.name,
           email: data.email,
           password: data.password1,
-          avatar: `https://ui-avatars.com/api/?name=${data.name}&background=f9e3e2&color=444654&length=1`
+          avatar: `https://ui-avatars.com/api/?name=${data.name}&background=f9e3e2&color=444654&length=1`,
         }
         dispatch(createUser(createParams))
         if (!userError) {
@@ -63,7 +64,7 @@ export const Register = () => {
     return (
       <main>
         <Typography variant='h2' textAlign={'center'}>Register</Typography>
-        {userError && <Typography>{userError}</Typography>}
+        <Alert severity='error'>{userError}</Alert>
         <Box 
           component='form' 
           display='flex' 
