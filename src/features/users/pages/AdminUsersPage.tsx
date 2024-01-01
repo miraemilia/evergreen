@@ -1,4 +1,4 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from "@mui/material"
+import { Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from "@mui/material"
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { Link as RouterLink } from "react-router-dom"
 
@@ -15,7 +15,7 @@ export const AdminUsersPage = () => {
   const dispatch = useAppDispatch()
 
     const {profile, token} = useAppSelector(state => state.credentialsReducer)
-    const {users, totalUsers} = useAppSelector(state => state.usersReducer)
+    const {users, totalUsers, error} = useAppSelector(state => state.usersReducer)
 
     const [alert, setAlert] = useState<string>('')
     const [dialogOpen, setDialogOpen] = useState<boolean>(false)
@@ -101,6 +101,7 @@ export const AdminUsersPage = () => {
     <main>
         <Button component={RouterLink} to='/admin'>Back to Admin Dashboard</Button>
         <Typography variant='h2'>Manage users</Typography>
+        {error && <Alert severity='error'>Could not retrieve user data</Alert>}
         <Box width='100%'>
                 <Button onClick={handleDeleteSelected}>Delete</Button>
                 <DataGrid

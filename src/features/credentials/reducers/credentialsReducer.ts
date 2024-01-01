@@ -27,7 +27,11 @@ export const login = createAsyncThunk<string, LoginParams, {rejectValue: string}
             }
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )
@@ -45,7 +49,11 @@ export const getProfile = createAsyncThunk<UserProfile, string, {rejectValue: st
             return profileResponse.data
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )
@@ -62,7 +70,7 @@ const credentialsSlice = createSlice({
             state.token = action.payload
         })
         builder.addCase(login.rejected, (state, action) => {
-            state.error = action.payload
+            state.error = action.payload as string
         })
         builder.addCase(getProfile.fulfilled, (state, action) => {
             state.profile = action.payload

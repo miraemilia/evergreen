@@ -35,7 +35,11 @@ export const fetchAllUsers = createAsyncThunk<PageableUsers, GetAllParams, {reje
             return response.data
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )
@@ -56,7 +60,11 @@ export const deleteUser = createAsyncThunk<string, DeleteParams, {rejectValue:st
             return params.id
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )
@@ -81,7 +89,11 @@ export const updateUser = createAsyncThunk<User, UserUpdateParams, {rejectValue:
             return response.data
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )
@@ -106,7 +118,11 @@ export const updateUserRole = createAsyncThunk<User, RoleUpdateParams, {rejectVa
             return response.data
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )
@@ -122,7 +138,11 @@ export const createUser = createAsyncThunk<User, NewUser, {rejectValue:string}>(
             return response.data
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }            
     }
 )

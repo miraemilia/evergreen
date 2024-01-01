@@ -36,7 +36,11 @@ export const fetchAllOrders = createAsyncThunk<PageableOrders, GetAllParams, { r
             return response.data
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )
@@ -52,7 +56,11 @@ export const deleteOrder = createAsyncThunk<string, string, {rejectValue:string}
             return id
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )
@@ -79,7 +87,11 @@ export const updateOrderStatus = createAsyncThunk<Order, OrderUpdateParams, {rej
             return response.data
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )
@@ -102,7 +114,11 @@ export const createOrder = createAsyncThunk<Order, NewOrder, {rejectValue: strin
             return response.data
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )

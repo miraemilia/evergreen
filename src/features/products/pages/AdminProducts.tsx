@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { DataGrid, GridRowSelectionModel } from "@mui/x-data-grid";
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Link, Typography } from "@mui/material"
+import { Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Link, Typography } from "@mui/material"
 
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { deleteProduct, fetchAllProducts, updateProduct } from "../reducers/productsReducer";
@@ -15,7 +15,7 @@ export const AdminProducts = () => {
     const dispatch = useAppDispatch()
 
     const profile = useAppSelector(state => state.credentialsReducer.profile)
-    const {adminProducts, adminTotalProducts} = useAppSelector(state => state.productsReducer)
+    const { adminProducts, adminTotalProducts, error } = useAppSelector(state => state.productsReducer)
 
     const [alert, setAlert] = useState<string>('')
     const [dialogOpen, setDialogOpen] = useState<boolean>(false)
@@ -114,6 +114,7 @@ export const AdminProducts = () => {
         <main>
             <Button component={RouterLink} to='/admin'>Back to Admin Dashboard</Button>
             <Typography variant='h2'>Manage products</Typography>
+            {error && <Alert severity='error'>Could not retrieve product data</Alert>}
             <Box width='100%'>
                 <Button onClick={handleDeleteSelected}>Delete</Button>
                 <DataGrid

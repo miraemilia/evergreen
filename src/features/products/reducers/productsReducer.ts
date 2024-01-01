@@ -34,7 +34,6 @@ export const fetchAllProducts = createAsyncThunk<PageableProducts, GetAllParams,
     async (GetAllParams, {rejectWithValue}) => {
         try {
             const response = await axios.get<PageableProducts>(`${baseUrl}/?Limit=${GetAllParams.limit}&Offset=${GetAllParams.offset}`)
-            console.log(response)
             if (!response.data) {
                 throw new Error("Could not retreive products")
             }
@@ -44,7 +43,11 @@ export const fetchAllProducts = createAsyncThunk<PageableProducts, GetAllParams,
             return response.data
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )
@@ -61,7 +64,11 @@ export const fetchOneProduct = createAsyncThunk<Product, string, {rejectValue: s
             return response.data
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )
@@ -101,7 +108,11 @@ export const fetchProductsWithFilters = createAsyncThunk<PageableProducts, void,
             return response.data
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )
@@ -124,7 +135,11 @@ export const deleteProduct = createAsyncThunk<string, string, {rejectValue:strin
             return id
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )
@@ -147,8 +162,11 @@ export const deleteProductImage = createAsyncThunk<string, string, {rejectValue:
             return id
         } catch (e) {
             const error = e as AxiosError
-            console.log(error)
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )
@@ -175,7 +193,11 @@ export const updateProduct = createAsyncThunk<Product, UpdateParams, {rejectValu
             return response.data
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )
@@ -199,12 +221,14 @@ export const updateProductInventory = createAsyncThunk<Product, InventoryUpdateP
             if (!response.data) {
                 throw new Error("Could not update product inventory")
             }
-            console.log(response.data)
             return response.data
         } catch (e) {
             const error = e as AxiosError
-            console.log(error)
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )
@@ -231,7 +255,11 @@ export const updateProductDetails = createAsyncThunk<ProductDetails, DetailsUpda
             return response.data
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )
@@ -254,7 +282,11 @@ export const createProduct = createAsyncThunk<Product, NewProduct, {rejectValue:
             return response.data
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )
@@ -277,7 +309,11 @@ export const createProductImage = createAsyncThunk<ProductImage, NewProductImage
             return response.data
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )

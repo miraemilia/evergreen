@@ -4,7 +4,7 @@ import { fetchAllOrders, updateOrderStatus } from "../reducers/ordersReducer"
 import { OrderTable } from "../components/OrderTable"
 import { NotAuthorized } from "../../../shared/pages/NotAuthorized"
 import { Link as RouterLink } from "react-router-dom";
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from "@mui/material"
+import { Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from "@mui/material"
 import { DataGrid, GridRowSelectionModel } from "@mui/x-data-grid"
 import { OrderRow } from "../types/OrderRow"
 import { OrderUpdate, OrderUpdateParams } from "../types/OrderUpdateParams"
@@ -15,7 +15,7 @@ export const AdminOrders = () => {
 
     const dispatch = useAppDispatch()
 
-    const {orders, totalOrders} = useAppSelector(state => state.ordersReducer)
+    const {orders, totalOrders, error} = useAppSelector(state => state.ordersReducer)
     const profile = useAppSelector(state => state.credentialsReducer.profile)
 
 
@@ -90,6 +90,7 @@ export const AdminOrders = () => {
         <main>
             <Button component={RouterLink} to='/admin'>Back to Admin Dashboard</Button>
             <Typography variant='h2'>Manage orders</Typography>
+            {error && <Alert severity='error'>Could not retrieve order data</Alert>}
             <Box width='100%'>
                 <DataGrid
                     editMode='row'

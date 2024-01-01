@@ -21,7 +21,11 @@ export const fetchAllCategories = createAsyncThunk<Category[], void, { rejectVal
             return response.data
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )
@@ -37,7 +41,11 @@ export const deleteCategory = createAsyncThunk<string, string, {rejectValue:stri
             return id
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )
@@ -64,7 +72,11 @@ export const updateCategory = createAsyncThunk<Category, CategoryUpdateParams, {
             return response.data
         } catch (e) {
             const error = e as AxiosError
-            return rejectWithValue(error.message)
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
         }
     }
 )

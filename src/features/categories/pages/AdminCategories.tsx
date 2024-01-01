@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { DataGrid, GridRowSelectionModel } from "@mui/x-data-grid";
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from "@mui/material"
+import { Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from "@mui/material"
 
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { NotAuthorized } from "../../../shared/pages/NotAuthorized";
@@ -14,7 +14,7 @@ export const AdminCategories = () => {
     const dispatch = useAppDispatch()
 
     const profile = useAppSelector(state => state.credentialsReducer.profile)
-    const categories = useAppSelector(state => state.categoriesReducer.categories)
+    const {categories, error} = useAppSelector(state => state.categoriesReducer)
 
     const [alert, setAlert] = useState<string>('')
     const [dialogOpen, setDialogOpen] = useState<boolean>(false)
@@ -79,6 +79,7 @@ export const AdminCategories = () => {
         <main>
             <Button component={RouterLink} to='/admin'>Back to Admin Dashboard</Button>
             <Typography variant='h2'>Manage categories</Typography>
+            {error && <Alert severity='error'>Could not retrieve category data</Alert>}
             <Box width='100%'>
                 <Button onClick={handleDeleteSelected} disabled>Delete</Button>
                 <DataGrid
