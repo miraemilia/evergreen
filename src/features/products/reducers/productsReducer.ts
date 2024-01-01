@@ -34,6 +34,7 @@ export const fetchAllProducts = createAsyncThunk<PageableProducts, GetAllParams,
     async (GetAllParams, {rejectWithValue}) => {
         try {
             const response = await axios.get<PageableProducts>(`${baseUrl}/?Limit=${GetAllParams.limit}&Offset=${GetAllParams.offset}`)
+            console.log('products fetched')
             if (!response.data) {
                 throw new Error("Could not retreive products")
             }
@@ -57,7 +58,6 @@ export const fetchOneProduct = createAsyncThunk<Product, string, {rejectValue: s
     async (id : string, {rejectWithValue}) => {
         try {
             const response = await axios.get<Product>(`${baseUrl}/${id}`)
-            console.log(response)
             if (!response.data) {
                 throw new Error("Could not retreive products")
             }
@@ -413,7 +413,6 @@ const productsSlice = createSlice({
             }
         })
         builder.addCase(fetchProductsWithFilters.fulfilled, (state, action) => {
-            console.log(action.payload)
             return {
                 ...state,
                 products: action.payload.items,
@@ -473,7 +472,6 @@ const productsSlice = createSlice({
             state.error = action.payload as string
         })
         builder.addCase(updateProductInventory.fulfilled, (state, action) => {
-            console.log(action.payload)
             state.product = action.payload
         })
         builder.addCase(updateProductInventory.rejected, (state, action) => {
@@ -496,7 +494,6 @@ const productsSlice = createSlice({
         })
         builder.addCase(createProductImage.fulfilled, (state, action) => {
             if (state.product){
-                console.log(action.payload)
                 state.product.productImages.push(action.payload)
             }
             

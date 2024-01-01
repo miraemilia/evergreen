@@ -26,7 +26,6 @@ export const ProductsPage = () => {
 
   useEffect(() => {
     dispatch(fetchProductsWithFilters())
-    console.log(products)
   }, [filters, page, perPage])
 
   const handlePageChange = (e: React.ChangeEvent<unknown>, value: number) => {

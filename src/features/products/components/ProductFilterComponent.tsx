@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/material"
 
-import { setId, setPriceMax, setSearch, setSortCriterion, setSortOrder, sortByPrice } from "../reducers/productsReducer"
+import { setId, setPriceMax, setSearch, setSortCriterion, setSortOrder } from "../reducers/productsReducer"
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 
 type FilterProps = {
@@ -15,9 +15,11 @@ export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
     const navigate = useNavigate()
 
     const categories = useAppSelector(state => state.categoriesReducer.categories)
+    const filters = useAppSelector(state => state.productsReducer.filters)
 
     const [filterOpen, setFilterOpen] = useState<boolean>(false)
-    const [sortDirection, setSortDirection] = useState<'asc' | 'desc' | ''>('')
+    const [sortDirection, setSortDirection] = useState<'asc' | 'desc' | 'new'>('new')
+    const [selectCategory, setSelectCategory] = useState<string | undefined>(filters.id ? filters.id : '0')
     const [max, setMax] = useState<string>('')
     const [titleSearch, setTitleSearch] = useState<string>('')
 
@@ -29,19 +31,23 @@ export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
         if (e.target.value === 'asc' || e.target.value === 'desc') {
             dispatch(setSortOrder(e.target.value))
             dispatch(setSortCriterion('price'))
+            setSortDirection(e.target.value)
         }
         if (e.target.value === 'new')
         {
             dispatch(setSortOrder('desc'))
             dispatch(setSortCriterion('createdAt'))
+            setSortDirection('new')
         }
       }
 
     const handleCategoryChange = (e : SelectChangeEvent<string>) => {
       if (e.target.value === '0'){
         navigate('/products')
+        setSelectCategory(e.target.value)
       } else {
         navigate(`/products/category/${e.target.value}`)
+        setSelectCategory(e.target.value)
       }
     }
     
@@ -80,7 +86,7 @@ export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
         </FormControl>
         <FormControl sx={{ m: 2, minWidth: 200 }}>
           <InputLabel id='cat'>Category</InputLabel>
-          <Select id='categoryId' labelId = 'cat' defaultValue={'0'} onChange={handleCategoryChange}>
+          <Select id='categoryId' labelId = 'cat' value={selectCategory} onChange={handleCategoryChange}>
             <MenuItem key={'0'} value={'0'}>All</MenuItem>
             {categories.map(c => <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>)}
           </Select>
