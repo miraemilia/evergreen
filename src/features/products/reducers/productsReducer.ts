@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 
-import { ProductsReducerState } from "../types/ProductsReducerState";
+import { PriceRange, ProductsReducerState } from "../types/ProductsReducerState";
 import { DetailsUpdateParams, InventoryUpdateParams, UpdateParams } from "../types/ProductUpdate";
 import { NewProduct } from "../types/NewProduct";
 import { ProductFilter } from "../types/ProductFilter";
@@ -21,8 +21,7 @@ const initialState: ProductsReducerState = {
     totalProducts: 0,
     totalPages: 0,
     adminTotalProducts: 0,
-    priceMax: 0,
-    priceMin: 0,
+    priceRange: {min: 0, max: 1000},
     loading: false
 }
 
@@ -34,7 +33,6 @@ export const fetchAllProducts = createAsyncThunk<PageableProducts, GetAllParams,
     async (GetAllParams, {rejectWithValue}) => {
         try {
             const response = await axios.get<PageableProducts>(`${baseUrl}/?Limit=${GetAllParams.limit}&Offset=${GetAllParams.offset}`)
-            console.log('products fetched')
             if (!response.data) {
                 throw new Error("Could not retreive products")
             }
@@ -90,11 +88,11 @@ export const fetchProductsWithFilters = createAsyncThunk<PageableProducts, void,
         }
         if (filter.priceMax !== undefined)
         {
-            queryParam += `PriceMax=${filter.priceMax}&`
+            queryParam += `PriceMax=${Math.ceil(filter.priceMax)}&`
         }
         if (filter.priceMin !== undefined)
         {
-            queryParam += `PriceMin=${filter.priceMin}&`
+            queryParam += `PriceMin=${Math.floor(filter.priceMin)}&`
         }
         try {
             const response = await axios.get<PageableProducts>(`${baseUrl}/${queryParam}`)
@@ -317,6 +315,26 @@ export const createProductImage = createAsyncThunk<ProductImage, NewProductImage
     }
 )
 
+export const fetchPriceRange = createAsyncThunk<PriceRange, void, {rejectValue: string}>(
+    "products/getPriceRange",
+    async (_, {rejectWithValue}) => {
+        try {
+            const response = await axios.get<PriceRange>(`${baseUrl}/price-range`)
+            if (!response.data) {
+                throw new Error("Could not retreive range")
+            }
+            return response.data
+        } catch (e) {
+            const error = e as AxiosError
+            let message = error.message
+            if (error.response?.data){
+                message = error.response?.data as string
+            }
+            return rejectWithValue(message)
+        }
+    }
+)
+
 const productsSlice = createSlice({
     name: 'products',
     initialState,
@@ -495,10 +513,33 @@ const productsSlice = createSlice({
             if (state.product){
                 state.product.productImages.push(action.payload)
             }
-            
         })
         builder.addCase(createProductImage.rejected, (state, action) => {
             state.error = action.payload as string
+        })
+        builder.addCase(fetchPriceRange.fulfilled, (state, action) => {
+            return {
+                ...state,
+                priceRange: action.payload,
+                loading: false,
+                error: undefined
+            }
+        })
+        builder.addCase(fetchPriceRange.pending, (state, action) => {
+            return {
+                ...state,
+                loading: true,
+                error: undefined
+            }
+        })
+        builder.addCase(fetchPriceRange.rejected, (state, action) => {
+            const error = action.payload as string
+            return {
+                ...state,
+                product: undefined,
+                loading: false,
+                error: error
+            }
         })
     },
 })

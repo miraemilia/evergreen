@@ -1,26 +1,23 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/material"
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Slider, Stack, TextField } from "@mui/material"
 
-import { setId, setPriceMax, setSearch, setSortCriterion, setSortOrder } from "../reducers/productsReducer"
+import { setId, setPriceMax, setPriceMin, setSearch, setSortCriterion, setSortOrder } from "../reducers/productsReducer"
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
+import { PriceRange } from "../types/ProductsReducerState"
 
-type FilterProps = {
-  categoryId : string | undefined
-}
-
-export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
+export const ProductFilterComponent = () => {
 
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
     const categories = useAppSelector(state => state.categoriesReducer.categories)
-    const filters = useAppSelector(state => state.productsReducer.filters)
+    const {filters, priceRange} = useAppSelector(state => state.productsReducer)
 
     const [filterOpen, setFilterOpen] = useState<boolean>(false)
     const [sortDirection, setSortDirection] = useState<'asc' | 'desc' | 'new'>('new')
     const [selectCategory, setSelectCategory] = useState<string | undefined>(filters.id ? filters.id : '0')
-    const [max, setMax] = useState<string>('')
+    const [sliderValues, setSliderValues] = useState<PriceRange>({max: priceRange.max, min: priceRange.min})
     const [titleSearch, setTitleSearch] = useState<string>('')
 
     const handleOpenFilter = () => {
@@ -43,16 +40,21 @@ export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
 
     const handleCategoryChange = (e : SelectChangeEvent<string>) => {
       if (e.target.value === '0'){
+        dispatch(setId(undefined))
+        setSelectCategory(e.target.value)
         navigate('/products')
-        setSelectCategory(e.target.value)
+        
       } else {
-        navigate(`/products/category/${e.target.value}`)
+        dispatch(setId(e.target.value))
         setSelectCategory(e.target.value)
+        navigate(`/products/category/${e.target.value}`)
       }
     }
     
-    const handlePriceMaxChange = (e : React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      setMax(e.target.value)
+    const handleSliderChange = (e : Event, value : number[] | number) => {
+      if (typeof value !== 'number') {
+        setSliderValues({min: value[0], max: value[1]})
+      }
     }
 
     const handleTitleSearchChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -61,13 +63,14 @@ export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
 
     const clearFilters = (e : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       setTitleSearch('')
-      setMax('')
+      setSliderValues({min: priceRange.min, max: priceRange.max})
     }
 
     const handleFilterChange = () => {
-      var newMax = max === '0' || max === '' ? undefined : Number(max)
+      var newMax = sliderValues.max === 0 || !sliderValues.max ? undefined : sliderValues.max
       dispatch(setPriceMax(newMax))
-      dispatch(setId(categoryId))
+      var newMin = sliderValues.min === 0 || !sliderValues.min ? undefined : sliderValues.min
+      dispatch(setPriceMin(newMin))
       var newSearch = titleSearch === '' ? undefined : titleSearch
       dispatch(setSearch(newSearch))
       setFilterOpen(false)
@@ -102,7 +105,13 @@ export const ProductFilterComponent = ( {categoryId} : FilterProps ) => {
             <TextField value={titleSearch} onChange={handleTitleSearchChange} label='Search for name'></TextField>
           </Grid>
           <Grid item>
-            <TextField value={max} type='number' onChange={handlePriceMaxChange} label='Maximum price'/>
+            <Slider
+              value={[sliderValues.min, sliderValues.max]}
+              onChange={handleSliderChange}
+              min={priceRange.min}
+              max={priceRange.max}
+              valueLabelDisplay="on"
+            />          
           </Grid>
           <Grid item>
           </Grid>

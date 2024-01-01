@@ -9,8 +9,12 @@ export interface ProductsReducerState {
     totalProducts: number,
     totalPages: number,
     adminTotalProducts: number,
-    priceMax: number,
-    priceMin: number,
+    priceRange: PriceRange,
     loading: boolean
     error?: string
+}
+
+export interface PriceRange {
+    min: number,
+    max: number
 }

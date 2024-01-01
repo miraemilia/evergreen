@@ -41,8 +41,8 @@ export const ProductsPage = () => {
   
   return (
     <main>
-      <Typography variant='h2'>Products {category && `- ${category.name}`}</Typography>
-      <ProductFilterComponent categoryId={categoryId}/>
+      <Typography variant='h2'>{category ? category.name : 'All plants' }</Typography>
+      <ProductFilterComponent/>
       {error && <Typography>{error}</Typography>}
       {loading && <Typography>Loading...</Typography>}
       {!loading &&
