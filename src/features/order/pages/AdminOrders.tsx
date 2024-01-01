@@ -37,25 +37,31 @@ export const AdminOrders = () => {
     const columns = [
         {
             field: 'id',
-            headerName: 'ID'        },
+            headerName: 'ID',
+            sortable: false    
+        },
         {
             field: 'createdAt',
             headerName: 'Created at',
+            sortable: false
         },
         {
             field: 'customer',
             headerName: 'Customer name',
+            sortable: false
         },
         {
             field: 'status',
             headerName: 'Order status',
             editable: true,
             type: 'singleSelect',
-            valueOptions: Object.values(OrderStatus)
+            valueOptions: Object.values(OrderStatus),
+            sortable: false
         },
         {
             field: 'total',
             headerName: 'Total',
+            sortable: false
         }
     ]
     const rows : OrderRow[] = orders.map<OrderRow>(o => ({
@@ -100,6 +106,7 @@ export const AdminOrders = () => {
                     columns={columns}
                     checkboxSelection
                     disableRowSelectionOnClick
+                    disableColumnFilter
                     onRowSelectionModelChange={setSelection}
                     paginationMode="server"
                     rowCount = {totalOrders}

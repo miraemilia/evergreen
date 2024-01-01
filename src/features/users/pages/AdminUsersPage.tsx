@@ -36,20 +36,24 @@ export const AdminUsersPage = () => {
     const columns = [
         {
             field: 'id',
-            headerName: 'ID'        
+            headerName: 'ID',
+            sortable: false        
         },
         {
             field: 'name',
-            headerName: 'Name'        
+            headerName: 'Name' ,
+            sortable: false       
         },
         {
             field: 'email',
             headerName: 'Email',
+            sortable: false 
         },
         {
             field: 'role',
             headerName: 'Role',
             editable: true,
+            sortable: false,
             type: 'singleSelect',
             valueOptions: Object.values(UserRole)
         }
@@ -112,6 +116,7 @@ export const AdminUsersPage = () => {
                     columns={columns}
                     checkboxSelection
                     disableRowSelectionOnClick
+                    disableColumnFilter
                     onRowSelectionModelChange={setSelection}
                     paginationMode="server"
                     rowCount = {totalUsers}

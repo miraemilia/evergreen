@@ -35,11 +35,14 @@ export const AdminProducts = () => {
     const columns = [
         {
             field: 'id',
-            headerName: 'ID'        },
+            headerName: 'ID',
+            sortable: false
+        },
         {
             field: 'title',
             headerName: 'Title',
             editable: true,
+            sortable: false,
             renderCell: (params : any) => (
                 <Link component={RouterLink} to={`/admin/products/${params.value.id}`}>{params.value.title}</Link>
               )
@@ -47,27 +50,32 @@ export const AdminProducts = () => {
         {
             field: 'latinName',
             headerName: 'Latin name',
-            editable: true
+            editable: true,
+            sortable: false
         },
         {
             field: 'category',
             headerName: 'Category',
+            sortable: false
         },
         {
             field: 'description',
             headerName: 'Description',
-            editable: true
+            editable: true,
+            sortable: false
         },
         {
             field: 'price',
             headerName: 'Price',
             type: 'number',
-            editable: true
+            editable: true,
+            sortable: false
         },
         {
             field: 'inventory',
             headerName: 'Inventory',
-            type: 'number'
+            type: 'number',
+            sortable: false
         }
     ]
     const rows : ProductRow[] = adminProducts.map<ProductRow>(p => ({
@@ -125,6 +133,7 @@ export const AdminProducts = () => {
                     columns={columns}
                     checkboxSelection
                     disableRowSelectionOnClick
+                    disableColumnFilter
                     onRowSelectionModelChange={setSelection}
                     paginationMode="server"
                     rowCount = {adminTotalProducts}

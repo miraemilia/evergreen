@@ -29,17 +29,20 @@ export const AdminCategories = () => {
     const columns = [
         {
             field: 'id',
-            headerName: 'ID'
+            headerName: 'ID',
+            sortable: false 
         },
         {
             field: 'name',
             headerName: 'Name',
-            editable: true
+            editable: true,
+            sortable: false 
         },
         {
             field: 'imageUrl',
             headerName: 'Image url',
-            editable: true
+            editable: true,
+            sortable: false 
         }
     ]
     const rows : Category[] = categories.map<Category>(p => ({
@@ -90,6 +93,7 @@ export const AdminCategories = () => {
                     columns={columns}
                     checkboxSelection
                     disableRowSelectionOnClick
+                    disableColumnFilter
                     onRowSelectionModelChange={setSelection}
                     initialState={{
                     pagination: {
