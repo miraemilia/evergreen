@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { createUser } from "../reducers/usersReducer";
 import { NewUser } from "../types/NewUser";
 import { NewUserForm } from "../types/NewUserForm";
-import { UserRole } from "../types/UserRole";
 
 export const Register = () => {
     

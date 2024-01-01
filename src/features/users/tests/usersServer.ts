@@ -66,19 +66,6 @@ export const handlers = [
             return res(ctx.status(400))
         }
     }),
-/*     rest.post("https://api.escuelajs.co/api/v1/users/is-available", async (req, res, ctx) => {
-        const email = await req.json()
-        const emailFound = mockUserData.find(u => u.email === email)
-        if (emailFound) {
-            return res(
-                ctx.json({isAvailable: false})
-            )
-        } else {
-            return res(
-                ctx.json({isAvailable: true})
-            )
-        }
-    }) */
 ]
 
 const usersServer = setupServer(...handlers)

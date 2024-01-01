@@ -7,7 +7,4 @@ export interface ProductFilter {
     sortCriterion: 'price' | 'createdAt',
     priceMax: number | undefined,
     priceMin: number | undefined
-
-    //name: "Limit" | "Offset" | "Id" | "Search" | "SortOrder" | "SortCriterion" | "PriceMax" | "PriceMin"
-    //value: number | string
 }

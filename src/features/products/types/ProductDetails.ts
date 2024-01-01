@@ -1,5 +1,4 @@
 import { DetailsOption } from "./DetailsOption"
-import { Product } from "./Product"
 import { ProductSize } from "./ProductSize"
 
 export interface ProductDetails {

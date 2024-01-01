@@ -6,13 +6,13 @@ import { NotAuthorized } from "./NotAuthorized"
 
 export const Admin = () => {
 
-    const profile = useAppSelector(state => state.credentialsReducer.profile)
+  const profile = useAppSelector(state => state.credentialsReducer.profile)
 
-    if (!profile || (profile && profile.role !== 'Admin')) {
-            return (
-                <NotAuthorized />
-            )
-    }
+  if (!profile || (profile && profile.role !== 'Admin')) {
+          return (
+              <NotAuthorized />
+          )
+  }
 
   return (
     <main>

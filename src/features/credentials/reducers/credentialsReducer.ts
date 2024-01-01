@@ -3,7 +3,6 @@ import axios, { AxiosError } from "axios";
 
 import { LoginParams } from "../types/LoginParams";
 import { Credentials } from "../types/Credentials";
-import { User } from "../../users/types/User";
 import { UserProfile } from "../types/UserProfile";
 
 const initialState : Credentials = {

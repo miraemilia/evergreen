@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom"
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
-import { Alert, Box, Button, ButtonGroup, Grid, Paper, ToggleButton, ToggleButtonGroup, Typography, useTheme } from "@mui/material"
+import { Alert, Box, Button, Grid, Paper, ToggleButton, ToggleButtonGroup, Typography, useTheme } from "@mui/material"
 import DeleteIcon from '@mui/icons-material/Delete';
 import LocalFloristOutlinedIcon from '@mui/icons-material/LocalFloristOutlined';
 import WaterDropOutlinedIcon from '@mui/icons-material/WaterDropOutlined';
@@ -30,8 +30,6 @@ export const SingleProductPage = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const theme = useTheme()
-
-  console.log(product)
 
   const handleAddToCart = () => {
     if (product) {

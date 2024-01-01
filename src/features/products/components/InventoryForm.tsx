@@ -1,9 +1,9 @@
 import { Alert, Box, Button, Grid, TextField, Typography } from "@mui/material"
 import * as yup from 'yup';
-
-import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+
+import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { InventoryUpdate, InventoryUpdateParams } from "../types/ProductUpdate";
 import { updateProductInventory } from "../reducers/productsReducer";
 import { Product } from "../types/Product";

@@ -8,7 +8,6 @@ import { deleteProduct, fetchAllProducts, updateProduct } from "../reducers/prod
 import { ProductRow } from "../types/ProductRow";
 import { ProductUpdate, UpdateParams } from "../types/ProductUpdate";
 import { NotAuthorized } from "../../../shared/pages/NotAuthorized";
-import { OrderRow } from "../../order/types/OrderRow";
 
 export const AdminProducts = () => {
 

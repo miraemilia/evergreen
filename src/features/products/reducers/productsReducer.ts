@@ -98,7 +98,6 @@ export const fetchProductsWithFilters = createAsyncThunk<PageableProducts, void,
         }
         try {
             const response = await axios.get<PageableProducts>(`${baseUrl}/${queryParam}`)
-            console.log(response)
             if (!response.data) {
                 throw new Error("Could not retreive products")
             }

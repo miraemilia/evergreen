@@ -1,13 +1,13 @@
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from 'yup';
 import { Alert, Box, Button, Grid, IconButton, ImageList, ImageListItem, ImageListItemBar, TextField, Typography } from "@mui/material"
 import DeleteIcon from '@mui/icons-material/Delete';
-import * as yup from 'yup';
 
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
-import { useState } from "react";
 import { createProductImage, deleteProductImage } from "../reducers/productsReducer";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { NewProductImage } from "../types/NewProductImage";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { Product } from "../types/Product";
 
 type Props = {

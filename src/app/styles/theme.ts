@@ -50,8 +50,6 @@ export const siteTheme = createTheme({
             styleOverrides: {
                 root: {
                     background: '#87ab9d',
-                    //backgroundImage: 'url(https://picsum.photos/id/866/2000)',
-                    //backgroundSize: 'cover',
                     padding: '1.5em'
                 }
             },

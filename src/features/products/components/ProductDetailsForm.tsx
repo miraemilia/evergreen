@@ -1,9 +1,9 @@
 import { Alert, Box, Button, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select, Typography } from "@mui/material"
 import * as yup from 'yup';
-
-import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+
+import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { Product } from "../types/Product";
 import { ProductSize } from "../types/ProductSize";
 import { DetailsOption } from "../types/DetailsOption";
@@ -59,7 +59,6 @@ export const ProductDetailsForm = ({ product } : Props) => {
           id: productId,
           update: detailsUpdate
         }
-        console.log(update)
         dispatch(updateProductDetails(update))
         reset()
     }

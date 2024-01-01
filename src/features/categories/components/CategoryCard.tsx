@@ -1,5 +1,5 @@
 import { Link as RouterLink } from 'react-router-dom'
-import { Box, Card, CardActionArea, CardContent, CardMedia, Grid, Link, Typography } from "@mui/material"
+import { Box, Card, CardActionArea, CardContent, CardMedia, Grid, Typography } from "@mui/material"
 
 import { Category } from "../types/Category"
 

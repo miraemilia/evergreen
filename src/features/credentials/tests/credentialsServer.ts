@@ -1,5 +1,6 @@
 import { rest } from "msw"
 import { setupServer } from 'msw/node'
+
 import { LoginParams } from "../types/LoginParams"
 import { User } from "../../users/types/User"
 import { mockUserData } from "../../users/tests/data/mockUserData"

@@ -1,12 +1,12 @@
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom"
 import { useEffect } from "react"
+import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles"
 
 import { ErrorPage } from "./app/pages/ErrorPage"
 import { Header } from "./shared/components/Header"
 import { Footer } from "./shared/components/Footer"
 import { useAppDispatch } from "./app/hooks"
 import { fetchAllCategories } from "./features/categories/reducers/categoriesReducer"
-import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles"
 import { siteTheme } from "./app/styles/theme"
 import { Home } from "./app/pages/Home"
 import { ProductsPage } from "./features/products/pages/ProductsPage"

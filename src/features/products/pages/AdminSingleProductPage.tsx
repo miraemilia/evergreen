@@ -1,8 +1,8 @@
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import { Alert, Button, Paper, Typography } from "@mui/material"
 
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
-import { useEffect } from "react";
 import { fetchOneProduct } from "../reducers/productsReducer";
 import { ProductImageForm } from "../components/ProductImageForm";
 import { ProductDetailsForm } from "../components/ProductDetailsForm";

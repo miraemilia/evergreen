@@ -19,7 +19,6 @@ export const Cart = () => {
   const dispatch = useAppDispatch()
 
   const handleCheckout = () => {
-    console.log('checkout')
     var checkedOut : NewOrder = {
       orderDetails: []
     }

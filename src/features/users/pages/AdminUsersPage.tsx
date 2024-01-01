@@ -1,11 +1,11 @@
-import { Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from "@mui/material"
-import { useAppDispatch, useAppSelector } from "../../../app/hooks"
-import { Link as RouterLink } from "react-router-dom"
-
-import { NotAuthorized } from "../../../shared/pages/NotAuthorized"
-import { DataGrid, GridRowSelectionModel } from "@mui/x-data-grid"
 import { useEffect, useState } from "react"
-import { deleteUser, fetchAllUsers, updateUser, updateUserRole } from "../reducers/usersReducer"
+import { Link as RouterLink } from "react-router-dom"
+import { DataGrid, GridRowSelectionModel } from "@mui/x-data-grid"
+import { Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from "@mui/material"
+
+import { useAppDispatch, useAppSelector } from "../../../app/hooks"
+import { NotAuthorized } from "../../../shared/pages/NotAuthorized"
+import { deleteUser, fetchAllUsers, updateUserRole } from "../reducers/usersReducer"
 import { UserRow } from "../types/UserRow"
 import { RoleUpdateParams } from "../types/RoleUpdate"
 import { UserRole } from "../types/UserRole"
@@ -23,7 +23,6 @@ export const AdminUsersPage = () => {
     const [paginationModel, setPaginationModel] = useState({page: 0, pageSize: 20})
 
     useEffect(() => {
-        console.log(`changed with page ${paginationModel.page}, pageSize ${paginationModel.pageSize}`)
         dispatch(fetchAllUsers({limit: paginationModel.pageSize, offset: (paginationModel.page)*paginationModel.pageSize, token: token}))
     }, [paginationModel])
   
