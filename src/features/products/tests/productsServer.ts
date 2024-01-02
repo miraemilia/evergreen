@@ -8,7 +8,7 @@ import { mockCategories } from "../../categories/tests/data/mockCategoryData"
 import { ProductUpdate } from "../types/ProductUpdate"
 import { PageableProducts } from "../types/PageableProducts"
 
-const baseUrl = 'http://localhost:5180/api/v1/products'
+const baseUrl = 'https://evergreenbotanics.azurewebsites.net/api/v1/products'
 
 export const handlers = [
     rest.get(baseUrl, (req, res, ctx) => {

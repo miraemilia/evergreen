@@ -8,8 +8,8 @@ import { UserUpdate } from "../types/UserUpdate"
 import { UserRole } from "../types/UserRole"
 import { PageableUsers } from "../types/PageableUsers"
 
-const baseUrl = 'http://localhost:5180/api/v1/users'
-const profileBaseUrl = 'http://localhost:5180/api/v1/auth/profile/'
+const baseUrl = 'https://evergreenbotanics.azurewebsites.net/api/v1/users'
+const profileBaseUrl = 'https://evergreenbotanics.azurewebsites.net/api/v1/auth/profile/'
 
 export const handlers = [
     rest.get(`${baseUrl}`, (req, res, ctx) => {

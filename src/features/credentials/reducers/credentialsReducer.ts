@@ -10,7 +10,7 @@ const initialState : Credentials = {
     profile: undefined
 }
 
-const baseUrl = 'http://localhost:5180/api/v1/auth'
+const baseUrl = 'https://evergreenbotanics.azurewebsites.net/api/v1/auth'
 
 export const login = createAsyncThunk<string, LoginParams, {rejectValue: string}>(
     "credentials/login",

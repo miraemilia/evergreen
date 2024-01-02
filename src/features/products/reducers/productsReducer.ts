@@ -25,8 +25,8 @@ const initialState: ProductsReducerState = {
     loading: false
 }
 
-const baseUrl = 'http://localhost:5180/api/v1/products'
-const imageBaseUrl = 'http://localhost:5180/api/v1/images'
+const baseUrl = 'https://evergreenbotanics.azurewebsites.net/api/v1/products'
+const imageBaseUrl = 'https://evergreenbotanics.azurewebsites.net/api/v1/images'
 
 export const fetchAllProducts = createAsyncThunk<PageableProducts, GetAllParams, {rejectValue: string}>(
     "products/getAllProducts",

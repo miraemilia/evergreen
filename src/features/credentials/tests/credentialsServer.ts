@@ -5,7 +5,7 @@ import { LoginParams } from "../types/LoginParams"
 import { User } from "../../users/types/User"
 import { mockUserData } from "../../users/tests/data/mockUserData"
 
-const baseUrl = 'http://localhost:5180/api/v1/auth'
+const baseUrl = 'https://evergreenbotanics.azurewebsites.net/api/v1/auth'
 const rightPassword = '12345'
 
 export const handlers = [

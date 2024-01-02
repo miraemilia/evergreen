@@ -19,7 +19,7 @@ const initialState: OrdersReducerState = {
     loading: false
 }
 
-const baseUrl = 'http://localhost:5180/api/v1/orders'
+const baseUrl = 'https://evergreenbotanics.azurewebsites.net/api/v1/orders'
 
 export const fetchAllOrders = createAsyncThunk<PageableOrders, GetAllParams, { rejectValue : string}>(
     "orders/getAllOrders",

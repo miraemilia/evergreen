@@ -16,8 +16,8 @@ const initialState: UsersReducerState = {
     loading: false
 }
 
-const baseUrl = 'http://localhost:5180/api/v1/users'
-const profileBaseUrl = 'http://localhost:5180/api/v1/auth/profile/'
+const baseUrl = 'https://evergreenbotanics.azurewebsites.net/api/v1/users'
+const profileBaseUrl = 'https://evergreenbotanics.azurewebsites.net/api/v1/auth/profile/'
 
 export const fetchAllUsers = createAsyncThunk<PageableUsers, GetAllParams, {rejectValue: string}>(
     "users/getAllUsers",
