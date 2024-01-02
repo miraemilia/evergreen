@@ -5,7 +5,7 @@ import { Box, Grid, MenuItem, Pagination, Select, SelectChangeEvent, Stack, Typo
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { ProductCard } from "../components/ProductCard"
 import { ProductFilterComponent } from "../components/ProductFilterComponent"
-import { fetchProductsWithFilters, setId, setLimit, setOffset } from "../reducers/productsReducer"
+import { fetchPriceRange, fetchProductsWithFilters, setId, setLimit, setOffset } from "../reducers/productsReducer"
 
 export const ProductsPage = () => {
 
@@ -19,6 +19,10 @@ export const ProductsPage = () => {
 
   const [perPage, setPerPage] = useState<number>(12)
   const [page, setPage] = useState<number>(1)
+
+  useEffect(() => {
+    dispatch(fetchPriceRange())
+  }, [])
 
   useEffect(() => {
     dispatch(setId(categoryId))

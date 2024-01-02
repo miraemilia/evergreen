@@ -22,7 +22,6 @@ import { AdminUsersPage } from "./features/users/pages/AdminUsersPage"
 import { AdminCategories } from "./features/categories/pages/AdminCategories"
 import { AdminOrders } from "./features/order/pages/AdminOrders"
 import { AdminSingleProductPage } from "./features/products/pages/AdminSingleProductPage"
-import { fetchPriceRange } from "./features/products/reducers/productsReducer"
 
 const App = () => {
 
@@ -30,10 +29,6 @@ const App = () => {
 
   useEffect(() => {
     dispatch(fetchAllCategories())
-  }, [])
-
-  useEffect(() => {
-    dispatch(fetchPriceRange())
   }, [])
 
   const Layout = () => {

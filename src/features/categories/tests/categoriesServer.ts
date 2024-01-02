@@ -5,7 +5,7 @@ import { mockCategories } from "./data/mockCategoryData"
 import { CategoryUpdate } from "../types/CategoryUpdate"
 import { Category } from "../types/Category"
 
-const baseUrl = 'http://localhost:5180/api/v1/categories'
+const baseUrl = 'https://evergreenbotanics.azurewebsites.net/api/v1/categories'
 
 export const handlers = [
     rest.get(baseUrl, (req, res, ctx) => {
