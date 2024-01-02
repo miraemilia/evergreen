@@ -5,7 +5,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-v.4-green)
 ![SASS](https://img.shields.io/badge/SASS-v.1-hotpink)
 
-This is the frontend for the Integrify Academy final full stack project. The full project description and backend code can be found [here]().
+This is the frontend for the Integrify Academy final full stack project. The full project description and backend code can be found [here](https://github.com/miraemilia/evergreen-fullstack).
 
 The frontend mostly reuses the previous [frontend project](https://github.com/miraemilia/e-commerce/).
 
@@ -15,7 +15,7 @@ The frontend mostly reuses the previous [frontend project](https://github.com/mi
 - [Project overview](#project-overview)
 - [Running the project](#running-the-project)
 - [Deployment](#deployment)
-- [To do](#to-do)
+- [Walk-through](#walk-through)
 
 ## Technologies
 
@@ -55,6 +55,8 @@ The frontend mostly reuses the previous [frontend project](https://github.com/mi
 |       |   ├ ...
 |       ├── cart
 |       |   ├ ...
+|       ├── orders
+|       |   ├ ...
 |       ├── categories
 |           ├ ...
 ├── .gitignore
@@ -64,11 +66,11 @@ The frontend mostly reuses the previous [frontend project](https://github.com/mi
 
 ### Functions
 
-![Diagram]()
+![Diagram](readme_images/reducerdiagram.png)
 
 ### Flowchart
 
-![Flowchart]()
+![Flowchart](readme_images/flowchart.png)
 
 ## Running the project
 
@@ -87,7 +89,36 @@ Launches the test runner in the interactive watch mode
 
 ## Deployment
 
-Deployed with Netlify at []()
+Deployed with Netlify at [https://evergreenbotanics.netlify.app/](https://evergreenbotanics.netlify.app/)
 
-![Screenshot]()
+## Walk-through
 
+### Front page
+
+![Front page](readme_images/frontpage.png)
+
+### Products page
+
+#### Products by category
+![Products by category](readme_images/productspage.png)
+#### Filtering and sorting
+![Product filter](readme_images/filter.png)
+![Filtered products](readme_images/filtered.png)
+
+### Logged in user
+
+#### Profile details and order history
+![Customer profile](readme_images/customerprofile.png)
+#### Shopping
+![Single product logged in](readme_images/singleproductpage.png)
+![Cart](readme_images/cart.png)
+
+### Logged in admin
+
+#### Admin dashboard
+![Admin dashboard](readme_images/admindashboard.png)
+
+#### Example admin management page
+![Admin products](readme_images/adminproducts.png)
+#### Product details update page
+![Update product details](readme_images/updateproductdetails.png)

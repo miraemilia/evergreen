@@ -88,7 +88,7 @@ export const Cart = () => {
               <TableCell sx={{fontSize: '125%'}}>Total:</TableCell>
               <TableCell></TableCell>
               <TableCell></TableCell>
-              <TableCell sx={{fontSize: '125%'}}>{cart.cartItems.reduce((a, i) => a + (i.product.price * i.quantity), 2)} €</TableCell>
+              <TableCell sx={{fontSize: '125%'}}>{cart.cartItems.reduce((a, i) => a + (i.product.price * i.quantity), 0).toFixed(2)} €</TableCell>
             </TableRow>
             <TableRow>
               <TableCell><Button onClick={handleReset}>Delete cart</Button></TableCell>

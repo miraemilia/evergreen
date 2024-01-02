@@ -4,7 +4,7 @@ export const Footer = () => {
   return (
   <footer>
     <Paper sx={{ position: 'sticky', bottom: 0, width: '100%', padding: '2em'}}>
-      <Typography>Contact us: store@mail.com</Typography>
+      <Typography>Disclaimer: Product info is auto-generated and not accurate</Typography>
     </Paper>
   </footer>
   )
