@@ -63,7 +63,7 @@ export const Register = () => {
     return (
       <main>
         <Typography variant='h2' textAlign={'center'}>Register</Typography>
-        <Alert severity='error'>{userError}</Alert>
+        {userError && <Alert severity='error'>{userError}</Alert>}
         <Box 
           component='form' 
           display='flex' 
