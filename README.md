@@ -93,6 +93,11 @@ Deployed with Netlify at [https://evergreenbotanics.netlify.app/](https://evergr
 
 ## Walk-through
 
+- [Front page](#front-page)
+- [Products page](#products-page)
+- [Logged in as customer](#logged-in-as-customer)
+- [Logged in as admin](#logged-in-as-admin)
+
 ### Front page
 
 ![Front page](readme_images/frontpage.png)
@@ -105,15 +110,16 @@ Deployed with Netlify at [https://evergreenbotanics.netlify.app/](https://evergr
 ![Product filter](readme_images/filter.png)
 ![Filtered products](readme_images/filtered.png)
 
-### Logged in user
+### Logged in as customer
 
 #### Profile details and order history
 ![Customer profile](readme_images/customerprofile.png)
 #### Shopping
 ![Single product logged in](readme_images/singleproductpage.png)
 ![Cart](readme_images/cart.png)
+![Ordering](readme_images/order.mov)
 
-### Logged in admin
+### Logged in as admin
 
 #### Admin dashboard
 ![Admin dashboard](readme_images/admindashboard.png)
@@ -122,3 +128,5 @@ Deployed with Netlify at [https://evergreenbotanics.netlify.app/](https://evergr
 ![Admin products](readme_images/adminproducts.png)
 #### Product details update page
 ![Update product details](readme_images/updateproductdetails.png)
+#### Recording
+![Admin recording](readme_images/admin.mov)
