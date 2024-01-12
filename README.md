@@ -117,7 +117,10 @@ Deployed with Netlify at [https://evergreenbotanics.netlify.app/](https://evergr
 #### Shopping
 ![Single product logged in](readme_images/singleproductpage.png)
 ![Cart](readme_images/cart.png)
-![Ordering](readme_images/order.mov)
+
+
+https://github.com/miraemilia/fs16_6-frontend-project/assets/80388217/8279eac5-fa36-4937-8789-da2240729134
+
 
 ### Logged in as admin
 
@@ -129,4 +132,6 @@ Deployed with Netlify at [https://evergreenbotanics.netlify.app/](https://evergr
 #### Product details update page
 ![Update product details](readme_images/updateproductdetails.png)
 #### Recording
-![Admin recording](readme_images/admin.mov)
+
+https://github.com/miraemilia/fs16_6-frontend-project/assets/80388217/44ffcf71-7105-43e1-b946-7d8792c4741a
+
